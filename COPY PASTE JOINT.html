@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Calculator – Fusion & Smart Nesting</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family: Segoe UI, Arial; background:#eef3f7; padding:20px; }
+.container { background:#fff; max-width:900px; margin:auto; padding:25px; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,.12); }
+h2 { text-align:center; color:#1565c0; }
+textarea { width:100%; height:160px; padding:10px; font-size:14px; }
+select, button { padding:10px 16px; margin:6px 4px; border-radius:10px; border:none; font-weight:600; cursor:pointer; }
+.btn-main { background:#1976d2; color:#fff; }
+.btn-excel { background:#455a64; color:#fff; }
+table { width:100%; border-collapse:collapse; margin-top:15px; }
+th,td { border:1px solid #ccc; padding:6px; text-align:center; }
+th { background:#f4f6f8; }
+.total { font-size:18px; font-weight:bold; color:#2e7d32; margin:15px 0; }
+.fusion { font-family: monospace; color:#d84315; }
+.nesting { font-family: monospace; color:#1565c0; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Smart Calculator – Fusion & Smart Nesting Calculator</h2>
+
+<h4>📏 Select Stock Length</h4>
+<select id="stockSelect" onchange="updateStock()">
+    <option value="6000" selected>6000 mm</option>
+    <option value="12000">12000 mm</option>
+</select>
+
+<h4>📋 Paste from Excel (Length ↹ Quantity)</h4>
+<textarea id="pasteBox" placeholder="19000	3
+4420	1
+1372	5"></textarea>
+
+<br>
+<button class="btn-main" onclick="processData()">⚙ Calculate</button>
+<button class="btn-excel" onclick="downloadExcel()">📊 Download Excel</button>
+
+<div id="output"></div>
+</div>
+
+<script>
+let STOCK = 6000; // default
+let fusionRows = [];
+let nestingPipes = [];
+
+function updateStock(){
+    STOCK = Number(document.getElementById("stockSelect").value);
+    processData(); // optional: recalc immediately
+}
+
+function processData() {
+    fusionRows = [];
+    nestingPipes = [];
+    let scrapPool = [];
+
+    let rows = document.getElementById("pasteBox").value.trim().split(/\r?\n/);
+
+    rows.forEach(r => {
+        let [len, qty] = r.split(/\t|,/).map(Number);
+        if (!len || !qty) return;
+
+        for (let q = 0; q < qty; q++) {
+            // 🔹 Fusion split
+            let remaining = len;
+            let parts = [];
+            while (remaining > STOCK) {
+                parts.push(STOCK);
+                remaining -= STOCK;
+            }
+            if (remaining > 0) parts.push(remaining);
+
+            fusionRows.push({ original: len, fusion: parts.join(" + ") });
+
+            // 🔹 Add scraps to pool
+            if (parts[parts.length-1] < STOCK) {
+                scrapPool.push(parts[parts.length-1]);
+            }
+            // full stock pipes
+            for (let i=0; i<parts.length-1; i++) {
+                nestingPipes.push([STOCK]);
+            }
+        }
+    });
+
+    // 🔹 Sort scraps largest first
+    scrapPool.sort((a,b)=>b-a);
+
+    // 🔹 Nest small parts into existing pipes (smart nesting)
+    scrapPool.forEach(part=>{
+        let placed = false;
+        for (let pipe of nestingPipes) {
+            let used = pipe.reduce((a,b)=>a+b,0);
+            if (used + part <= STOCK) {
+                pipe.push(part);
+                placed = true;
+                break;
+            }
+        }
+        if (!placed) nestingPipes.push([part]);
+    });
+
+    render();
+}
+
+function render() {
+    let html = `<h3>Fusion Splits</h3>
+    <table>
+    <tr><th>Original Length</th><th>Fusion</th></tr>`;
+
+    fusionRows.forEach(f=>{
+        html += `<tr><td>${f.original}</td><td class="fusion">${f.fusion}</td></tr>`;
+    });
+
+    html += `</table>
+    <div class="total">Total ${STOCK}-mm Pipes Required: ${nestingPipes.length}</div>
+    <h3>Smart Nesting Result</h3>
+    <table>
+    <tr><th>Pipe</th><th>Cut Details</th><th>Used</th><th>Waste</th></tr>`;
+
+    nestingPipes.forEach((p,i)=>{
+        let used = p.reduce((a,b)=>a+b,0);
+        html += `<tr>
+            <td>${i+1}</td>
+            <td class="nesting">${p.join(" + ")}</td>
+            <td>${used}</td>
+            <td>${STOCK-used}</td>
+        </tr>`;
+    });
+
+    html += "</table>";
+    document.getElementById("output").innerHTML = html;
+}
+
+function downloadExcel() {
+    let csv = "Fusion/Original,Fusion Cuts,Nesting Cuts,Used,Waste\n";
+    let maxRows = Math.max(fusionRows.length, nestingPipes.length);
+    for (let i=0;i<maxRows;i++){
+        let f = fusionRows[i] ? fusionRows[i] : {original:'',fusion:''};
+        let n = nestingPipes[i] ? nestingPipes[i] : [];
+        let used = n.reduce((a,b)=>a+b,0);
+        csv += `${f.original},"${f.fusion}","${n.join(" + ")}",${used},${STOCK-used}\n`;
+    }
+
+    let blob = new Blob([csv],{type:"text/csv;charset=utf-8;"});
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `Fusion_and_Nesting_${STOCK}mm.csv`;
+    link.click();
+}
+</script>
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pipe Cutting Optimization</title>
+<style>
+body { font-family: Arial; padding: 20px; }
+textarea { width: 400px; height: 200px; }
+select, button { padding: 8px 14px; margin: 5px; font-size: 14px; }
+table { border-collapse: collapse; width: 700px; margin-top: 10px; }
+th, td { border: 1px solid #444; padding: 6px; text-align: center; }
+th { background: #eee; }
+.output { margin-top: 20px; }
+</style>
+</head>
+
+<body>
+
+<h2>Pipe Cutting Optimization</h2>
+
+<h4>📏 Select Stock Length</h4>
+<select id="stockSelect" onchange="updateStock()">
+    <option value="6000">6000 mm</option>
+    <option value="12000" selected>12000 mm</option>
+</select>
+
+<h4>📋 Paste from Excel (Length ↹ Quantity)</h4>
+<textarea id="pasteBox" placeholder="Example:
+3705	6
+2250	3
+1650	4"></textarea>
+
+<br>
+<button onclick="loadFromPaste()">📥 Load Data</button>
+<button onclick="optimize()">⚙ Optimize Cutting</button>
+<button onclick="downloadExcel()">📊 Download Excel</button>
+
+<table id="inputTable">
+<tr>
+  <th>Cut Length (mm)</th>
+  <th>Quantity</th>
+</tr>
+</table>
+
+<div class="output" id="result"></div>
+
+<script>
+let STOCK = 12000; // default stock
+
+function updateStock(){
+    STOCK = Number(document.getElementById("stockSelect").value);
+}
+
+let pipes = [];
+
+function loadFromPaste() {
+    let text = document.getElementById("pasteBox").value.trim();
+    let rows = text.split(/\r?\n/);
+    let table = document.getElementById("inputTable");
+    table.innerHTML = "<tr><th>Cut Length (mm)</th><th>Quantity</th></tr>";
+
+    rows.forEach(r => {
+        let cols = r.split(/\t|,/);
+        if (cols.length < 2) return;
+        let len = parseInt(cols[0]);
+        let qty = parseInt(cols[1]);
+        if (!len || !qty) return;
+
+        let row = table.insertRow(-1);
+        row.innerHTML = `<td>${len}</td><td>${qty}</td>`;
+    });
+}
+
+function optimize() {
+    pipes = [];
+    let items = [];
+
+    document.querySelectorAll("#inputTable tr").forEach((row, i) => {
+        if (i === 0) return;
+        let len = parseInt(row.cells[0].innerText);
+        let qty = parseInt(row.cells[1].innerText);
+        for (let i = 0; i < qty; i++) items.push(len);
+    });
+
+    items.sort((a, b) => b - a);
+
+    items.forEach(len => {
+        let placed = false;
+        for (let pipe of pipes) {
+            if (pipe.used + len <= STOCK) {
+                pipe.cuts.push(len);
+                pipe.used += len;
+                placed = true;
+                break;
+            }
+        }
+        if (!placed) pipes.push({ cuts: [len], used: len });
+    });
+
+    let html = `<h3>Total Pipes Used: ${pipes.length}</h3>
+    <table>
+    <tr><th>Pipe</th><th>Used (mm)</th><th>Waste (mm)</th><th>Cut List</th></tr>`;
+
+    pipes.forEach((p, i) => {
+        html += `<tr>
+        <td>${i+1}</td>
+        <td>${p.used}</td>
+        <td>${STOCK - p.used}</td>
+        <td>${p.cuts.join(" + ")}</td>
+        </tr>`;
+    });
+
+    html += "</table>";
+    document.getElementById("result").innerHTML = html;
+}
+
+function downloadExcel() {
+    if (pipes.length === 0) {
+        alert("Optimize first!");
+        return;
+    }
+
+    let csv = "Pipe No,Used Length (mm),Waste (mm),Cut Lengths\n";
+    pipes.forEach((p, i) => {
+        csv += `${i+1},${p.used},${STOCK - p.used},"${p.cuts.join(" + ")}"\n`;
+    });
+
+    let blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `Pipe_Cutting_${STOCK}mm.csv`;
+    link.click();
+}
+</script>
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

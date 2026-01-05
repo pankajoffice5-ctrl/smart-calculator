@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Nesting | Calculator System</title>
+<style>
+/* Reset & Base */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(135deg, black, #f1f8e9);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Container */
+.container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 20px;
+  padding: 30px 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.header h1 {
+  font-size: 24px;
+  color: #1565c0;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+.header p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Colors */
+.btn-primary { background: #1976d2; color: #fff; }
+.btn-secondary { background: #455a64; color: #fff; }
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .container { padding: 25px 20px; }
+  .header h1 { font-size: 22px; }
+  .header p { font-size: 13px; }
+  button { font-size: 14px; padding: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Smart Calculator</h1>
+    <p>Nesting Calculator System</p>
+  </div>
+
+  <div class="button-group">
+    <button class="btn-secondary" onclick="openPage('manual.html')">
+      ● Add Manual Table-Nesting
+    </button>
+
+    <button class="btn-secondary" onclick="openPage('COPY PASTE.html')">
+      📋 Non Joint - Copy-Paste from Excel
+    </button>
+
+    <button class="btn-secondary" onclick="openPage('COPY PASTE JOINT.html')">
+      📋 Joint Copy-Paste from Excel
+    </button>
+
+    <button class="btn-primary" onclick="openPage('for_diagonal.html')">
+      ⊿ Diagonal Calculator
+    </button>
+
+    <button class="btn-primary" onclick="openPage('METAL LIST.html')">
+      📋Steel Estimation
+    </button>
+
+        <button class="btn-primary" onclick="openPage('METAL WT.html')">
+      ⚖️ Metal Weight Calculator
+    </button>
+
+    <button class="btn-primary" onclick="openPage('CALCULATOR.html')">
+      🖩 Match Calculator
+    </button>
+  </div>
+
+  <footer>
+    © Smart Calculator · Copy Right
+  </footer>
+
+</div>
+
+<script>
+function openPage(page) {
+  window.location.href = page;
+}
+
+// Disable right-click
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

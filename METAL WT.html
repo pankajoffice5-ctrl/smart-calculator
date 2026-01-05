@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Material Weight Calculator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #eef2f7, #dfe7f1);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 400px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 24px 22px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.container h3 {
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: #1f2937;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Inputs & Select */
+input,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #0077cc;
+    box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.15);
+}
+
+/* Button */
+button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #0077cc, #005fa3);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #005fa3, #004a82);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Result */
+.result {
+    margin-top: 20px;
+    padding: 12px;
+    background: #f1f5f9;
+    border-left: 4px solid #0077cc;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h3>Material Weight Calculator</h3>
+
+    <label>Metal</label>
+    <select id="metalType">
+        <option value="steel">Steel</option>
+        <option value="aluminum">Aluminum</option>
+        <option value="stainless">Stainless Steel</option>
+    </select>
+
+    <label>Material Type</label>
+    <select id="materialType">
+        <option value="">Select Type</option>
+        <option>CHS</option>
+        <option>RHS/SHS</option>
+        <option>ROUND BAR</option>
+        <option>FLAT BAR</option>
+        <option>ANGLE/TEE</option>
+        <option>CHANNEL</option>
+        <option>PLATE</option>
+        <option>SQ BAR</option>
+        <option>REBAR</option>
+        <option>HEX BAR</option>
+    </select>
+
+
+
+    <label>Dimension 1 (mm)</label>
+    <input type="number" id="E11">
+
+    <label>Dimension 2 (mm)</label>
+    <input type="number" id="F11">
+
+    <label>Thickness (mm)</label>
+    <input type="number" id="G11">
+
+    <button onclick="calculate()">Calculate Weight</button>
+
+    <div class="result">
+        Weight: <span id="result">0</span> kg/m
+    </div>
+</div>
+
+<script>
+function calculate() {
+    var materialType = document.getElementById("materialType").value;
+    var metalType = document.getElementById("metalType").value;
+    var E11 = parseFloat(document.getElementById("E11").value) || 0;
+    var F11 = parseFloat(document.getElementById("F11").value) || 0;
+    var G11 = parseFloat(document.getElementById("G11").value) || 0;
+
+    if (!materialType || !metalType) {
+        alert("Please select material type and metal");
+        return;
+    }
+
+    // Density in kg/m^3
+    var density = 0;
+    switch(metalType) {
+        case "steel":
+            density = 7850;
+            break;
+        case "aluminum":
+            density = 2700;
+            break;
+        case "stainless":
+            density = 8000;
+            break;
+    }
+
+    var w = 0;
+
+    switch (materialType) {
+        case "CHS":
+            w = ((((Math.pow(E11/2,2)*Math.PI) - (Math.pow((E11-G11*2)/2,2)*Math.PI))/1000000)*density);
+            break;
+        case "RHS/SHS":
+            w = (((E11*F11)-((E11-G11*2)*(F11-G11*2)))/1000000*density);
+            break;
+        case "ROUND BAR":
+            w = (Math.PI*Math.pow(E11/2,2)/1000000*density);
+            break;
+        case "FLAT BAR":
+            w = (E11*G11/1000/1000*density);
+            break;
+        case "ANGLE/TEE":
+            w = ((E11+F11-G11)*G11/1000/1000*density);
+            break;
+        case "CHANNEL":
+            w = ((E11+F11*2-G11*2)*G11/1000/1000*density);
+            break;
+        case "PLATE":
+            w = (E11*F11*G11/1000000000*density);
+            break;
+        case "SQ BAR":
+            w = (E11*E11/1000000*density);
+            break;
+        case "REBAR":
+            w = (Math.pow(E11,2)/162.28*density/7850); // scaling factor for rebar
+            break;
+        case "HEX BAR":
+            w = (0.006798*Math.pow(E11,2)*density/7850);
+            break;
+    }
+
+    document.getElementById("result").innerText =
+        (isNaN(w) || w === 0) ? "0" : w.toFixed(3);
+}
+
+
+
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+
+
+
+</script>
+
+</body>
+</html>

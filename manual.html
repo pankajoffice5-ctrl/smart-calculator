@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pipe Cutting Optimization</title>
+<style>
+body { font-family: Arial; padding: 20px; }
+table { border-collapse: collapse; width: 700px; }
+th, td { border: 1px solid #444; padding: 6px; text-align: center; }
+th { background: #eee; }
+input { width: 100px; }
+button, select { padding: 8px 14px; margin: 5px; font-size: 14px; }
+.output { margin-top: 20px; }
+</style>
+</head>
+
+<body>
+
+<h2>Pipe Cutting Optimization</h2>
+
+<h4>📏 Select Stock Length</h4>
+<select id="stockSelect" onchange="updateStock()">
+    <option value="6000" selected>6000 mm</option>
+    <option value="12000">12000 mm</option>
+</select>
+
+<table id="inputTable">
+<tr>
+  <th>Cut Length (mm)</th>
+  <th>Quantity</th>
+  <th>Action</th>
+</tr>
+<tr>
+  <td><input type="number" value="3705"></td>
+  <td><input type="number" value="6"></td>
+  <td><button onclick="removeRow(this)">❌</button></td>
+</tr>
+</table>
+
+<br>
+<button onclick="addRow()">➕ Add Row</button>
+<button onclick="optimize()">⚙ Optimize Cutting</button>
+<button onclick="downloadExcel()">📥 Download Excel</button>
+
+<div class="output" id="result"></div>
+
+<script>
+let STOCK = 6000; // default stock
+let pipes = [];
+
+function updateStock() {
+    STOCK = Number(document.getElementById("stockSelect").value);
+}
+
+function addRow() {
+    let table = document.getElementById("inputTable");
+    let row = table.insertRow(-1);
+    row.innerHTML = `
+        <td><input type="number"></td>
+        <td><input type="number"></td>
+        <td><button onclick="removeRow(this)">❌</button></td>`;
+}
+
+function removeRow(btn) {
+    btn.parentElement.parentElement.remove();
+}
+
+function optimize() {
+    let items = [];
+    pipes = [];
+
+    document.querySelectorAll("#inputTable tr").forEach((row, i) => {
+        if (i === 0) return;
+        let len = parseInt(row.cells[0].querySelector("input").value);
+        let qty = parseInt(row.cells[1].querySelector("input").value);
+        if (!len || !qty) return;
+        for (let i = 0; i < qty; i++) items.push(len);
+    });
+
+    items.sort((a, b) => b - a);
+
+    items.forEach(len => {
+        let placed = false;
+        for (let pipe of pipes) {
+            if (pipe.used + len <= STOCK) {
+                pipe.cuts.push(len);
+                pipe.used += len;
+                placed = true;
+                break;
+            }
+        }
+        if (!placed) {
+            pipes.push({ cuts: [len], used: len });
+        }
+    });
+
+    let html = `<h3>Total Pipes Used: ${pipes.length}</h3>
+                <table>
+                <tr><th>Pipe</th><th>Used (mm)</th><th>Waste (mm)</th><th>Cut List</th></tr>`;
+
+    pipes.forEach((p, i) => {
+        html += `<tr>
+                    <td>${i + 1}</td>
+                    <td>${p.used}</td>
+                    <td>${STOCK - p.used}</td>
+                    <td>${p.cuts.join(" + ")}</td>
+                 </tr>`;
+    });
+
+    html += "</table>";
+    document.getElementById("result").innerHTML = html;
+}
+
+function downloadExcel() {
+    if (pipes.length === 0) {
+        alert("Please optimize first!");
+        return;
+    }
+
+    let csv = "Pipe No,Used Length (mm),Waste (mm),Cut Lengths\n";
+
+    pipes.forEach((p, i) => {
+        csv += `${i+1},${p.used},${STOCK - p.used},"${p.cuts.join(" + ")}"\n`;
+    });
+
+    let blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `Pipe_Cutting_${STOCK}mm.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

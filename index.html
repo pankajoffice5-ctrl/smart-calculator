@@ -4,86 +4,117 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Nesting | Calculator System</title>
+
 <style>
-/* Reset & Base */
+/* ================= RESET ================= */
 * {
   box-sizing: border-box;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
   margin: 0;
   padding: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
 }
 
+/* ================= BODY ================= */
 body {
-  background: linear-gradient(135deg, black, #f1f8e9);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh;
-  padding: 20px;
+  padding: 30px 15px;
+  color: #333;
 }
 
-/* Container */
+/* ================= APK BUTTON ================= */
+.download-app {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #2ecc71;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  transition: all 0.25s ease;
+  z-index: 1000;
+}
+
+.download-app:hover {
+  background: #27ae60;
+  transform: translateY(-2px);
+}
+
+/* ================= CONTAINER ================= */
 .container {
   background: #ffffff;
   width: 100%;
   max-width: 480px;
-  border-radius: 20px;
+  border-radius: 22px;
   padding: 30px 25px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
-/* Header */
+/* ================= HEADER ================= */
 .header {
   text-align: center;
   margin-bottom: 30px;
 }
+
 .header h1 {
   font-size: 24px;
   color: #1565c0;
   margin-bottom: 6px;
   letter-spacing: 0.5px;
 }
+
 .header p {
   font-size: 14px;
-  color: #555;
+  color: #666;
 }
 
-/* Button Group */
+/* ================= BUTTON GROUP ================= */
 .button-group {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-/* Buttons */
+/* ================= BUTTONS ================= */
 button {
   width: 100%;
   padding: 14px;
   font-size: 15px;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius: 14px;
   border: none;
   cursor: pointer;
-  transition: all 0.25s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  transition: all 0.25s ease;
 }
 
-/* Colors */
-.btn-primary { background: #1976d2; color: #fff; }
-.btn-secondary { background: #455a64; color: #fff; }
+/* Button Colors */
+.btn-primary {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #546e7a, #37474f);
+  color: #fff;
+}
 
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.25);
 }
 
-/* Footer */
+/* ================= FOOTER ================= */
 footer {
   text-align: center;
   margin-top: 30px;
@@ -91,35 +122,50 @@ footer {
   color: #777;
 }
 
-/* Mobile Responsiveness */
+/* ================= MOBILE ================= */
 @media (max-width: 480px) {
-  .container { padding: 25px 20px; }
-  .header h1 { font-size: 22px; }
-  .header p { font-size: 13px; }
-  button { font-size: 14px; padding: 12px; }
+  .container {
+    padding: 25px 20px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 12px;
+  }
 }
 </style>
 </head>
+
 <body>
+
+<!-- APK Download -->
+<a href="Smart_Calculator.apk" class="download-app" download>
+  ⬇ Download App
+</a>
 
 <div class="container">
 
   <div class="header">
     <h1>Smart Calculator</h1>
-    <p>Nesting Calculator System</p>
+    <p>Nesting & Estimation Calculator System</p>
   </div>
 
   <div class="button-group">
+
     <button class="btn-secondary" onclick="openPage('manual.html')">
-      ● Add Manual Table-Nesting
+      ● Manual Table Nesting
     </button>
 
     <button class="btn-secondary" onclick="openPage('COPY PASTE.html')">
-      📋 Non Joint - Copy-Paste from Excel
+      📋 Non-Joint Copy-Paste (Excel)
     </button>
 
     <button class="btn-secondary" onclick="openPage('COPY PASTE JOINT.html')">
-      📋 Joint Copy-Paste from Excel
+      📋 Joint Copy-Paste (Excel)
     </button>
 
     <button class="btn-primary" onclick="openPage('for_diagonal.html')">
@@ -127,24 +173,25 @@ footer {
     </button>
 
     <button class="btn-primary" onclick="openPage('METAL LIST.html')">
-      📋Steel Estimation
+      📊 Steel Estimation
     </button>
 
-        <button class="btn-primary" onclick="openPage('METAL WT.html')">
-      ⚖️ Metal Weight Calculator
+    <button class="btn-primary" onclick="openPage('METAL WT.html')">
+      ⚖ Metal Weight Calculator
     </button>
 
     <button class="btn-primary" onclick="openPage('CALCULATOR.html')">
       🖩 Match Calculator
     </button>
- 
+
     <button class="btn-primary" onclick="openPage('HYDRAOLIC.html')">
-      🖩 Hydraulic Force Calculator
-    </button>   
+      🧮 Hydraulic Force Calculator
+    </button>
+
   </div>
 
   <footer>
-    © Smart Calculator · Copy Right
+    © Smart Calculator · All Rights Reserved
   </footer>
 
 </div>
@@ -154,10 +201,11 @@ function openPage(page) {
   window.location.href = page;
 }
 
-// Disable right-click
+// Disable right click
 document.addEventListener("contextmenu", function(e) {
   e.preventDefault();
 });
 </script>
+
 </body>
 </html>

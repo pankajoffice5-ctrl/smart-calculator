@@ -110,12 +110,12 @@ input {
             <div>
                 Force in (pull):
                 <span class="value" id="pullN">0</span> N
-                (<span class="value" id="pullKg">0</span> kg)
+                (<span class="value" id="pullKg">0</span> Tons)
             </div>
             <div>
                 Force out (push):
                 <span class="value" id="pushN">0</span> N
-                (<span class="value" id="pushKg">0</span> kg)
+                (<span class="value" id="pushKg">0</span> Tons)
             </div>
         </div>
 
@@ -142,8 +142,8 @@ function calculate() {
     let forcePullN = p * areaPull;
 
     // Convert to kgf
-    let forcePushKg = forcePushN / 9.80665;
-    let forcePullKg = forcePullN / 9.80665;
+    let forcePushKg = forcePushN / 9.80665/1000;
+    let forcePullKg = forcePullN / 9.80665/1000;
 
     // Display
     document.getElementById("pushN").textContent = forcePushN.toFixed(2);
@@ -155,6 +155,10 @@ function calculate() {
 
 calculate();
 </script>
-
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
 </body>
 </html>

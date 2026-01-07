@@ -564,6 +564,39 @@ function updateColumnHighlight(row, material) {
  
 }
 </script>
+<script>
+function downloadExcel() {
+
+    const table = document.getElementById("materialTable");
+
+    // 🔹 Backup original selects
+    const selects = table.querySelectorAll("select");
+    const backups = [];
+
+    selects.forEach(select => {
+        const td = select.parentElement;
+
+        backups.push({
+            td: td,
+            select: select,
+            html: td.innerHTML
+        });
+
+        // Replace dropdown with selected text
+        const text = select.options[select.selectedIndex]?.text || "";
+        td.innerHTML = text;
+    });
+
+    // 🔹 Export table
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Material List" });
+    XLSX.writeFile(wb, "Material_Weight_Surface.xlsx");
+
+    // 🔹 Restore original dropdowns
+    backups.forEach(item => {
+        item.td.innerHTML = item.html;
+    });
+}
+</script>
 
 </body>
 </html>

@@ -1,210 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Material Calculator</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Material Calculator</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background: #f4f6f8;
-    padding: 20px;
-    gap: 20px;
-    flex-wrap: wrap;
-}
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: #f4f6f8;
+            padding: 20px;
+            gap: 20px;
+            flex-direction: row;
+        }
 
-/* Container for table */
-.container {
-    background: #fff;
-    padding: 20px 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    max-width: 900px;
-    flex-wrap: wrap;
-}
+        .nav-header { width: 100%; position: absolute; top: 10px; left: 20px; }
+        .nav-header a { text-decoration: none; color: #007bff; font-weight: bold; }
 
-h3 {
-    text-align: center;
-    margin-bottom: 15px;
-}
-h4 {
-    text-align: center;
-    margin-bottom: 10px;
-    text-decoration: underline;
-}
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 1100px;
+            flex: 1;
+            margin-top: 40px;
+            overflow-x: auto;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+        h3 { text-align: center; color: #333; margin-bottom: 5px; }
+        h4 { text-align: center; margin-bottom: 20px; color: #666; font-size: 0.85rem; }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 6px;
-    text-align: center;
-}
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th { background: #007bff; color: white; padding: 10px; font-size: 12px; border: 1px solid #ddd; }
+        td { border: 1px solid #ddd; padding: 5px; text-align: center; }
 
-th {
-    background: #007bff;
-    color: #fff;
-}
+        select, input { width: 80%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; outline: none; }
+        .red-input { background: #fff0f0 !important; border: 2px solid #ff4d4d !important; }
+        .disabled-select { background: #f0f0f0; cursor: not-allowed; }
 
-select, input {
-    width: 100%;
-    padding: 4px;
-}
+        .btn-group { margin-top: 15px; display: flex; gap: 10px; }
+        button.action-btn { padding: 10px 15px; border: none; color: white; font-weight: bold; border-radius: 5px; cursor: pointer; }
+        .add-row { background: #28a745; }
+        .export-xls { background: #17a2b8; }
+        .del-btn { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #dc3545; }
 
-button {
-    margin-top: 15px;
-    padding: 10px 18px;
-    border: none;
-    background: #28a745;
-    color: #fff;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-}
+        #totalRow td { background: #f8f9fa; font-weight: bold; border-top: 2px solid #007bff; }
 
-button:hover {
-    background: #218838;
-}
+        /* Calculator Styles */
+        .calculator {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 320px;
+            position: sticky;
+            top: 20px;
+            margin-top: 40px;
+            flex-shrink: 0;
+            color: white;
+        }
 
-#totalRow td {
-    background: #e9ecef;
-    font-weight: bold;
-}
+        .history-panel {
+            width: 100%;
+            height: 100px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 0.75rem;
+            overflow-y: auto;
+            color: #bbb;
+            font-family: monospace;
+            text-align: right;
+            border: 1px solid #444;
+        }
 
-/* Calculator on right side */
-.calculator {
-    background: #1e1e1e;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    width: 320px;
-    flex-shrink: 0;
-    height: min-content;
-}
+        .history-item { border-bottom: 1px solid #3d3d3d; padding: 4px 0; cursor: pointer; }
+        .history-item:hover { color: #fff; background: #333; }
 
-.history {
-    width: 100%;
-    height: 25px;
-    background: #2c2c2c;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    padding: 5px 10px;
-    font-size: 16px;
-    color: #ccc;
-    text-align: right;
-}
+        .display { 
+            width: 100%; height: 50px; background: #000; color: #0f0; border: 2px solid #333; 
+            border-radius: 8px; text-align: right; padding: 10px; font-size: 24px; 
+            margin-bottom: 15px; font-family: monospace; outline: none;
+        }
+        
+        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .calc-btn { padding: 15px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; color: #fff; background: #333; transition: 0.2s; }
+        .calc-btn:hover { background: #444; }
+        .operator { background: #ff9500; }
+        .equal { background: #28a745; grid-column: span 2; }
+        .clear { background: #dc3545; }
 
-.display {
-    width: 100%;
-    height: 60px;
-    background: #121212;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    text-align: right;
-    padding: 10px 15px;
-    font-size: 28px;
-    color: #fff;
-    border: none;
-}
-
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-button.calc-btn {
-    padding: 20px;
-    font-size: 20px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: #fff;
-    background: #333;
-}
-
-button.calc-btn:hover { background: #444; }
-button.operator { background: #ff9500; }
-button.operator:hover { background: #e08e00; }
-button.equal { background: #00b894; grid-column: span 2; }
-button.equal:hover { background: #009e77; }
-button.clear { background: #e74c3c; }
-button.clear:hover { background: #c0392b; }
-
-/* Responsive */
-@media (max-width: 1200px) {
-    body {
-        flex-direction: column;
-        align-items: center;
-    }
-    .calculator {
-        margin-top: 20px;
-    }
-}
-
-
-/* 🔴 Highlight input */
-.red-input {
-    background: #ffe6e6 !important;
-    border: 2px solid hsl(128, 82%, 83%) !important;
-}
-
-/* Remove highlight */
-.normal-input {
-    background: #fff !important;
-    border: 1px solid #ccc !important;
-}
-.red-input {
-    background: #ffe6e6 !important;
-    border: 2px solid hsl(128, 82%, 83%) !important;
-}
-
-</style>
+        @media (max-width: 1250px) {
+            body { flex-direction: column; align-items: center; }
+            .container { width: 100%; }
+            .calculator { position: static; width: 100%; max-width: 350px; }
+        }
+    </style>
 </head>
 <body>
-          <a href="index.html">🏠 Home</a>
-          <br>
-<!-- Material Table -->
-<div class="container">
-<h3>Material Weight & Surface Area List</h3>
-<h4>(Note:Highlighted column fill)</h4>
 
-<table id="materialTable">
-<thead>
-<tr>
-    <th>MATERIAL</th>
-    <th>DIM 1 (mm)</th>
-    <th>DIM 2 (mm)</th>
-    <th>THK (mm)</th>
-    <th>LENGTH (mm)</th>
-    <th>QTY</th>
-    <th>WT (kg)</th>
-    <th>SURFACE (m²)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<select onchange="calculateRow(this)">
-<option value="">Select</option>
-<option value="CHS">CHS</option>
-<option value="RHS/SHS">RHS / SHS</option>
-<option value="ROUND BAR">ROUND BAR</option>
-<option value="FLAT BAR">FLAT BAR</option>
-<option value="PLATE">PLATE</option>
-<option value="ANGLE/TEE">ANGLE/TEE</option>
-<option value="CHANNEL">CHANNEL</option>
-<option value="SQ BAR">SQ BAR</option>
-<option value="REBAR">REBAR</option>
-<option value="HEX BAR">HEX BAR</option>
+<div class="nav-header"><a href="index.html">🏠 Home</a></div>
+
+<div class="container">
+    <h3>Material Weight & Surface Area</h3>
+    <h4>Note: fill Highlight cell</h4>
+
+    <table id="materialTable">
+        <thead>
+            <tr>
+                <th>METAL</th>
+                <th>SHAPE</th>
+                <th>DIM 1</th>
+                <th>DIM 2</th>
+                <th>THK</th>
+                <th>LENGTH</th>
+                <th>QTY</th>
+                <th>WT (kg)</th>
+                <th>SURF (m²)</th>
+                <th>DEL</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <tr>
+                <td>
+                    <select class="metal-sel" onchange="calculateRow(this)">
+                        <option value="Steel">Steel</option>
+                        <option value="Aluminum">Aluminum</option>
+                        <option value="Stainless">Stainless</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="shape-sel" onchange="calculateRow(this)">
+                        <option value="">Select</option>
+                        <option value="CHS">CHS</option>
+                        <option value="RHS/SHS">RHS / SHS</option>
+                        <option value="ROUND BAR">ROUND BAR</option>
+                        <option value="FLAT BAR">FLAT BAR</option>
+                        <option value="PLATE">PLATE</option>
+                        <option value="ANGLE/TEE">ANGLE/TEE</option>
+                        <option value="CHANNEL">CHANNEL</option>
+                        <option value="SQ BAR">SQ BAR</option>
+                        <option value="REBAR">REBAR</option>
+                        <option value="HEX BAR">HEX BAR</option>
 <!-- HEA -->
 <!-- ================= HEB ================= -->
 <option value="HEB 100" data-weight="20.4" data-surface="0.80">HEB 100</option>
@@ -312,300 +254,187 @@ button.clear:hover { background: #c0392b; }
 <option value="UPN 350" data-weight="60.6" data-surface="1.05">UPN 350</option>
 <option value="UPN 380" data-weight="63.1" data-surface="1.110">UPN 380</option>
 <option value="UPN 400" data-weight="71.8" data-surface="1.180">UPN 400</option>
+                    </select>
+                </td>
+                <td><input type="number" oninput="calculateRow(this)"></td>
+                <td><input type="number" oninput="calculateRow(this)"></td>
+                <td><input type="number" oninput="calculateRow(this)"></td>
+                <td><input type="number" value="1000" oninput="calculateRow(this)"></td>
+                <td><input type="number" value="1" oninput="calculateRow(this)"></td>
+                <td><span>0</span></td>
+                <td><span>0</span></td>
+                <td><button class="del-btn" onclick="removeRow(this)">❌</button></td>
+            </tr>
+            <tr id="totalRow">
+                <td colspan="7" style="text-align:right">TOTAL</td>
+                <td><span id="totalWT">0</span></td>
+                <td><span id="totalSA">0</span></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 
-</select>
-</td>
-<td><input type="number" oninput="calculateRow(this)"></td>
-<td><input type="number" oninput="calculateRow(this)"></td>
-<td><input type="number" oninput="calculateRow(this)"></td>
-<td><input type="number" value="1000" oninput="calculateRow(this)"></td>
-<td><input type="number" value="1" oninput="calculateRow(this)"></td>
-<td><span>0</span></td>
-<td><span>0</span></td>
-</tr>
-<tr id="totalRow">
-<td colspan="6" style="text-align:right">TOTAL</td>
-<td><span id="totalWT">0</span></td>
-<td><span id="totalSA">0</span></td>
-</tr>
-</tbody>
-</table>
-
-<button onclick="addRow()">Add Row</button>
-<button onclick="downloadExcel()">Download Excel</button>
+    <div class="btn-group">
+        <button class="action-btn add-row" onclick="addRow()">+ Add Row</button>
+        <button class="action-btn export-xls" onclick="downloadExcel()">📊 Export Excel</button>
+    </div>
 </div>
 
-<!-- Calculator -->
 <div class="calculator">
-<div class="history" id="history"></div>
-<input type="text" class="display" id="display" readonly>
-<div class="buttons">
-<button class="calc-btn clear" onclick="clearDisplay()">C</button>
-<button class="calc-btn" onclick="appendValue('%')">%</button>
-<button class="calc-btn" onclick="appendValue('/')">/</button>
-<button class="calc-btn operator" onclick="appendValue('*')">*</button>
-
-<button class="calc-btn" onclick="appendValue('7')">7</button>
-<button class="calc-btn" onclick="appendValue('8')">8</button>
-<button class="calc-btn" onclick="appendValue('9')">9</button>
-<button class="calc-btn operator" onclick="appendValue('-')">-</button>
-
-<button class="calc-btn" onclick="appendValue('4')">4</button>
-<button class="calc-btn" onclick="appendValue('5')">5</button>
-<button class="calc-btn" onclick="appendValue('6')">6</button>
-<button class="calc-btn operator" onclick="appendValue('+')">+</button>
-
-<button class="calc-btn" onclick="appendValue('1')">1</button>
-<button class="calc-btn" onclick="appendValue('2')">2</button>
-<button class="calc-btn" onclick="appendValue('3')">3</button>
-<button class="calc-btn" onclick="appendValue('.')">.</button>
-<button class="calc-btn equal" onclick="calculate()">=</button>
-
-<button class="calc-btn" onclick="appendValue('0')" style="grid-column: span 2;">0</button>
-
-</div>
+    <div class="history-panel" id="historyLog">
+        <div style="text-align:center; color:#666; margin-top:20px;">History Empty</div>
+    </div>
+    <input type="text" class="display" id="display" placeholder="0" autocomplete="off">
+    <div class="buttons">
+        <button class="calc-btn clear" onclick="clearDisplay()">C</button>
+        <button class="calc-btn operator" onclick="appendValue('/')">/</button>
+        <button class="calc-btn operator" onclick="appendValue('*')">×</button>
+        <button class="calc-btn operator" onclick="appendValue('-')">-</button>
+        <button class="calc-btn" onclick="appendValue('7')">7</button>
+        <button class="calc-btn" onclick="appendValue('8')">8</button>
+        <button class="calc-btn" onclick="appendValue('9')">9</button>
+        <button class="calc-btn operator" onclick="appendValue('+')">+</button>
+        <button class="calc-btn" onclick="appendValue('4')">4</button>
+        <button class="calc-btn" onclick="appendValue('5')">5</button>
+        <button class="calc-btn" onclick="appendValue('6')">6</button>
+        <button class="calc-btn" onclick="appendValue('.')">.</button>
+        <button class="calc-btn" onclick="appendValue('1')">1</button>
+        <button class="calc-btn" onclick="appendValue('2')">2</button>
+        <button class="calc-btn" onclick="appendValue('3')">3</button>
+        <button class="calc-btn equal" onclick="calculate()">=</button>
+        <button class="calc-btn" onclick="appendValue('0')" style="grid-column: span 2;">0</button>
+    </div>
 </div>
 
-<!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-// Table Calculation
-const density = 7850;
+/* MATERIAL TABLE LOGIC */
+const densities = { "Steel": 7850, "Aluminum": 2700, "Stainless": 8000 };
+const manualShapes = ["CHS", "RHS/SHS", "ROUND BAR", "FLAT BAR", "PLATE", "ANGLE/TEE", "CHANNEL", "SQ BAR", "REBAR", "HEX BAR"];
 
 function calculateRow(el) {
     const row = el.closest("tr");
-    const select = row.cells[0].querySelector("select");
-    updateColumnHighlight(row, select.value);
-    const opt = select.options[select.selectedIndex];
+    const metalSel = row.querySelector(".metal-sel");
+    const shapeSel = row.querySelector(".shape-sel");
+    const shape = shapeSel.value;
+
+    if (shape !== "" && !manualShapes.includes(shape)) {
+        metalSel.value = "Steel"; metalSel.disabled = true; metalSel.classList.add("disabled-select");
+    } else {
+        metalSel.disabled = false; metalSel.classList.remove("disabled-select");
+    }
+    
+    updateHighlight(row, shape);
+    const opt = shapeSel.options[shapeSel.selectedIndex];
     const stdWt = parseFloat(opt.getAttribute("data-weight")) || 0;
     const stdSA = parseFloat(opt.getAttribute("data-surface")) || 0;
-
-    const d1 = parseFloat(row.cells[1].querySelector("input").value) || 0;
-    const d2 = parseFloat(row.cells[2].querySelector("input").value) || 0;
-    const thk = parseFloat(row.cells[3].querySelector("input").value) || 0;
-    const len = parseFloat(row.cells[4].querySelector("input").value) || 0;
-    const qty = parseFloat(row.cells[5].querySelector("input").value) || 1;
-
+    const d1 = parseFloat(row.cells[2].querySelector("input").value) || 0;
+    const d2 = parseFloat(row.cells[3].querySelector("input").value) || 0;
+    const thk = parseFloat(row.cells[4].querySelector("input").value) || 0;
+    const len = parseFloat(row.cells[5].querySelector("input").value) || 0;
+    const qty = parseFloat(row.cells[6].querySelector("input").value) || 1;
+    const rho = densities[metalSel.value];
     let wt = 0, sa = 0;
     const L = len / 1000;
 
-    if (stdWt) {
-        wt = stdWt * L * qty;
-        sa = stdSA * L * qty;
+    if (stdWt > 0) {
+        wt = stdWt * L * qty; sa = stdSA * L * qty;
     } else {
-        switch(select.value) {
-            case 'RHS/SHS':
-                wt = ((d1*d2 - (d1-2*thk)*(d2-2*thk))/1000000) * density * len/1000;
-                sa = (2*(d1 + d2)/1000) * len/1000;
-                break;
-            case 'CHS':
-                wt = (((Math.PI * Math.pow(d1/2,2)) - (Math.PI * Math.pow((d1-thk*2)/2,2)))/1000000) * density * len/1000;
-                sa = (Math.PI*d1/1000) * len/1000;
-                break;
-            case 'PLATE':
-                wt = (d1*d2*thk/1000000000) * density;
-                sa = ((d1*d2)/1000000) * 2 + ((d1*thk)/1000000) * 2 + ((thk*d2)/1000000) * 2;
-                break;
+        switch(shape) {
+            case 'CHS': wt = (Math.PI * (Math.pow(d1/2, 2) - Math.pow((d1 - 2*thk)/2, 2)) / 1000000) * rho * L; sa = (Math.PI * d1 / 1000) * L; break;
+            case 'RHS/SHS': wt = ((d1 * d2 - (d1 - 2*thk) * (d2 - 2*thk)) / 1000000) * rho * L; sa = (2 * (d1 + d2) / 1000) * L; break;
             case 'ROUND BAR':
-                wt = (Math.PI*Math.pow(d1/2,2)/1000000) * density * len/1000;
-                sa = (Math.PI*d1/1000) * len/1000;
-                break;
-            case 'FLAT BAR':
-                wt = (d1*thk/1000000) * density * len/1000;
-                sa = 2*(d1 + thk)/1000 * len/1000;
-                break;
-            case 'ANGLE/TEE':
-                wt = ((d1 + d2 - thk)*thk/1000000) * density * len/1000;
-                sa = 2*(d1 + d2)/1000 * len/1000;
-                break;
-            case 'CHANNEL':
-                wt = ((d1 + d2*2 - thk*2)*thk/1000000) * density * len/1000;
-                sa = 2*(d1 + d2 *2 )/1000 * len/1000;
-                break;
-            case 'SQ BAR':
-                wt = (d1*d1/1000000) * density * len/1000;
-                sa = 4*d1/1000 * len/1000;
-                break;
-            case 'REBAR':
-                wt = (Math.pow(d1,2)/162.28 * density/7850) * len/1000;
-                sa = (Math.PI*d1/1000) * len/1000;
-                break;
-            case 'HEX BAR':
-                wt = (0.006798*Math.pow(d1,2) * density/7850) * len/1000;
-                sa = 6*2*d1/2/1.732/1000 * len/1000;
-
-                break;
-            default:
-                wt = 0;
-                sa = 0;
+            case 'REBAR': wt = (Math.PI * Math.pow(d1/2, 2) / 1000000) * rho * L; sa = (Math.PI * d1 / 1000) * L; break;
+            case 'FLAT BAR': wt = (d1 * thk / 1000000) * rho * L; sa = (2 * (d1 + thk) / 1000) * L; break;
+            case 'PLATE': wt = (d1 * d2 * thk / 1000000000) * rho; sa = (2 * (d1 * d2) / 1000000); break;
+            case 'ANGLE/TEE': wt = ((d1 + d2 - thk) * thk / 1000000) * rho * L; sa = (2 * (d1 + d2) / 1000) * L; break;
+            case 'CHANNEL': wt = ((d1 + 2*d2 - 2*thk) * thk / 1000000) * rho * L; sa = (2 * (d1 + 2*d2) / 1000) * L; break;
+            case 'SQ BAR': wt = (d1 * d1 / 1000000) * rho * L; sa = (4 * d1 / 1000) * L; break;
+            case 'HEX BAR': wt = (0.866 * Math.pow(d1, 2) / 1000000) * rho * L; sa = (3.464 * d1 / 1000) * L; break;
         }
-        wt = wt * qty;
-        sa = sa * qty;
+        wt *= qty; sa *= qty;
     }
-    
-
-    row.cells[6].querySelector("span").innerText = wt.toFixed(2);
-    row.cells[7].querySelector("span").innerText = sa.toFixed(2);
-
+    row.cells[7].querySelector("span").innerText = wt.toFixed(2);
+    row.cells[8].querySelector("span").innerText = sa.toFixed(2);
     updateTotals();
+}
+
+function updateHighlight(row, shape) {
+    const inputs = [row.cells[2].querySelector("input"), row.cells[3].querySelector("input"), row.cells[4].querySelector("input")];
+    inputs.forEach(i => i.classList.remove("red-input"));
+    if (["CHS", "FLAT BAR"].includes(shape)) { inputs[0].classList.add("red-input"); inputs[2].classList.add("red-input"); }
+    else if (["RHS/SHS", "PLATE", "ANGLE/TEE", "CHANNEL"].includes(shape)) { inputs.forEach(i => i.classList.add("red-input")); }
+    else if (manualShapes.includes(shape)) { inputs[0].classList.add("red-input"); }
 }
 
 function updateTotals() {
     let tw = 0, ts = 0;
-    document.querySelectorAll("#materialTable tbody tr:not(#totalRow)").forEach(r=>{
-        tw += parseFloat(r.cells[6].querySelector("span").innerText) || 0;
-        ts += parseFloat(r.cells[7].querySelector("span").innerText) || 0;
+    document.querySelectorAll("#tableBody tr:not(#totalRow)").forEach(r => {
+        tw += parseFloat(r.cells[7].querySelector("span").innerText) || 0;
+        ts += parseFloat(r.cells[8].querySelector("span").innerText) || 0;
     });
     document.getElementById("totalWT").innerText = tw.toFixed(2);
     document.getElementById("totalSA").innerText = ts.toFixed(2);
 }
 
 function addRow() {
-    const tbody = document.querySelector("#materialTable tbody");
-    const base = tbody.rows[0].cloneNode(true);
-    base.querySelectorAll("input").forEach(i=>i.value="");
-    base.querySelectorAll("span").forEach(s=>s.innerText="0");
-    tbody.insertBefore(base, document.getElementById("totalRow"));
+    const tbody = document.getElementById("tableBody");
+    const newRow = tbody.rows[0].cloneNode(true);
+    newRow.querySelector(".metal-sel").disabled = false;
+    newRow.querySelector(".metal-sel").classList.remove("disabled-select");
+    newRow.querySelectorAll("input").forEach(i => i.value = i.defaultValue || "");
+    newRow.querySelectorAll("span").forEach(s => s.innerText = "0");
+    tbody.insertBefore(newRow, document.getElementById("totalRow"));
+}
+
+function removeRow(btn) {
+    if (document.getElementById("tableBody").rows.length > 2) btn.closest("tr").remove(); updateTotals();
 }
 
 function downloadExcel() {
-    const wb = XLSX.utils.table_to_book(document.getElementById("materialTable"));
-    XLSX.writeFile(wb, "Material_Weight_Surface.xlsx");
+    const rows = [["METAL", "SHAPE", "DIM 1", "DIM 2", "THK", "LENGTH", "QTY", "WT (kg)", "SURF (m²)"]];
+    document.querySelectorAll("#tableBody tr").forEach(tr => {
+        if (tr.id === "totalRow") { rows.push(["","","","","","","TOTAL", tr.cells[1].innerText, tr.cells[2].innerText]); return; }
+        rows.push([tr.querySelector(".metal-sel").value, tr.querySelector(".shape-sel").value, tr.cells[2].querySelector("input").value, tr.cells[3].querySelector("input").value, tr.cells[4].querySelector("input").value, tr.cells[5].querySelector("input").value, tr.cells[6].querySelector("input").value, tr.cells[7].innerText, tr.cells[8].innerText]);
+    });
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Materials");
+    XLSX.writeFile(wb, "Material_List.xlsx");
 }
 
-// Calculator
-const display = document.getElementById('display');
-const history = document.getElementById('history');
+/* CALCULATOR LOGIC */
+const disp = document.getElementById('display');
+const log = document.getElementById('historyLog');
 
-function appendValue(value) { display.value += value; }
-function clearDisplay() { display.value=''; history.textContent=''; }
+function appendValue(v) { disp.value += v; }
+function clearDisplay() { disp.value = ''; }
 function calculate() {
-    try { history.textContent = display.value; display.value = eval(display.value); }
-    catch { display.value = 'Error'; }
+    let expr = disp.value; if (!expr) return;
+    try {
+        let res = new Function('return ' + expr.replace(/×/g, '*'))();
+        addHistory(expr, res); disp.value = res;
+    } catch (e) { disp.value = 'Error'; setTimeout(clearDisplay, 1000); }
+}
+function addHistory(e, r) {
+    if(log.innerHTML.includes('History Empty')) log.innerHTML = '';
+    const div = document.createElement('div'); div.className = 'history-item';
+    div.innerHTML = `${e} = <strong>${r}</strong>`;
+    div.onclick = () => { disp.value = r; };
+    log.prepend(div); log.scrollTop = 0;
 }
 
-document.addEventListener('keydown', (e) => {
-
-    // ✅ ONLY allow calculator keyboard input
-    if (document.activeElement === display) {
-
-        const allowedKeys = "0123456789+-*/.%";
-
-        if (allowedKeys.includes(e.key)) {
-            appendValue(e.key);
-
-        } else if (e.key === 'Enter') {
-            calculate();
-
-        } else if (e.key === 'Backspace') {
-            display.value = display.value.slice(0, -1);
-
-        } else if (e.key.toLowerCase() === 'c') {
-            clearDisplay();
-        }
-
-
-        e.preventDefault();
-    }
+// Keyboard Support
+window.addEventListener('keydown', (e) => {
+    if (document.activeElement.tagName === 'INPUT' && document.activeElement !== disp) return;
+    if ('0123456789+-*/.'.includes(e.key)) { e.preventDefault(); appendValue(e.key); }
+    else if (e.key === 'Enter') { e.preventDefault(); calculate(); }
+    else if (e.key === 'Backspace' && document.activeElement !== disp) { disp.value = disp.value.slice(0, -1); }
+    else if (e.key === 'Escape') { clearDisplay(); }
 });
 
-
+/* Security */
+document.addEventListener("contextmenu", e => e.preventDefault());
 </script>
-<script>
-document.addEventListener("contextmenu", function(e) {
-  e.preventDefault();
-});
-</script>
-
-<script>
-function updateColumnHighlight(row, material) {
-
-    const dim1 = row.cells[1].querySelector("input"); // DIM 1
-    const dim2 = row.cells[2].querySelector("input"); // DIM 2
-    const thk  = row.cells[3].querySelector("input"); // THK
-
-    // RESET
-    [dim1, dim2, thk].forEach(i => {
-        i.classList.remove("red-input");
-    });
-
-    // CHS / FLAT BAR → DIM1 + THK
-    if (
-        material === "CHS" || 
-        material === "FLAT BAR"
-    ) {
-        dim1.classList.add("red-input");
-        thk.classList.add("red-input");
-    }
-
-    // RHS / SHS / PLATE / ANGLE / CHANNEL → DIM1 + DIM2 + THK
-    else if (
-        material === "RHS/SHS" ||
-        material === "PLATE" ||
-        material === "ANGLE/TEE" ||
-        material === "CHANNEL"
-    ) {
-        dim1.classList.add("red-input");
-        dim2.classList.add("red-input");
-        thk.classList.add("red-input");
-    }
-
-    // ROUND / SQ / REBAR / HEX → DIM1 ONLY
-    else if (
-        material === "ROUND BAR" ||
-        material === "SQ BAR" || 
-        material === "REBAR" || 
-        material === "HEX BAR"
-    ) {
-        dim1.classList.add("red-input");
-    }
-
-
- 
-}
-</script>
-<script>
-function downloadExcel() {
-
-    const table = document.getElementById("materialTable");
-
-    const backups = [];
-
-    // 🔹 Handle SELECTS
-    table.querySelectorAll("select").forEach(select => {
-        const td = select.parentElement;
-
-        backups.push({
-            td: td,
-            html: td.innerHTML
-        });
-
-        const text = select.options[select.selectedIndex]?.text || "";
-        td.innerHTML = text;
-    });
-
-    // 🔹 Handle INPUTS
-    table.querySelectorAll("input").forEach(input => {
-        const td = input.parentElement;
-
-        backups.push({
-            td: td,
-            html: td.innerHTML
-        });
-
-        td.innerHTML = input.value || "";
-    });
-
-    // 🔹 Export to Excel
-    const wb = XLSX.utils.table_to_book(table, { sheet: "Material List" });
-    XLSX.writeFile(wb, "Material_Weight_Surface.xlsx");
-
-    // 🔹 Restore original table (inputs + selects)
-    backups.forEach(item => {
-        item.td.innerHTML = item.html;
-    });
-}
-</script>
-
 </body>
 </html>

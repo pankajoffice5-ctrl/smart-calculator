@@ -24,12 +24,17 @@ body {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     max-width: 900px;
-    width: 100%;
+    flex-wrap: wrap;
 }
 
 h3 {
     text-align: center;
     margin-bottom: 15px;
+}
+h4 {
+    text-align: center;
+    margin-bottom: 10px;
+    text-decoration: underline;
 }
 
 table {
@@ -144,13 +149,33 @@ button.clear:hover { background: #c0392b; }
         margin-top: 20px;
     }
 }
+
+
+/* 🔴 Highlight input */
+.red-input {
+    background: #ffe6e6 !important;
+    border: 2px solid hsl(128, 82%, 83%) !important;
+}
+
+/* Remove highlight */
+.normal-input {
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+}
+.red-input {
+    background: #ffe6e6 !important;
+    border: 2px solid hsl(128, 82%, 83%) !important;
+}
+
 </style>
 </head>
 <body>
-
+          <a href="index.html">🏠 Home</a>
+          <br>
 <!-- Material Table -->
 <div class="container">
 <h3>Material Weight & Surface Area List</h3>
+<h4>(Note:Highlighted column fill)</h4>
 
 <table id="materialTable">
 <thead>
@@ -350,6 +375,7 @@ const density = 7850;
 function calculateRow(el) {
     const row = el.closest("tr");
     const select = row.cells[0].querySelector("select");
+    updateColumnHighlight(row, select.value);
     const opt = select.options[select.selectedIndex];
     const stdWt = parseFloat(opt.getAttribute("data-weight")) || 0;
     const stdSA = parseFloat(opt.getAttribute("data-surface")) || 0;
@@ -478,7 +504,7 @@ document.addEventListener('keydown', (e) => {
             clearDisplay();
         }
 
-        // Prevent calculator keys from affecting table
+
         e.preventDefault();
     }
 });
@@ -490,5 +516,54 @@ document.addEventListener("contextmenu", function(e) {
   e.preventDefault();
 });
 </script>
+
+<script>
+function updateColumnHighlight(row, material) {
+
+    const dim1 = row.cells[1].querySelector("input"); // DIM 1
+    const dim2 = row.cells[2].querySelector("input"); // DIM 2
+    const thk  = row.cells[3].querySelector("input"); // THK
+
+    // RESET
+    [dim1, dim2, thk].forEach(i => {
+        i.classList.remove("red-input");
+    });
+
+    // CHS / FLAT BAR → DIM1 + THK
+    if (
+        material === "CHS" || 
+        material === "FLAT BAR"
+    ) {
+        dim1.classList.add("red-input");
+        thk.classList.add("red-input");
+    }
+
+    // RHS / SHS / PLATE / ANGLE / CHANNEL → DIM1 + DIM2 + THK
+    else if (
+        material === "RHS/SHS" ||
+        material === "PLATE" ||
+        material === "ANGLE/TEE" ||
+        material === "CHANNEL"
+    ) {
+        dim1.classList.add("red-input");
+        dim2.classList.add("red-input");
+        thk.classList.add("red-input");
+    }
+
+    // ROUND / SQ / REBAR / HEX → DIM1 ONLY
+    else if (
+        material === "ROUND BAR" ||
+        material === "SQ BAR" || 
+        material === "REBAR" || 
+        material === "HEX BAR"
+    ) {
+        dim1.classList.add("red-input");
+    }
+
+
+ 
+}
+</script>
+
 </body>
 </html>

@@ -569,29 +569,38 @@ function downloadExcel() {
 
     const table = document.getElementById("materialTable");
 
-    // 🔹 Backup original selects
-    const selects = table.querySelectorAll("select");
     const backups = [];
 
-    selects.forEach(select => {
+    // 🔹 Handle SELECTS
+    table.querySelectorAll("select").forEach(select => {
         const td = select.parentElement;
 
         backups.push({
             td: td,
-            select: select,
             html: td.innerHTML
         });
 
-        // Replace dropdown with selected text
         const text = select.options[select.selectedIndex]?.text || "";
         td.innerHTML = text;
     });
 
-    // 🔹 Export table
+    // 🔹 Handle INPUTS
+    table.querySelectorAll("input").forEach(input => {
+        const td = input.parentElement;
+
+        backups.push({
+            td: td,
+            html: td.innerHTML
+        });
+
+        td.innerHTML = input.value || "";
+    });
+
+    // 🔹 Export to Excel
     const wb = XLSX.utils.table_to_book(table, { sheet: "Material List" });
     XLSX.writeFile(wb, "Material_Weight_Surface.xlsx");
 
-    // 🔹 Restore original dropdowns
+    // 🔹 Restore original table (inputs + selects)
     backups.forEach(item => {
         item.td.innerHTML = item.html;
     });

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamSync | Professional Sleep Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-primary: #818cf8;
+            --accent-secondary: #22d3ee;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .time-picker {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        select {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1rem;
+            flex: 1;
+            cursor: pointer;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        select:focus {
+            border-color: var(--accent-primary);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), #6366f1);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .results {
+            margin-top: 30px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .card.recommended {
+            border-color: var(--accent-secondary);
+            background: rgba(34, 211, 238, 0.1);
+        }
+
+        .card span {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-secondary);
+        }
+
+        .card small {
+            color: var(--text-dim);
+            font-size: 0.75rem;
+        }
+
+        .footer-info {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+                      <a href="index.html">🏠 Home</a>
+          <br>
+    <h1>DreamSync</h1>
+    <p class="subtitle">Optimize your rest using sleep cycles.</p>
+
+    <div class="input-group">
+        <label>I want to wake up at:</label>
+        <div class="time-picker">
+            <select id="hour">
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                <option value="7" selected>7</option><option value="8">8</option><option value="9">9</option>
+                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+            </select>
+            <select id="minute">
+                <option value="00">00</option><option value="15">15</option>
+                <option value="30" selected>30</option><option value="45">45</option>
+            </select>
+            <select id="ampm">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="btn-primary" onclick="calculateSleep()">Calculate Bedtime</button>
+    <button class="btn-secondary" onclick="sleepNow()">I'm going to sleep now</button>
+
+    <div id="results" class="results">
+        <h3 id="result-title" style="margin-bottom: 10px; font-size: 1rem;">Optimal bedtimes:</h3>
+        <div class="result-cards" id="cards-container">
+            </div>
+        <div class="footer-info">
+            A good night's sleep consists of 5-6 complete sleep cycles. 
+            <br>The average person takes <b>15 minutes</b> to fall asleep.
+        </div>
+    </div>
+</div>
+
+<script>
+    function formatTime(date) {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        return hours + ':' + minutes + ' ' + ampm;
+    }
+
+    function calculateSleep() {
+        const h = parseInt(document.getElementById('hour').value);
+        const m = parseInt(document.getElementById('minute').value);
+        const ampm = document.getElementById('ampm').value;
+        
+        let wakeTime = new Date();
+        let adjustedHour = ampm === 'PM' && h < 12 ? h + 12 : (ampm === 'AM' && h === 12 ? 0 : h);
+        
+        wakeTime.setHours(adjustedHour, m, 0);
+
+        const container = document.getElementById('cards-container');
+        const resultsDiv = document.getElementById('results');
+        document.getElementById('result-title').innerText = "You should aim to fall asleep at:";
+        container.innerHTML = '';
+
+        // Calculate 6, 5, 4, and 3 cycles (90 mins each + 15 mins to fall asleep)
+        const cycles = [6, 5, 4, 3];
+        cycles.forEach((c, index) => {
+            let sleepTime = new Date(wakeTime.getTime() - (c * 90 * 60000) - (15 * 60000));
+            const card = document.createElement('div');
+            card.className = `card ${index === 0 ? 'recommended' : ''}`;
+            card.innerHTML = `
+                <small>${c} Cycles (${c * 1.5}h sleep)</small>
+                <span>${formatTime(sleepTime)}</span>
+            `;
+            container.appendChild(card);
+        });
+
+        resultsDiv.style.display = 'block';
+    }
+
+    function sleepNow() {
+        const now = new Date();
+        const container = document.getElementById('cards-container');
+        const resultsDiv = document.getElementById('results');
+        document.getElementById('result-title').innerText = "If you sleep now, wake up at:";
+        container.innerHTML = '';
+
+        const cycles = [6, 5, 4, 3];
+        cycles.forEach((c, index) => {
+            // Add 15 mins to fall asleep + cycle time
+            let wakeTime = new Date(now.getTime() + (c * 90 * 60000) + (15 * 60000));
+            const card = document.createElement('div');
+            card.className = `card ${index === 0 ? 'recommended' : ''}`;
+            card.innerHTML = `
+                <small>${c} Cycles (${c * 1.5}h sleep)</small>
+                <span>${formatTime(wakeTime)}</span>
+            `;
+            container.appendChild(card);
+        });
+
+        resultsDiv.style.display = 'block';
+    }
+</script>
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

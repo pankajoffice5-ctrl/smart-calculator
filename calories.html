@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indian Food Calorie Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #222;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+      font-weight: 500;
+    }
+
+    select, input[type="number"] {
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    input[type="number"] {
+      text-align: center;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #007BFF;
+      color: #fff;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #total {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    /* Responsive table for mobile */
+    @media (max-width: 500px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      th {
+        display: none;
+      }
+      tr {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+      }
+      td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+      }
+      td::before {
+        content: attr(data-label);
+        font-weight: 500;
+        flex: 1;
+        text-align: left;
+      }
+      td input, td select {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+                  <a href="index.html">🏠 Home</a>
+          <br>
+    <h1>Indian Food Calorie Calculator</h1>
+    <table id="food-table">
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Calories</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="food-item">
+          <td data-label="Food">
+            <select onchange="updateCalories(this)">
+              <option value="">Select Food</option>
+              <!-- Breakfast -->
+              <option value="60">Idli (1 piece)</option>
+              <option value="150">Dhokla (2 pieces)</option>
+              <option value="90">Poha (1 cup)</option>
+              <option value="120">Upma (1 cup)</option>
+              <option value="250">Masala Dosa (1 piece)</option>
+              <!-- Rice and Roti -->
+              <option value="205">Plain Rice (1 cup)</option>
+              <option value="230">Jeera Rice (1 cup)</option>
+              <option value="250">Vegetable Pulao (1 cup)</option>
+              <option value="300">Biryani (1 cup)</option>
+              <option value="80">Plain Roti (1 piece)</option>
+              <option value="180">Butter Naan (1 piece)</option>
+              <option value="150">Paratha (1 piece)</option>
+              <option value="100">Puri (1 piece)</option>
+              <!-- Curries and Veg -->
+              <option value="180">Dal Tadka (1 cup)</option>
+              <option value="200">Dal (1 cup)</option>
+              <option value="150">Aloo Gobi (1 cup)</option>
+              <option value="140">Vegetable Curry (1 cup)</option>
+              <option value="260">Paneer (100g)</option>
+              <option value="280">Palak Paneer (1 cup)</option>
+              <option value="350">Paneer Butter Masala (1 cup)</option>
+              <option value="250">Rajma (1 cup)</option>
+              <option value="200">Chole (1 cup)</option>
+              <!-- Non-veg -->
+              <option value="400">Butter Chicken (1 cup)</option>
+              <option value="250">Chicken Tikka Masala (1 cup)</option>
+              <option value="220">Egg Curry (1 cup)</option>
+              <option value="300">Mutton Curry (1 cup)</option>
+              <!-- Snacks -->
+              <option value="150">Samosa (1 piece)</option>
+              <option value="70">Vada Pav (1 piece)</option>
+              <!-- Sweets -->
+              <option value="150">Gulab Jamun (1 piece)</option>
+              <option value="100">Jalebi (2 small)</option>
+            </select>
+          </td>
+          <td data-label="Calories">
+            <input type="number" placeholder="Calories" readonly>
+          </td>
+          <td data-label="Quantity">
+            <input type="number" placeholder="Qty" value="1" min="1" onchange="calculateTotal()">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="buttons">
+      <button onclick="addFood()">Add Food Item</button>
+    </div>
+
+    <div id="total">Total Calories: 0</div>
+  </div>
+
+  <script>
+    function addFood() {
+      const tableBody = document.querySelector('#food-table tbody');
+      const row = document.createElement('tr');
+      row.className = 'food-item';
+      row.innerHTML = `
+        <td data-label="Food">
+          <select onchange="updateCalories(this)">
+            <option value="">Select Food</option>
+            <option value="60">Idli (1 piece)</option>
+            <option value="150">Dhokla (2 pieces)</option>
+            <option value="90">Poha (1 cup)</option>
+            <option value="120">Upma (1 cup)</option>
+            <option value="250">Masala Dosa (1 piece)</option>
+            <option value="205">Plain Rice (1 cup)</option>
+            <option value="230">Jeera Rice (1 cup)</option>
+            <option value="250">Vegetable Pulao (1 cup)</option>
+            <option value="300">Biryani (1 cup)</option>
+            <option value="80">Plain Roti (1 piece)</option>
+            <option value="180">Butter Naan (1 piece)</option>
+            <option value="150">Paratha (1 piece)</option>
+            <option value="100">Puri (1 piece)</option>
+            <option value="180">Dal Tadka (1 cup)</option>
+            <option value="200">Dal (1 cup)</option>
+            <option value="150">Aloo Gobi (1 cup)</option>
+            <option value="140">Vegetable Curry (1 cup)</option>
+            <option value="260">Paneer (100g)</option>
+            <option value="280">Palak Paneer (1 cup)</option>
+            <option value="350">Paneer Butter Masala (1 cup)</option>
+            <option value="250">Rajma (1 cup)</option>
+            <option value="200">Chole (1 cup)</option>
+            <option value="400">Butter Chicken (1 cup)</option>
+            <option value="250">Chicken Tikka Masala (1 cup)</option>
+            <option value="220">Egg Curry (1 cup)</option>
+            <option value="300">Mutton Curry (1 cup)</option>
+            <option value="150">Samosa (1 piece)</option>
+            <option value="70">Vada Pav (1 piece)</option>
+            <option value="150">Gulab Jamun (1 piece)</option>
+            <option value="100">Jalebi (2 small)</option>
+          </select>
+        </td>
+        <td data-label="Calories">
+          <input type="number" placeholder="Calories" readonly>
+        </td>
+        <td data-label="Quantity">
+          <input type="number" placeholder="Qty" value="1" min="1" onchange="calculateTotal()">
+        </td>
+      `;
+      tableBody.appendChild(row);
+    }
+
+    function updateCalories(selectElement) {
+      const caloriesInput = selectElement.closest('tr').querySelector('input[placeholder="Calories"]');
+      caloriesInput.value = selectElement.value || 0;
+      calculateTotal();
+    }
+
+    function calculateTotal() {
+      const rows = document.querySelectorAll('.food-item');
+      let total = 0;
+      rows.forEach(row => {
+        const calories = parseFloat(row.querySelector('input[placeholder="Calories"]').value) || 0;
+        const qty = parseFloat(row.querySelector('input[placeholder="Qty"]').value) || 1;
+        total += calories * qty;
+      });
+      document.getElementById('total').innerText = `Total Calories: ${total}`;
+    }
+  </script>
+  <script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

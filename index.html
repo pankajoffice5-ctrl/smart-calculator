@@ -3,143 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Nesting | Calculator System</title>
+<title>Smart Nesting | Calculator System</title>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
 <style>
-/* ===== RESET ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-}
+/* ===== RESET & BASE ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; }
 
-/* ===== BODY ===== */
 body {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   padding: 30px 15px;
 }
 
 /* ===== DOWNLOAD ICON ===== */
 .download-icon {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  color: #ffffff;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(6px);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  z-index: 1000;
+  position: fixed; top: 16px; right: 16px; width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; color: #ffffff; background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px); cursor: pointer; transition: all 0.2s ease; z-index: 1000;
 }
-
-.download-icon:hover {
-  background: rgba(255,255,255,0.18);
-  transform: translateY(-1px);
-}
+.download-icon:hover { background: rgba(255,255,255,0.18); transform: translateY(-1px); }
 
 /* ===== CONTAINER ===== */
 .container {
-  background: #ffffff;
-  width: 100%;
-  max-width: 480px;
-  border-radius: 22px;
-  padding: 30px 25px;
+  background: #ffffff; width: 100%; max-width: 480px;
+  border-radius: 22px; padding: 30px 25px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  margin-bottom: 20px;
 }
 
-/* ===== HEADER ===== */
-.header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.header h1 {
-  font-size: 24px;
-  color: #1565c0;
-  margin-bottom: 6px;
-}
-
-.header p {
-  font-size: 14px;
-  color: #666;
-}
-
-/* ===== BUTTON GROUP ===== */
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { font-size: 24px; color: #1565c0; margin-bottom: 6px; }
+.header p { font-size: 14px; color: #666; }
 
 /* ===== BUTTONS ===== */
+.button-group { display: flex; flex-direction: column; gap: 14px; }
 button {
-  width: 100%;
-  padding: 14px;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  width: 100%; padding: 14px; font-size: 15px; font-weight: 600;
+  border-radius: 14px; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
   transition: all 0.25s ease;
 }
+.btn-primary { background: linear-gradient(135deg, #1976d2, #0d47a1); color: #fff; }
+.btn-secondary { background: linear-gradient(135deg, #546e7a, #37474f); color: #fff; }
+button:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,0.25); }
 
-.btn-primary {
-  background: linear-gradient(135deg, #1976d2, #0d47a1);
-  color: #fff;
+/* ===== MODAL STYLE (For Privacy/About) ===== */
+.modal {
+  display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+  width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
 }
-
-.btn-secondary {
-  background: linear-gradient(135deg, #546e7a, #37474f);
-  color: #fff;
+.modal-content {
+  background-color: #fefefe; margin: 10% auto; padding: 25px;
+  border-radius: 15px; width: 90%; max-width: 500px; max-height: 70vh; overflow-y: auto;
 }
-
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.25);
-}
+.close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.modal-content h2 { margin-bottom: 15px; color: #1565c0; }
+.modal-content p { font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 10px; }
 
 /* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 12px;
-  color: #777;
-}
+footer { text-align: center; margin-top: 10px; font-size: 12px; color: #fff; opacity: 0.8; }
+.footer-links { margin-bottom: 10px; }
+.footer-links span { cursor: pointer; text-decoration: underline; margin: 0 10px; }
 
-/* ===== MOBILE ===== */
 @media (max-width: 480px) {
-  .container {
-    padding: 25px 20px;
-  }
-  .header h1 {
-    font-size: 22px;
-  }
-  button {
-    font-size: 14px;
-    padding: 12px;
-  }
+  .container { padding: 25px 20px; }
+  .header h1 { font-size: 22px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔽 DOWNLOAD ICON (PUT YOUR APK LINK BELOW) -->
 <a href="Smart_Calculator.apk" download class="download-icon" title="Download App">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
     <path d="M12 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -149,60 +89,75 @@ footer {
 </a>
 
 <div class="container">
-
   <div class="header">
-    <h1>All Calculator</h1>
+    <h1>Smart Calculator</h1>
     <p>Nesting & Estimation Calculator System</p>
   </div>
 
   <div class="button-group">
-    <button class="btn-secondary" onclick="openPage('manual.html')">
-      ● Manual Table Nesting
-    </button>
-
-    <button class="btn-secondary" onclick="openPage('COPY PASTE.html')">
-      📋 Non-Joint Copy-Paste (Excel)
-    </button>
-
-    <button class="btn-secondary" onclick="openPage('COPY PASTE JOINT.html')">
-      📋 Joint Copy-Paste (Excel)
-    </button>
-
-    <button class="btn-primary" onclick="openPage('for_diagonal.html')">
-      ⊿ Diagonal Calculator
-    </button>
-
-    <button class="btn-primary" onclick="openPage('METAL LIST.html')">
-      📊 Metal Estimation
-    </button>
-
-    <button class="btn-primary" onclick="openPage('CALCULATOR.html')">
-      🖩 Basic Calculator
-    </button>
-
-    <button class="btn-primary" onclick="openPage('HYDRAOLIC.html')">
-      🧮 Hydraulic Force Calculator
-    </button>
-        <button class="btn-primary" onclick="openPage('VOLUME CALCULATOR.html')">
-      🛢 Volume Calculator (ltr)
-    </button>
+     <button class="btn-primary" onclick="openPage('mobile_cad.html')"> ✏️ Mobile CAD </button>
+    <button class="btn-secondary" onclick="openPage('manual.html')">● Manual Table Nesting</button>
+    <button class="btn-secondary" onclick="openPage('COPY PASTE.html')">📋 Non-Joint Copy-Paste (Excel)</button>
+    <button class="btn-secondary" onclick="openPage('COPY PASTE JOINT.html')">📋 Joint Copy-Paste (Excel)</button>
+    <button class="btn-primary" onclick="openPage('for_diagonal.html')">⊿ Diagonal Calculator</button>
+    <button class="btn-primary" onclick="openPage('METAL LIST.html')">📊 Metal Estimation</button>
+    <button class="btn-primary" onclick="openPage('CALCULATOR.html')">🖩 Basic Calculator</button>
+    <button class="btn-primary" onclick="openPage('HYDRAOLIC.html')">🧮 Hydraulic Force Calculator</button>
+    <button class="btn-primary" onclick="openPage('VOLUME CALCULATOR.html')">🛢 Volume Calculator (ltr)</button>
+    <button class="btn-primary" onclick="openPage('vatcalulator.html')">💰VAT Calculator </button>
+    <button class="btn-primary" onclick="openPage('pregency.html')">🤰Pregnancy Calculator</button>
+    <button class="btn-primary" onclick="openPage('BMI.html')">⚖️BMI Calculator (ltr)</button>
+    <button class="btn-primary" onclick="openPage('comp_and_sip.html')">📈SIP/Compond intrest Calculator</button>
+    <button class="btn-primary" onclick="openPage('sleep_calculator.html')">😴Sleep Calculator</button>
+    <button class="btn-primary" onclick="openPage('calories.html')">🔥Calories Calculator (ltr)</button>
   </div>
+</div>
 
-  <footer>
-    © Smart Calculator · All Rights Reserved
-  </footer>
+<footer>
+  <div class="footer-links">
+    <span onclick="showModal('aboutModal')">About Us</span> | 
+    <span onclick="showModal('privacyModal')">Privacy Policy</span>
+  </div>
+  © 2025 Smart Calculator · All Rights Reserved
+</footer>
 
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="hideModal('aboutModal')">&times;</span>
+    <h2>About Us</h2>
+    <p>Welcome to <strong>All Calculator</strong>. We provide a comprehensive suite of professional engineering and nesting tools designed to simplify complex calculations for metal fabrication and industrial estimation.</p>
+    <p>Our mission is to provide accurate, fast, and easy-to-use calculation tools for professionals worldwide.</p>
+  </div>
+</div>
+
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="hideModal('privacyModal')">&times;</span>
+    <h2>Privacy Policy</h2>
+    <p><strong>Effective Date:</strong> January 2026</p>
+    <p>At All Calculator, we prioritize your privacy. This policy explains how we handle your data.</p>
+    <p><strong>1. Information Collection:</strong> We do NOT collect any personal information, login data, or location tracking. All calculations are performed locally on your device.</p>
+    <p><strong>2. Cookies & Advertising:</strong> We use Google AdSense to serve ads. Google may use cookies to serve ads based on your prior visits to our website.</p>
+    <p><strong>3. Third-Party Links:</strong> Our site contains links to other pages. We are not responsible for the privacy practices of external sites.</p>
+    <p><strong>4. Contact:</strong> For any questions, please reach out via our official support channels.</p>
+  </div>
 </div>
 
 <script>
-function openPage(page) {
-  window.location.href = page;
+function openPage(page) { window.location.href = page; }
+
+function showModal(id) { document.getElementById(id).style.display = "block"; }
+function hideModal(id) { document.getElementById(id).style.display = "none"; }
+
+// Close modal if clicking outside of it
+window.onclick = function(event) {
+  if (event.target.className === 'modal') {
+    event.target.style.display = "none";
+  }
 }
 
-// Disable right-click
-document.addEventListener("contextmenu", function(e) {
-  e.preventDefault();
-});
+// Disable right-click for AdSense security
+document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
 </script>
 
 </body>

@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator</title>
+  <style>
+    * {box-sizing: border-box; font-family: Arial, sans-serif;}
+    body {margin:0; min-height:100vh; display:flex; justify-content:center; align-items:center; background:linear-gradient(135deg, #4facfe, #00f2fe);}
+    .card {background:#fff; padding:30px; border-radius:16px; width:100%; max-width:420px; box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+    h1 {text-align:center; margin-bottom:10px; color:#333;}
+    .subtitle {text-align:center; color:#666; margin-bottom:25px; font-size:14px;}
+    .field {margin-bottom:15px;}
+    label {display:block; margin-bottom:6px; font-size:14px; color:#444;}
+    input, select {width:100%; padding:10px; font-size:15px; border-radius:8px; border:1px solid #ccc; outline:none;}
+    input:focus, select:focus {border-color:#4facfe;}
+    button {width:100%; padding:12px; font-size:16px; font-weight:bold; color:#fff; background:linear-gradient(135deg,#4facfe,#00c6ff); border:none; border-radius:10px; cursor:pointer;}
+    button:hover {opacity:0.9;}
+    .result {margin-top:20px; padding:15px; border-radius:10px; text-align:center; display:none;}
+    .speedometer {position:relative; width:260px; height:130px; margin:20px auto; background:conic-gradient(from 180deg, #5c6bc0 0deg 36deg, #64b5f6 36deg 72deg, #66bb6a 72deg 108deg, #ffb74d 108deg 144deg, #ef5350 144deg 180deg); border-radius:260px 260px 0 0; overflow:hidden;}
+    .speedometer::after {content:""; position:absolute; width:200px; height:100px; background:#fff; border-radius:200px 200px 0 0; bottom:0; left:30px;}
+    .needle {position:absolute; width:4px; height:100px; background:#222; bottom:0; left:50%; transform-origin:bottom center; transform:rotate(-90deg); transition: transform 1s ease; z-index:5;}
+    .center-dot {position:absolute; width:14px; height:14px; background:#222; border-radius:50%; bottom:-7px; left:calc(50% - 7px); z-index:6;}
+  </style>
+</head>
+<body>
+  <div class="card">
+                  <a href="index.html">🏠 Home</a>
+          <br>
+    <h1>BMI Calculator</h1>
+    <p class="subtitle">Check your Body Mass Index</p><div class="field">
+  <label for="weight">Weight (kg)</label>
+  <input type="number" id="weight" placeholder="Enter weight" />
+</div>
+
+<div class="field">
+  <label for="height">Height</label>
+  <input type="number" id="height" placeholder="Enter height" />
+</div>
+
+<div class="field">
+  <label for="unit">Height Unit</label>
+  <select id="unit">
+      <option value="cm">Feet (ft)</option>
+    <option value="ft">Centimeter (cm)</option>
+    <option value="inch">Inch</option>
+  </select>
+</div>
+
+<button onclick="calculateBMI()">Calculate BMI</button>
+
+<div id="result" class="result">
+  <h2 id="bmiValue"></h2>
+  <p id="bmiText"></p>
+  <div class="speedometer">
+    <div class="needle" id="gaugeNeedle"></div>
+    <div class="center-dot"></div>
+  </div>
+</div>
+
+  </div>  <script>
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById("weight").value);
+      const heightValue = parseFloat(document.getElementById("height").value);
+      const unit = document.getElementById("unit").value;
+      const resultBox = document.getElementById("result");
+      const bmiValue = document.getElementById("bmiValue");
+      const bmiText = document.getElementById("bmiText");
+      const needle = document.getElementById("gaugeNeedle");
+
+      if (!weight || !heightValue) {alert("Please enter weight and height"); return;}
+
+      let heightM;
+      if(unit === 'cm'){heightM = heightValue/100;}
+      else if(unit==='ft'){heightM = heightValue*0.3048;}
+      else{heightM = heightValue*0.0254;}
+
+      const bmi = (weight/(heightM*heightM)).toFixed(1);
+      bmiValue.innerText = `Your BMI: ${bmi}`;
+      resultBox.style.display = 'block';
+
+      let angle;
+      if(bmi<16){bmiText.innerText='Severe underweight'; angle=-80;}
+      else if(bmi<18.5){bmiText.innerText='Underweight'; angle=-45;}
+      else if(bmi<25){bmiText.innerText='Normal'; angle=0;}
+      else if(bmi<30){bmiText.innerText='Overweight'; angle=45;}
+      else{bmiText.innerText='Obesity'; angle=80;}
+
+      needle.style.transform = `rotate(${angle}deg)`;
+    }
+  </script>
+  <script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+  </body>
+</html>

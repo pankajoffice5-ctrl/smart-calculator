@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile CAD Pro</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; overflow: hidden; background: #121212; color: #fff; }
+        #toolbar { 
+            position: absolute; top: 0; width: 100%; height: 100px; 
+            background: #252525; display: grid; grid-template-columns: repeat(6, 1fr);
+            gap: 3px; padding: 5px; box-sizing: border-box; z-index: 10; border-bottom: 2px solid #333;
+        }
+        canvas { display: block; touch-action: none; }
+        .btn { padding: 5px 1px; border: 1px solid #444; background: #333; color: white; border-radius: 4px; font-size: 8px; font-weight: bold; text-transform: uppercase; }
+        .active { background: #007bff; border-color: #fff; }
+        .danger { background: #600; }
+        #stats { position: absolute; bottom: 20px; width: 100%; text-align: center; pointer-events: none; }
+        .label { background: rgba(0,0,0,0.9); padding: 8px 15px; border-radius: 5px; border: 1px solid #00ff00; color: #00ff00; font-family: monospace; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<div id="toolbar">
+                 <a href="index.html">🏠 Home</a>
+          <br> 
+
+    <button class="btn" id="btnLine" onclick="setMode('line')">Line</button>
+    <button class="btn" id="btnCircle" onclick="setMode('circle')">Circle</button>
+    <button class="btn" id="btnRect" onclick="setMode('rect')">Rect</button>
+    <button class="btn" id="btnMove" onclick="setMode('move')">Move</button>
+    <button class="btn" id="btnCopy" onclick="setMode('copy')">Copy</button>
+    <button class="btn" id="btnDelete" onclick="setMode('delete')">Erase</button>
+    
+    <button class="btn active" id="btnSnap" onclick="toggleSnap()">Snap</button>
+    <button class="btn active" id="btnAngle" onclick="toggleAngle()">Angle</button>
+    <button class="btn" id="btnOrtho" onclick="toggleOrtho()">Ortho</button>
+    <button class="btn" id="btnDim" onclick="setMode('dim')">Dim</button>
+    <button class="btn" onclick="undo()">Undo</button>
+    <button class="btn danger" onclick="clearAll()">Clear</button>
+</div>
+
+<div id="stats"><span class="label" id="dimInfo">NAV MODE</span></div>
+<canvas id="cadCanvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('cadCanvas');
+    const ctx = canvas.getContext('2d');
+    const dimInfo = document.getElementById('dimInfo');
+
+    let mode = 'nav', shapes = [], dims = [], history = [], isDrawing = false;
+    let snapEnabled = true, angleEnabled = true, orthoEnabled = false;
+    
+    let scale = 1.0, offsetX = 0, offsetY = 0;
+    const gridSize = 1; 
+    let startP = null, currentP = null, snapPt = null, selectedShape = null;
+    let lastDist = 0, lastX = 0, lastY = 0;
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; render(); }
+
+    function setMode(m) {
+        mode = (mode === m) ? 'nav' : m;
+        updateUI();
+        render();
+    }
+
+    function toggleOrtho() { orthoEnabled = !orthoEnabled; document.getElementById('btnOrtho').classList.toggle('active', orthoEnabled); }
+    function toggleSnap() { snapEnabled = !snapEnabled; document.getElementById('btnSnap').classList.toggle('active', snapEnabled); }
+    function toggleAngle() { angleEnabled = !angleEnabled; document.getElementById('btnAngle').classList.toggle('active', angleEnabled); render(); }
+    
+    function undo() { 
+        if(history.length > 0) { 
+            let state = history.pop();
+            shapes = state.shapes;
+            dims = state.dims;
+            render(); 
+        } 
+    }
+
+    function updateUI() {
+        document.querySelectorAll('.btn').forEach(b => { 
+            if(!['btnSnap', 'btnAngle', 'btnOrtho'].includes(b.id)) b.classList.remove('active'); 
+        });
+        const activeBtn = document.getElementById('btn' + mode.charAt(0).toUpperCase() + mode.slice(1));
+        if(mode !== 'nav' && activeBtn) activeBtn.classList.add('active');
+        dimInfo.innerText = mode.toUpperCase();
+    }
+
+    function getCoord(e) {
+        let t = e.touches ? e.touches[0] : e;
+        let x = (t.clientX - offsetX) / scale;
+        let y = (t.clientY - offsetY) / scale;
+        snapPt = null;
+
+        if (snapEnabled && !['nav', 'delete'].includes(mode)) {
+            let bestDist = 15 / scale; 
+            shapes.forEach(s => {
+                let pts = [];
+                if(s.type === 'line') {
+                    pts.push({x:s.x1, y:s.y1, type:'end'}, {x:s.x2, y:s.y2, type:'end'});
+                    pts.push({x:(s.x1+s.x2)/2, y:(s.y1+s.y2)/2, type:'mid'});
+                } else if(s.type === 'circle') {
+                    pts.push({x: s.cx, y: s.cy, type:'center'});
+                    pts.push({x: s.cx + s.r, y: s.cy, type:'quad'}, {x: s.cx - s.r, y: s.cy, type:'quad'});
+                    pts.push({x: s.cx, y: s.cy + s.r, type:'quad'}, {x: s.cx, y: s.cy - s.r, type:'quad'});
+                } else if(s.type === 'rect') {
+                    pts.push({x:s.x, y:s.y, type:'end'}, {x:s.x+s.w, y:s.y, type:'end'}, {x:s.x+s.w, y:s.y+s.h, type:'end'}, {x:s.x, y:s.y+s.h, type:'end'});
+                    pts.push({x:s.x+s.w/2, y:s.y, type:'mid'}, {x:s.x+s.w/2, y:s.y+s.h, type:'mid'}, {x:s.x, y:s.y+s.h/2, type:'mid'}, {x:s.x+s.w, y:s.y+s.h/2, type:'mid'});
+                    pts.push({x:s.x+s.w/2, y:s.y+s.h/2, type:'center'});
+                }
+                pts.forEach(p => {
+                    let d = Math.hypot(x-p.x, y-p.y);
+                    if(d < bestDist) { bestDist = d; x = p.x; y = p.y; snapPt = p; }
+                });
+            });
+            if(!snapPt) {
+                x = Math.round(x / gridSize) * gridSize;
+                y = Math.round(y / gridSize) * gridSize;
+            }
+        }
+        if (orthoEnabled && isDrawing && startP) {
+            if (Math.abs(x - startP.x) > Math.abs(y - startP.y)) y = startP.y;
+            else x = startP.x;
+        }
+        return { x, y };
+    }
+
+    function render() {
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(scale, scale);
+        drawGrid();
+
+        shapes.forEach(s => {
+            ctx.strokeStyle = "#fff"; ctx.lineWidth = 2/scale;
+            ctx.beginPath();
+            if(s.type==='line'){ ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); }
+            else if(s.type==='circle') { ctx.arc(s.cx, s.cy, s.r, 0, Math.PI*2); }
+            else if(s.type==='rect') { ctx.rect(s.x, s.y, s.w, s.h); }
+            ctx.stroke();
+        });
+
+        if(isDrawing && startP && currentP) {
+            ctx.setLineDash([5/scale, 5/scale]);
+            let dx = currentP.x - startP.x, dy = currentP.y - startP.y;
+            if(mode === 'line') { ctx.strokeStyle = "#007bff"; ctx.beginPath(); ctx.moveTo(startP.x, startP.y); ctx.lineTo(currentP.x, currentP.y); ctx.stroke(); }
+            else if(mode === 'circle') { ctx.strokeStyle = "#007bff"; ctx.beginPath(); ctx.arc(startP.x, startP.y, dist(startP, currentP), 0, Math.PI*2); ctx.stroke(); }
+            else if(mode === 'rect') { ctx.strokeStyle = "#007bff"; ctx.strokeRect(startP.x, startP.y, dx, dy); }
+            else if(mode === 'dim') { drawDim(startP, currentP, 35/scale, "#ffff00"); }
+            else if((mode === 'move' || mode === 'copy') && selectedShape) {
+                ctx.strokeStyle = "#00ff00";
+                if(selectedShape.type === 'line') { ctx.beginPath(); ctx.moveTo(selectedShape.x1+dx, selectedShape.y1+dy); ctx.lineTo(selectedShape.x2+dx, selectedShape.y2+dy); ctx.stroke(); }
+                else if(selectedShape.type === 'circle') { ctx.beginPath(); ctx.arc(selectedShape.cx+dx, selectedShape.cy+dy, selectedShape.r, 0, Math.PI*2); ctx.stroke(); }
+                else if(selectedShape.type === 'rect') { ctx.strokeRect(selectedShape.x+dx, selectedShape.y+dy, selectedShape.w, selectedShape.h); }
+            }
+            ctx.setLineDash([]);
+            updateStats(startP, currentP);
+        }
+
+        dims.forEach(d => drawDim(d.p1, d.p2, d.offset, "#00ff00"));
+
+        if(snapPt) {
+            ctx.lineWidth = 1/scale;
+            if(snapPt.type === 'mid') { 
+                ctx.strokeStyle = "#00ff00"; ctx.beginPath(); ctx.moveTo(snapPt.x, snapPt.y-6/scale); ctx.lineTo(snapPt.x-6/scale, snapPt.y+6/scale); ctx.lineTo(snapPt.x+6/scale, snapPt.y+6/scale); ctx.closePath(); ctx.stroke();
+            } else if(snapPt.type === 'center') {
+                ctx.strokeStyle = "#00ffff"; ctx.beginPath(); ctx.arc(snapPt.x, snapPt.y, 5/scale, 0, Math.PI*2); ctx.stroke();
+            } else if(snapPt.type === 'quad') {
+                ctx.strokeStyle = "#ff00ff"; ctx.beginPath(); ctx.moveTo(snapPt.x, snapPt.y-6/scale); ctx.lineTo(snapPt.x+6/scale, snapPt.y); ctx.lineTo(snapPt.x, snapPt.y+6/scale); ctx.lineTo(snapPt.x-6/scale, snapPt.y); ctx.closePath(); ctx.stroke();
+            } else { 
+                ctx.strokeStyle = "#ffff00"; ctx.strokeRect(snapPt.x - 5/scale, snapPt.y - 5/scale, 10/scale, 10/scale);
+            }
+        }
+    }
+
+    function drawDim(p1, p2, offset, col) {
+        ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 1/scale;
+        let angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+        let offX = Math.cos(angle + Math.PI/2) * offset;
+        let offY = Math.sin(angle + Math.PI/2) * offset;
+        let d1 = { x: p1.x + offX, y: p1.y + offY }, d2 = { x: p2.x + offX, y: p2.y + offY };
+        ctx.setLineDash([2/scale, 2/scale]);
+        ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(d1.x, d1.y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(p2.x, p2.y); ctx.lineTo(d2.x, d2.y); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.beginPath(); ctx.moveTo(d1.x, d1.y); ctx.lineTo(d2.x, d2.y); ctx.stroke();
+        let label = dist(p1,p2).toFixed(1);
+        ctx.font = `${12/scale}px monospace`;
+        ctx.save(); ctx.translate((d1.x + d2.x)/2, (d1.y + d2.y)/2); ctx.rotate(angle); ctx.fillText(label, 0, -5/scale); ctx.restore();
+    }
+
+    function updateStats(p1, p2) {
+        let d = dist(p1, p2);
+        dimInfo.innerText = `L: ${d.toFixed(1)} | ANG: ${getAngle(p1, p2).toFixed(1)}°`;
+    }
+
+    function drawGrid() {
+        ctx.strokeStyle = "#222"; ctx.lineWidth = 0.5/scale;
+        const spacing = 20; 
+        const l = -offsetX/scale, t = -offsetY/scale, r = (canvas.width-offsetX)/scale, b = (canvas.height-offsetY)/scale;
+        for(let x = Math.floor(l/spacing)*spacing; x<r; x+=spacing){ ctx.beginPath(); ctx.moveTo(x,t); ctx.lineTo(x,b); ctx.stroke(); }
+        for(let y = Math.floor(t/spacing)*spacing; y<b; y+=spacing){ ctx.beginPath(); ctx.moveTo(l,y); ctx.lineTo(r,y); ctx.stroke(); }
+    }
+
+    function dist(p1, p2) { return Math.hypot(p2.x-p1.x, p2.y-p1.y); }
+    function getAngle(p1, p2) { let a = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI; return (a < 0) ? a + 360 : a; }
+
+    canvas.addEventListener('touchstart', e => {
+        if(e.touches.length === 2) { lastDist = dist({x:e.touches[0].clientX, y:e.touches[0].clientY}, {x:e.touches[1].clientX, y:e.touches[1].clientY}); }
+        else {
+            const pos = getCoord(e);
+            if(mode === 'nav') { lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }
+            else if(mode === 'delete') { 
+                saveHistory(); 
+                shapes = shapes.filter(s => !isNear(pos, s)); 
+                dims = dims.filter(d => !isNearDim(pos, d)); 
+                render(); 
+            }
+            else if(mode === 'move' || mode === 'copy') { selectedShape = shapes.find(s => isNear(pos, s)); if(selectedShape) { isDrawing = true; startP = pos; currentP = pos; } }
+            else { isDrawing = true; startP = pos; currentP = pos; }
+        }
+    });
+
+    canvas.addEventListener('touchmove', e => {
+        if(e.touches.length === 2) {
+            let d = dist({x:e.touches[0].clientX, y:e.touches[0].clientY}, {x:e.touches[1].clientX, y:e.touches[1].clientY});
+            scale *= (d/lastDist); lastDist = d; render();
+        } else if(mode === 'nav') {
+            offsetX += (e.touches[0].clientX - lastX); offsetY += (e.touches[0].clientY - lastY);
+            lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; render();
+        } else if(isDrawing) { currentP = getCoord(e); render(); }
+    });
+
+    canvas.addEventListener('touchend', () => {
+        if(isDrawing) {
+            saveHistory();
+            let dx = currentP.x - startP.x, dy = currentP.y - startP.y;
+            if(mode === 'line' || mode === 'circle' || mode === 'rect') {
+                let d = dist(startP, currentP);
+                let input = prompt(`Enter Size:`, d.toFixed(1));
+                if(input !== null && !isNaN(input) && input > 0) {
+                    let val = parseFloat(input);
+                    if(mode === 'line') {
+                        let ang = Math.atan2(dy, dx);
+                        shapes.push({type:'line', x1:startP.x, y1:startP.y, x2:startP.x + Math.cos(ang)*val, y2:startP.y + Math.sin(ang)*val});
+                    } else if(mode === 'circle') shapes.push({type:'circle', cx:startP.x, cy:startP.y, r:val});
+                    else if(mode === 'rect') {
+                        let hInput = prompt("Enter Height:", Math.abs(dy).toFixed(1));
+                        shapes.push({type:'rect', x: Math.min(startP.x, currentP.x), y: Math.min(startP.y, currentP.y), w: val, h: parseFloat(hInput)});
+                    }
+                } else {
+                    if(mode === 'line') shapes.push({type:'line', x1:startP.x, y1:startP.y, x2:currentP.x, y2:currentP.y});
+                    else if(mode === 'circle') shapes.push({type:'circle', cx:startP.x, cy:startP.y, r:d});
+                    else if(mode === 'rect') shapes.push({type:'rect', x: Math.min(startP.x, currentP.x), y: Math.min(startP.y, currentP.y), w: Math.abs(dx), h: Math.abs(dy)});
+                }
+            } else if(mode === 'move' && selectedShape) { 
+                if(selectedShape.type === 'line') { selectedShape.x1+=dx; selectedShape.y1+=dy; selectedShape.x2+=dx; selectedShape.y2+=dy; }
+                else if(selectedShape.type === 'circle') { selectedShape.cx+=dx; selectedShape.cy+=dy; }
+                else if(selectedShape.type === 'rect') { selectedShape.x+=dx; selectedShape.y+=dy; }
+            } else if(mode === 'copy' && selectedShape) {
+                let s = JSON.parse(JSON.stringify(selectedShape));
+                if(s.type === 'line') { s.x1+=dx; s.y1+=dy; s.x2+=dx; s.y2+=dy; }
+                else if(s.type === 'circle') { s.cx+=dx; s.cy+=dy; }
+                else if(s.type === 'rect') { s.x+=dx; s.y+=dy; }
+                shapes.push(s);
+            } else if(mode === 'dim') dims.push({p1:startP, p2:currentP, offset: 35/scale});
+        }
+        isDrawing = false; selectedShape = null; snapPt = null; render();
+    });
+
+    function isNear(p, s) {
+        const tol = 20/scale;
+        if(s.type === 'line') return distToSeg(p, {x:s.x1, y:s.y1}, {x:s.x2, y:s.y2}) < tol;
+        if(s.type === 'circle') return Math.abs(dist(p, {x:s.cx, y:s.cy}) - s.r) < tol || dist(p, {x:s.cx, y:s.cy}) < tol;
+        if(s.type === 'rect') return p.x > s.x-tol && p.x < s.x+s.w+tol && p.y > s.y-tol && p.y < s.y+s.h+tol;
+        return false;
+    }
+    
+    function isNearDim(p, d) {
+        // Calculate where the offset dimension line is
+        let angle = Math.atan2(d.p2.y - d.p1.y, d.p2.x - d.p1.x);
+        let offX = Math.cos(angle + Math.PI/2) * d.offset;
+        let offY = Math.sin(angle + Math.PI/2) * d.offset;
+        let d1 = { x: d.p1.x + offX, y: d.p1.y + offY };
+        let d2 = { x: d.p2.x + offX, y: d.p2.y + offY };
+        
+        // Check if tap is near the offset line OR the original sketch points
+        return distToSeg(p, d1, d2) < 25/scale || dist(p, d1) < 25/scale || dist(p, d2) < 25/scale;
+    }
+
+    function distToSeg(p, v, w) {
+        const l2 = dist(v, w)**2; if (l2 == 0) return dist(p, v);
+        let t = Math.max(0, Math.min(1, ((p.x-v.x)*(w.x-v.x)+(p.y-v.y)*(w.y-v.y))/l2));
+        return dist(p, {x: v.x+t*(w.x-v.x), y: v.y+t*(w.y-v.y)});
+    }
+
+    function saveHistory() { history.push({ shapes: JSON.parse(JSON.stringify(shapes)), dims: JSON.parse(JSON.stringify(dims)) }); if(history.length > 20) history.shift(); }
+    function clearAll() { if(confirm("Clear sketch?")) { shapes=[]; dims=[]; history=[]; render(); } }
+    window.addEventListener('resize', resize);
+    resize();
+</script>
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

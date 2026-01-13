@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Area Calculator</title>
+    <style>
+        :root {
+            --primary: #1b5e20;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .calculator {
+            background: var(--card-bg);
+            max-width: 480px;
+            width: 100%;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h2 { text-align: center; color: var(--primary); margin-bottom: 25px; }
+        
+        .section { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: #333; }
+        
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        input:focus, select:focus { border-color: var(--primary); }
+
+        .result-container {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #c8e6c9;
+            margin-top: 10px;
+        }
+        .result-title { font-size: 14px; color: #666; text-transform: uppercase; }
+        #finalResult { 
+            font-size: 36px; 
+            font-weight: 800; 
+            color: var(--primary); 
+            margin: 10px 0;
+            word-wrap: break-word;
+        }
+        .unit-display { font-weight: bold; color: #444; font-size: 18px; }
+        .footer-note { font-size: 11px; color: #888; margin-top: 15px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+                          <a href="index.html">🏠 Home</a>
+          <br>
+    <h2>Land Area Tool</h2>
+
+    <div class="section">
+        <label>1. Enter Dimensions</label>
+        <div class="input-row">
+            <input type="number" id="length" placeholder="Length" oninput="calculate()">
+            <input type="number" id="width" placeholder="Width" oninput="calculate()">
+        </div>
+        <select id="inUnit" onchange="calculate()">
+            <option value="meter">Unit: Meters (m)</option>
+            <option value="feet">Unit: Feet (ft)</option>
+            <option value="mm">Unit: Millimeters (mm)</option>
+            <option value="yard">Unit: Yards (yd)</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <label>2. Show Result In</label>
+        <select id="outUnit" onchange="calculate()">
+            <option value="sqft">Square Feet (sq ft)</option>
+            <option value="sqmt">Square Meters (sq m)</option>
+            <option value="acre">Acres</option>
+            <option value="hectare">Hectares</option>
+            <option value="katha">Katha (Standard)</option>
+            <option value="bigha">Bigha (Standard)</option>
+            <option value="cent">Cents (South India)</option>
+        </select>
+    </div>
+
+    <div class="result-container">
+        <div class="result-title">Calculated Area</div>
+        <div id="finalResult">0</div>
+        <div class="unit-display" id="unitLabel">Square Feet</div>
+    </div>
+
+    <div class="footer-note">
+        * 1 Katha = 1361.25 sq ft | 1 Bigha = 27225 sq ft <br>
+        Result updates automatically as you type.
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        const L = parseFloat(document.getElementById('length').value) || 0;
+        const W = parseFloat(document.getElementById('width').value) || 0;
+        const inUnit = document.getElementById('inUnit').value;
+        const outUnit = document.getElementById('outUnit').value;
+
+        // 1. Calculate Area in Square Feet (The Base)
+        let areaSqFt = 0;
+        const rawArea = L * W;
+
+        if (inUnit === 'feet') {
+            areaSqFt = rawArea;
+        } else if (inUnit === 'meter') {
+            areaSqFt = rawArea * 10.7639;
+        } else if (inUnit === 'mm') {
+            // (mm to ft: mm / 304.8)
+            areaSqFt = (L / 304.8) * (W / 304.8);
+        } else if (inUnit === 'yard') {
+            areaSqFt = rawArea * 9;
+        }
+
+        // 2. Conversion Factors from Sq Ft to others
+        const factors = {
+            sqft: 1,
+            sqmt: 0.092903,
+            acre: 1 / 43560,
+            hectare: 1 / 107639,
+            katha: 1 / 1361.25,
+            bigha: 1 / 27225,
+            cent: 1 / 435.6
+        };
+
+        const result = areaSqFt * factors[outUnit];
+
+        // 3. Update Display
+        const resultDisplay = document.getElementById('finalResult');
+        const unitLabel = document.getElementById('unitLabel');
+        const outSelect = document.getElementById('outUnit');
+
+        resultDisplay.innerText = result.toLocaleString(undefined, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: (result < 1 ? 6 : 2)
+        });
+
+        unitLabel.innerText = outSelect.options[outSelect.selectedIndex].text;
+    }
+</script>
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

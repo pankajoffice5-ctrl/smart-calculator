@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSmart Nesting | Calculator System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --accent-blue: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-bg: #ffffff;
+        }
+
+        /* ===== RESET & BASE ===== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-dark);
+            /* Soft mesh gradient background */
+            background: 
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.5) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(15, 23, 42, 1) 0px, transparent 50%),
+                #0f172a;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+
+        /* ===== TOP NAV ===== */
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .home-link {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .home-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 28px;
+            padding: 48px 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header { margin-bottom: 40px; }
+        
+        .header h1 { 
+            font-size: 32px; 
+            font-weight: 800;
+            color: #1e293b; 
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .header p { 
+            font-size: 15px; 
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        /* ===== BUTTONS ===== */
+        .button-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 16px; 
+        }
+
+        .btn {
+            width: 100%; 
+            padding: 18px; 
+            font-size: 15px; 
+            font-weight: 600;
+            border-radius: 16px; 
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; /* Spread text and icon */
+            transition: all 0.25s ease;
+            text-decoration: none;
+            background: #f8fafc;
+            color: #334155;
+        }
+
+        .btn-primary { 
+            border-color: #e2e8f0;
+        }
+
+        .btn:hover { 
+            background: #ffffff;
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Styling the icons */
+        .icon-circle {
+            width: 32px;
+            height: 32px;
+            background: #eff6ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover .icon-circle {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* ===== FOOTER ===== */
+        footer { 
+            margin-top: 30px;
+            font-size: 12px; 
+            color: rgba(255,255,255,0.4); 
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 40px 24px; }
+            .header h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="top-nav">
+    <a href="index.html" class="home-link"><span>🏠</span> Home</a>
+</nav>
+
+<main class="container">
+    <header class="header">
+        <h1>eSmart Calc</h1>
+        <p>Industrial Plate Nesting Suite</p>
+    </header>
+
+    <nav class="button-group">
+        <button class="btn btn-primary" onclick="openPage('plate nesting.html')">
+            <span>Plate Nesting (Excel)</span>
+            <span class="icon-circle">🎯</span>
+        </button>
+        
+        <button class="btn btn-primary" onclick="openPage('COPY PASTE.html')">
+            <span>Non-Joint Copy-Paste</span>
+            <span class="icon-circle">📋</span>
+        </button>
+        
+        <button class="btn btn-primary" onclick="openPage('COPY PASTE JOINT.html')">
+            <span>Joint Copy-Paste</span>
+            <span class="icon-circle">🔗</span>
+        </button>
+    </nav>
+</main>
+
+<footer>
+    &copy; 2025 ESMART NESTING SYSTEM &bull; v1.0
+</footer>
+
+<script>
+    function openPage(page) {
+        if(page) {
+            // Visual feedback before navigating
+            document.body.style.opacity = '0.5';
+            setTimeout(() => {
+                window.location.href = page;
+            }, 100);
+        }
+    }
+
+    // Security: Disable right-click
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
+</script>
+
+</body>
+</html>

@@ -60,7 +60,7 @@
 
     <div class="import-area">
         <label><strong>Paste from Excel (Width | Length | Qty)</strong></label>
-        <textarea id="excelPaste" placeholder="Example:&#10;1250	400	42"></textarea>
+        <textarea id="excelPaste" placeholder="Example:&#10;250	200	42"></textarea>
         <button class="btn btn-import" onclick="importFromExcel()">📥 Import Data</button>
     </div>
 
@@ -72,10 +72,10 @@
                 <option value="2.70">Aluminum (2.70)</option>
             </select>
         </div>
-        <div class="config-group"><label>Thickness (mm)</label><input type="number" id="thickness" value="5" onchange="updateWeights()"></div>
+        <div class="config-group"><label>Thickness (mm)</label><input type="number" id="thickness" value="6" onchange="updateWeights()"></div>
         <div class="config-group"><label>Stock Width</label><input type="number" id="stockWidth" value="1220"></div>
         <div class="config-group"><label>Stock Length</label><input type="number" id="stockLength" value="2440"></div>
-        <div class="config-group"><label>Kerf (Blade)</label><input type="number" id="bladeSize" value="0"></div>
+        <div class="config-group"><label>Kerf (Blade)</label><input type="number" id="bladeSize" value="3"></div>
     </div>
 
     <table id="inputTable">

@@ -382,11 +382,16 @@ function render(grossW) {
 // --- PDF FIX HERE ---
 async function downloadPDF() {
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('p', 'mm', 'a4'); // A4 Size: 210mm x 297mm
+    const doc = new jsPDF('p', 'mm', 'a4');
     const canvases = document.querySelectorAll("canvas");
     
-    const pageWidth = 190; // 210mm - 10mm margins
-    const pageHeight = 270; // 297mm - 10mm margins - title space
+    // Get Thickness and Material Name for the filename
+    const thickness = document.getElementById("thickness").value;
+    const materialSelect = document.getElementById("materialType");
+    const materialName = materialSelect.options[materialSelect.selectedIndex].text.split(' (')[0]; 
+    
+    const pageWidth = 190;
+    const pageHeight = 270;
 
     for (let i = 0; i < canvases.length; i++) {
         if (i > 0) doc.addPage();
@@ -398,7 +403,6 @@ async function downloadPDF() {
         const canvas = canvases[i];
         const imgData = canvas.toDataURL("image/png");
         
-        // Calculate scaling to fit within page bounds
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
         const ratio = imgWidth / imgHeight;
@@ -406,7 +410,6 @@ async function downloadPDF() {
         let finalW = pageWidth;
         let finalH = finalW / ratio;
 
-        // If the height is too tall for the page, scale based on height instead
         if (finalH > pageHeight) {
             finalH = pageHeight;
             finalW = finalH * ratio;
@@ -414,8 +417,11 @@ async function downloadPDF() {
 
         doc.addImage(imgData, 'PNG', 10, 25, finalW, finalH);
     }
-    doc.save("Project_Cutting_Plan.pdf");
+    
+    // Filename will look like: "Mild Steel_5mm_Cutting_Plan.pdf"
+    doc.save(`${materialName}_${thickness}mm_Cutting_Plan.pdf`);
 }
+
 </script>
 
 <script>

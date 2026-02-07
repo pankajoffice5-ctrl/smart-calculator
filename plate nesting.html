@@ -8,56 +8,54 @@
 
 <style>
     body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; background-color: #f0f2f5; color: #333; }
-    .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 12px; }
+    .container { max-width: 1300px; margin: 0 auto; background: white; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 12px; }
     
-    h2 { color: #1a73e8; margin-top: 0; display: flex; align-items: center; justify-content: space-between; }
-    h3 { border-bottom: 2px solid #e8f0fe; padding-bottom: 5px; color: #2c3e50; }
+    h2 { color: #1a73e8; margin-top: 0; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e8f0fe; padding-bottom: 10px; }
+    h3 { color: #2c3e50; margin: 25px 0 10px 0; font-size: 1.2em; display: flex; align-items: center; gap: 8px; }
     .db-status { font-size: 12px; color: #34a853; font-weight: normal; }
-    
-    .section { margin-bottom: 30px; }
-    .import-area { background: #f8f9fa; border: 2px dashed #cbd5e0; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-    #excelPaste { width: 100%; height: 60px; border: 1px solid #ddd; border-radius: 4px; padding: 10px; font-family: monospace; }
     
     .config-bar { display: flex; gap: 20px; margin-bottom: 20px; background: #e8f0fe; padding: 15px; border-radius: 8px; flex-wrap: wrap; }
     .config-group { display: flex; flex-direction: column; gap: 5px; }
     .config-group label { font-size: 11px; font-weight: bold; text-transform: uppercase; color: #555; }
     input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 140px; }
 
-    table { border-collapse: collapse; width: 100%; margin-top: 10px; background: #fff; }
+    .import-area { background: #f8f9fa; border: 2px dashed #cbd5e0; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+    #excelPaste { width: 100%; height: 60px; border: 1px solid #ddd; border-radius: 4px; padding: 10px; font-family: monospace; font-size: 12px; }
+
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     th, td { border: 1px solid #eee; padding: 10px; text-align: center; }
-    th { background: #1a73e8; color: white; }
-    .weight-col { background: #f1f8ff; font-weight: bold; }
+    th { background: #1a73e8; color: white; font-size: 13px; }
+    .weight-col { background: #f1f8ff; font-weight: bold; color: #1a73e8; }
     .stock-header { background: #2c3e50 !important; }
     
-    .btn { cursor: pointer; padding: 10px 18px; border: none; border-radius: 6px; font-weight: 600; transition: 0.2s; margin-top: 5px; }
-    .btn-import { background: #34a853; color: white; }
-    .btn-add { background: #6c757d; color: white; margin-bottom: 10px; font-size: 14px; }
-    .btn-calc { background: #1a73e8; color: white; font-size: 1.1em; }
+    .btn { cursor: pointer; padding: 10px 18px; border: none; border-radius: 6px; font-weight: 600; transition: 0.2s; }
+    .btn-import { background: #34a853; color: white; margin-top: 10px; }
+    .btn-add { background: #6c757d; color: white; font-size: 13px; margin-bottom: 10px; }
+    .btn-calc { background: #1a73e8; color: white; font-size: 1.1em; width: 100%; padding: 15px; margin-top: 20px; }
     .btn-pdf { background: #ea4335; color: white; }
     .btn-clear { background: #95a5a6; color: white; }
     
-    /* Small Action Buttons */
     .btn-icon { padding: 6px 10px; font-size: 14px; border-radius: 4px; border:none; cursor: pointer; margin: 0 2px; }
     .btn-rem { background: #ff4d4d; color: white; }
     .btn-clone { background: #f1c40f; color: #333; }
     .btn-icon:hover { opacity: 0.8; transform: scale(1.05); }
 
-    #results { margin-top: 30px; }
-    .plate-card { background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
-    canvas { display: block; max-width: 100%; height: auto; border: 1px solid #000; margin-top: 10px; background: #fff; }
-    .summary-box { background: #e6fffa; border-left: 5px solid #38b2ac; padding: 15px; margin-bottom: 20px; border-radius: 4px; display: flex; justify-content: space-around; font-size: 1.1em; }
+    #results { margin-top: 40px; }
+    .plate-card { background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+    canvas { display: block; max-width: 100%; height: auto; border: 2px solid #2c3e50; margin-top: 15px; background: #fff; }
+    .summary-box { background: #e6fffa; border-left: 5px solid #38b2ac; padding: 20px; margin-bottom: 25px; border-radius: 4px; display: flex; justify-content: space-around; font-size: 1.2em; }
 </style>
 </head>
 <body onload="initDB()">
 
 <div class="container">
     <h2>
-        <span>📋 eSmart Calc Plate Nesting & Weight</span>
-        <span id="status" class="db-status">Initializing...</span>
+        <span>🔧 eSmart Calc Nesting system</span>
+        <span id="status" class="db-status">Checking Storage...</span>
     </h2>
 
     <div class="config-bar">
-        <div class="config-group"><label>Material</label>
+        <div class="config-group"><label>Material Type</label>
             <select id="materialType" onchange="updateWeights()">
                 <option value="7.85">Mild Steel (7.85)</option>
                 <option value="8.00">Stainless Steel (8.00)</option>
@@ -65,19 +63,19 @@
             </select>
         </div>
         <div class="config-group"><label>Thickness (mm)</label><input type="number" id="thickness" value="5" onchange="updateWeights()"></div>
-        <div class="config-group"><label>Kerf / Blade (mm)</label><input type="number" id="bladeSize" value="3"></div>
+        <div class="config-group"><label>Kerf (Blade Width)</label><input type="number" id="bladeSize" value="2"></div>
     </div>
 
     <div class="section">
-        <h3>📦 1. Stock Inventory</h3>
+        <h3>📦 1. Stock Plate Inventory</h3>
         <button class="btn btn-add" onclick="addStockRow()">+ Add Stock Plate</button>
         <table id="stockTable">
             <thead>
                 <tr>
-                    <th class="stock-header">Stock Width</th>
-                    <th class="stock-header">Stock Length</th>
-                    <th class="stock-header">Qty</th>
-                    <th class="stock-header">Action</th>
+                    <th class="stock-header">Stock Width (mm)</th>
+                    <th class="stock-header">Stock Length (mm)</th>
+                    <th class="stock-header">Qty Available</th>
+                    <th class="stock-header">Actions</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -85,15 +83,14 @@
     </div>
 
     <div class="section">
-        <h3>🧩 2. Parts to Cut</h3>
-        
+        <h3>🧩 2. Parts to be Cut</h3>
         <div class="import-area">
-            <label><strong>Paste from Excel (W | L | Qty)</strong></label>
-            <textarea id="excelPaste" placeholder="1250	400	42"></textarea>
-            <button class="btn btn-import" onclick="importFromExcel()">📥 Import Data</button>
+            <label><strong>Excel Import (Paste Width | Length | Qty)</strong></label>
+            <textarea id="excelPaste" placeholder="Example: 1250 [Tab] 400 [Tab] 42"></textarea>
+            <button class="btn btn-import" onclick="importFromExcel()">📥 Import from Excel</button>
         </div>
-
-        <button class="btn btn-add" style="background: #2c3e50;" onclick="addPartRow()">+ Add Single Part</button>
+        
+        <button class="btn btn-add" style="background: #1a73e8;" onclick="addPartRow()">+ Add Single Part</button>
         
         <table id="inputTable">
             <thead>
@@ -101,39 +98,38 @@
                     <th>Width (mm)</th>
                     <th>Length (mm)</th>
                     <th>Qty</th>
-                    <th style="background:#2c3e50;">Weight (kg)</th>
-                    <th>Action</th>
+                    <th style="background:#2c3e50;">Part Weight (kg)</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
 
-    <div style="margin-top: 20px; display: flex; gap: 10px;">
-        <button class="btn btn-calc" onclick="optimize()">⚙ Start Smart Nesting</button>
-        <button class="btn btn-pdf" id="pdfBtn" onclick="downloadPDF()" style="display:none;">📄 Export PDF</button>
-        <button class="btn btn-clear" onclick="clearData()">🧹 Wipe Data</button>
-    </div>
+    <button class="btn btn-calc" onclick="optimize()">⚙ CALCULATE NESTING & GENERATE MAPS</button>
 
     <div id="results"></div>
+
+    <div style="margin-top: 30px; display: flex; gap: 10px; justify-content: center;">
+        <button class="btn btn-pdf" id="pdfBtn" onclick="downloadPDF()" style="display:none;">📄 Download PDF Report</button>
+        <button class="btn btn-clear" onclick="clearData()">🧹 Clear All Data</button>
+    </div>
 </div>
 
 <script>
 let PLATES = [];
 let db;
 
-// --- DATABASE ---
+// --- DATABASE LOGIC ---
 function initDB() {
-    const request = indexedDB.open("ProNestingDB", 2);
+    const request = indexedDB.open("NestingProDB_V3", 1);
     request.onupgradeneeded = (e) => {
         db = e.target.result;
-        if (!db.objectStoreNames.contains("settings")) {
-            db.createObjectStore("settings", { keyPath: "id" });
-        }
+        db.createObjectStore("settings", { keyPath: "id" });
     };
     request.onsuccess = (e) => {
         db = e.target.result;
-        document.getElementById("status").innerText = "✔ Database Connected";
+        document.getElementById("status").innerText = "✔ Storage Ready";
         loadSavedData();
     };
 }
@@ -162,7 +158,7 @@ function saveData() {
         parts: parts,
         stocks: stocks
     });
-    document.getElementById("status").innerText = "✔ Session Saved";
+    document.getElementById("status").innerText = "✔ Auto-Saved";
 }
 
 function loadSavedData() {
@@ -185,14 +181,14 @@ function loadSavedData() {
 }
 
 function clearData() {
-    if(confirm("Delete all parts and stock?")) {
+    if(confirm("Clear everything?")) {
         const transaction = db.transaction(["settings"], "readwrite");
         transaction.objectStore("settings").clear();
         location.reload();
     }
 }
 
-// --- UI HELPERS ---
+// --- TABLE CONTROLS ---
 function addStockRow(w='', l='', q='') {
     const tbody = document.querySelector("#stockTable tbody");
     const row = tbody.insertRow(-1);
@@ -210,16 +206,15 @@ function addPartRow(w='', l='', q='') {
                      <td><input type="number" value="${q}" oninput="updateWeights()"></td>
                      <td class="weight-col">0.00</td>
                      <td>
-                        <button class="btn-icon btn-clone" onclick="cloneRow(this)" title="Duplicate Row">📋</button>
-                        <button class="btn-icon btn-rem" onclick="this.closest('tr').remove(); updateWeights();" title="Remove">❌</button>
+                        <button class="btn-icon btn-clone" onclick="clonePart(this)">📋</button>
+                        <button class="btn-icon btn-rem" onclick="this.closest('tr').remove(); updateWeights();">❌</button>
                      </td>`;
     updateWeights();
 }
 
-function cloneRow(btn) {
+function clonePart(btn) {
     const row = btn.closest('tr');
     const inputs = row.querySelectorAll('input');
-    // Add a new row using the values from the clicked row
     addPartRow(inputs[0].value, inputs[1].value, inputs[2].value);
 }
 
@@ -253,6 +248,7 @@ function optimize() {
     let stockPool = [];
     let grossWeight = 0;
 
+    // Collect Data
     document.querySelectorAll("#inputTable tbody tr").forEach(row => {
         const ins = row.querySelectorAll("input");
         const w = parseFloat(ins[0].value), l = parseFloat(ins[1].value), q = parseInt(ins[2].value);
@@ -270,116 +266,162 @@ function optimize() {
         }
     });
 
-    if (parts.length === 0 || stockPool.length === 0) return alert("Missing Stock or Parts!");
+    if (parts.length === 0 || stockPool.length === 0) return alert("Add Stock and Parts first!");
     saveData();
 
-    // Sort: Largest parts first
+    // Sort parts by height (longest dimension)
     parts.sort((a,b) => Math.max(b.d1, b.d2) - Math.max(a.d1, a.d2));
-    // Sort: Largest stock first
+    
+    // Sort stock
     stockPool.sort((a,b) => (b.sw * b.sl) - (a.sw * a.sl));
 
     PLATES = [];
     let remainingParts = [...parts];
 
+    // Main Nesting Loop
     for (let stock of stockPool) {
         if (remainingParts.length === 0) break;
+
         let plate = { sw: stock.sw, sl: stock.sl, shelves: [], items: [], usedArea: 0 };
-        let keptParts = [];
+        let index = 0;
         
-        for (let part of remainingParts) {
-            if (!tryFitInPlate(plate, part, plate.sw, plate.sl, kerf)) {
-                keptParts.push(part);
+        while (index < remainingParts.length) {
+            let part = remainingParts[index];
+            if (tryFitInPlate(plate, part, kerf)) {
+                remainingParts.splice(index, 1); // Remove part from queue if it fits
+            } else {
+                index++; // Skip to next part
             }
         }
         
-        if (plate.items.length > 0) {
-            PLATES.push(plate);
-            remainingParts = keptParts;
-        }
+        if (plate.items.length > 0) PLATES.push(plate);
     }
 
-    if (remainingParts.length > 0) alert(`${remainingParts.length} parts could not fit! Check stock sizes.`);
+    if (remainingParts.length > 0) alert(`${remainingParts.length} parts couldn't fit. You need more stock!`);
+
     render(grossWeight);
     document.getElementById("pdfBtn").style.display = "block";
 }
 
-function tryFitInPlate(plate, part, sw, sl, kerf) {
-    let o1 = { w: part.d1, l: part.d2 }, o2 = { w: part.d2, l: part.d1 };
-    let orientations = [o1, o2]; // Check both orientations
+function tryFitInPlate(plate, part, kerf) {
+    const sw = plate.sw;
+    const sl = plate.sl;
+    
+    const orient1 = { w: part.d1, l: part.d2 };
+    const orient2 = { w: part.d2, l: part.d1 };
+    const orients = [orient1, orient2];
 
-    // 1. Try existing shelves
-    for(let shelf of plate.shelves) {
-        for(let orient of orientations) {
-            if (orient.l <= shelf.h && orient.w <= shelf.freeW) {
-                plate.items.push({ x: sw - shelf.freeW, y: shelf.y, w: orient.w, l: orient.l });
-                shelf.freeW -= (orient.w + kerf);
-                plate.usedArea += (orient.w * orient.l);
+    // 1. Try fitting into an existing shelf
+    for (let shelf of plate.shelves) {
+        for (let o of orients) {
+            if (o.w <= shelf.freeW && o.l <= shelf.h) {
+                plate.items.push({ x: sw - shelf.freeW, y: shelf.y, w: o.w, l: o.l });
+                shelf.freeW -= (o.w + kerf);
+                plate.usedArea += (o.w * o.l);
                 return true;
             }
         }
     }
-    // 2. Try new shelf
-    let usedY = plate.shelves.reduce((acc, s) => acc + s.h + kerf, 0);
-    for(let orient of orientations) {
-        if (orient.l <= (sl - usedY) && orient.w <= sw) {
-            plate.shelves.push({ y: usedY, h: orient.l, freeW: sw - (orient.w + kerf) });
-            plate.items.push({ x: 0, y: usedY, w: orient.w, l: orient.l });
-            plate.usedArea += (orient.w * orient.l);
+
+    // 2. Try creating a new shelf
+    let currentY = plate.shelves.reduce((sum, s) => sum + s.h + kerf, 0);
+    for (let o of orients) {
+        if (o.l <= (sl - currentY) && o.w <= sw) {
+            let newShelf = { y: currentY, h: o.l, freeW: sw - (o.w + kerf) };
+            plate.shelves.push(newShelf);
+            plate.items.push({ x: 0, y: currentY, w: o.w, l: o.l });
+            plate.usedArea += (o.w * o.l);
             return true;
         }
     }
+
     return false;
 }
 
+// --- RENDERING ---
 function render(grossW) {
     const res = document.getElementById("results");
     const totalUsed = PLATES.reduce((a,b) => a + b.usedArea, 0);
     const totalStock = PLATES.reduce((a,b) => a + (b.sw * b.sl), 0);
     
-    res.innerHTML = `<div class="summary-box">
-        <div><strong>Plates Used:</strong> ${PLATES.length}</div>
-        <div><strong>Efficiency:</strong> ${((totalUsed/totalStock)*100).toFixed(1)}%</div>
-        <div style="color:#1a73e8;"><strong>Gross Weight:</strong> ${grossW.toFixed(2)} kg</div>
-    </div>`;
+    res.innerHTML = `
+        <div class="summary-box">
+            <div><strong>Plates Used:</strong> ${PLATES.length}</div>
+            <div><strong>Avg Efficiency:</strong> ${((totalUsed/totalStock)*100).toFixed(1)}%</div>
+            <div style="color:#1a73e8;"><strong>Total Project Weight:</strong> ${grossW.toFixed(2)} kg</div>
+        </div>
+    `;
     
     PLATES.forEach((p, i) => {
         const div = document.createElement("div");
         div.className = "plate-card";
-        div.innerHTML = `<strong>Plate #${i+1} (${p.sw} x ${p.sl})</strong>`;
+        div.innerHTML = `<strong>Map #${i+1} — Sheet Size: ${p.sw}mm x ${p.sl}mm</strong>`;
+        
         const canv = document.createElement("canvas");
-        const scale = 800 / Math.max(p.sw, p.sl);
+        const scale = 1100 / Math.max(p.sw, p.sl);
         canv.width = p.sw * scale; canv.height = p.sl * scale;
         const ctx = canv.getContext("2d");
+        
         ctx.fillStyle = "#fff"; ctx.fillRect(0,0,canv.width,canv.height);
         
         p.items.forEach(it => {
             ctx.fillStyle = "#4a90e2"; ctx.globalAlpha = 0.8;
             ctx.fillRect(it.x*scale, it.y*scale, it.w*scale, it.l*scale);
-            ctx.strokeStyle = "#2c3e50"; ctx.globalAlpha = 1;
+            ctx.strokeStyle = "#2c3e50"; ctx.globalAlpha = 1; ctx.lineWidth = 2;
             ctx.strokeRect(it.x*scale, it.y*scale, it.w*scale, it.l*scale);
-            ctx.fillStyle = "#fff"; ctx.font = "bold 11px Arial";
-            ctx.textAlign = "center"; ctx.textBaseline = "middle";
-            if(it.w * scale > 35) ctx.fillText(`${it.w}x${it.l}`, (it.x + it.w/2)*scale, (it.y + it.l/2)*scale);
+            ctx.fillStyle = "#fff"; ctx.font = "bold 12px Arial";
+            ctx.textAlign = "center";
+            if(it.w * scale > 40) ctx.fillText(`${it.w}x${it.l}`, (it.x + it.w/2)*scale, (it.y + it.l/2)*scale + 5);
         });
+        
         div.appendChild(canv);
         res.appendChild(div);
     });
 }
 
+// --- PDF FIX HERE ---
 async function downloadPDF() {
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('p', 'mm', 'a4');
+    const doc = new jsPDF('p', 'mm', 'a4'); // A4 Size: 210mm x 297mm
     const canvases = document.querySelectorAll("canvas");
+    
+    const pageWidth = 190; // 210mm - 10mm margins
+    const pageHeight = 270; // 297mm - 10mm margins - title space
+
     for (let i = 0; i < canvases.length; i++) {
         if (i > 0) doc.addPage();
+
         const title = document.querySelectorAll(".plate-card strong")[i].innerText;
-        doc.setFontSize(14); doc.text(title, 10, 15);
-        const imgData = canvases[i].toDataURL("image/png");
-        const ratio = canvases[i].height / canvases[i].width;
-        doc.addImage(imgData, 'PNG', 10, 25, 190, 190 * ratio);
+        doc.setFontSize(14);
+        doc.text(title, 10, 15);
+
+        const canvas = canvases[i];
+        const imgData = canvas.toDataURL("image/png");
+        
+        // Calculate scaling to fit within page bounds
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = imgWidth / imgHeight;
+
+        let finalW = pageWidth;
+        let finalH = finalW / ratio;
+
+        // If the height is too tall for the page, scale based on height instead
+        if (finalH > pageHeight) {
+            finalH = pageHeight;
+            finalW = finalH * ratio;
+        }
+
+        doc.addImage(imgData, 'PNG', 10, 25, finalW, finalH);
     }
-    doc.save("Cut_Plan.pdf");
+    doc.save("Project_Cutting_Plan.pdf");
 }
+</script>
+
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
 </script>
 </body>
 </html>

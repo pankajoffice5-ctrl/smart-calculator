@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Helical Calculator</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-blue: #38bdf8;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 20% 20%, #1e293b 0%, #0f172a 100%);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Better for long scrolling on mobile */
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Dashboard Grid - Responsive Column Logic */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr; /* Default mobile view */
+            gap: 20px;
+            width: 90vw;
+            max-width: 1400px;
+            padding: 10px;
+        }
+
+        /* Tablet and Desktop: 3-Column Layout */
+        @media (min-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 320px 1fr 320px;
+                padding: 20px;
+                align-items: stretch;
+            }
+            body { align-items: center; padding: 0; }
+        }
+
+        .header { grid-column: 1 / -1; text-align: center; margin-bottom: 5px; }
+        .header h1 { font-weight: 300; letter-spacing: 2px; margin: 0; font-size: 1.5rem; }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Inputs - Optimized for Touch */
+        .input-group { position: relative; margin-bottom: 15px; }
+        label { display: block; color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; margin-bottom: 6px; }
+        
+        input, select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 14px; /* Larger touch area */
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+            appearance: none;
+        }
+
+        .unit-tag { position: absolute; right: 12px; top: 38px; color: #475569; font-size: 0.8rem; }
+
+        /* Action Buttons */
+        .btn-pdf {
+            width: 100%;
+            background: var(--accent-blue);
+            color: #0f172a;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        /* Visuals - Height adjusted for mobile */
+        .visual-section { display: flex; flex-direction: column; gap: 15px; }
+        .hero-img { 
+            width: 100%; 
+            height: 200px; 
+            object-fit: cover; 
+            border-radius: 12px; 
+            border: 1px solid var(--glass-border); 
+        }
+        @media (min-width: 1024px) { .hero-img { height: 300px; } }
+
+        .schematic-box { 
+            flex-grow: 1; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background: rgba(255,255,255,0.02); 
+            border-radius: 12px; 
+            min-height: 180px;
+        }
+
+        /* Results */
+        .result-card { text-align: center; }
+        @media (min-width: 1024px) { .result-card { text-align: right; } }
+
+        .result-label { color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px; display: block; }
+        .result-value { font-size: 1.8rem; font-family: 'Monaco', monospace; color: var(--accent-green); display: inline-block; }
+        .result-value::before { content: "~ "; color: #334155; }
+
+        /* PDF Printing Logic */
+        @media print {
+            body { background: white; color: black; padding: 0; }
+            .dashboard { display: block; width: 100%; }
+            .glass-card { background: none; border: 1px solid #eee; box-shadow: none; backdrop-filter: none; margin-bottom: 15px; }
+            .btn-pdf, .unit-tag, select { display: none !important; }
+            input { border: none; color: black !important; font-weight: bold; padding: 0; }
+            .result-value { color: #059669; font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="header">
+        <h1>Helical Length Report</h1>
+    </div>
+
+    <div class="glass-card">
+        <div class="input-group">
+            <label>Total Height (H)</label>
+            <input type="number" id="height" value="3900" oninput="calculate()">
+            <span class="unit-tag">mm</span>
+        </div>
+        <div class="input-group">
+            <label>Inner Diameter (ID)</label>
+            <input type="number" id="id" value="2000" oninput="calculate()">
+            <span class="unit-tag">mm</span>
+        </div>
+        <div class="input-group">
+            <label>Outer Diameter (OD)</label>
+            <input type="number" id="od" value="3000" oninput="calculate()">
+            <span class="unit-tag">mm</span>
+        </div>
+        <div class="input-group">
+            <label>Input Mode</label>
+            <select id="mode" onchange="calculate()">
+                <option value="pitch">Pitch ↕</option>
+                <option value="degree">Degree ⃘</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label id="modeLabel">Pitch Value</label>
+            <input type="number" id="modeValue" value="3900" oninput="calculate()">
+            <span class="unit-tag" id="unitTag">mm</span>
+        </div>
+        
+        <button class="btn-pdf" onclick="window.print()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export PDF
+        </button>
+    </div>
+
+    <div class="visual-section">
+        <img src="HELICAL.png" class="hero-img" alt="Spiral Staircase">
+    </div>
+
+    <div class="result-section">
+        <div class="glass-card result-card" style="margin-bottom: 15px;">
+            <span class="result-label">Inner Length</span>
+            <span class="result-value" id="innerResult">0</span>
+            <span style="color: #475569; font-size: 0.8rem;">mm</span>
+        </div>
+        <div class="glass-card result-card">
+            <span class="result-label">Outer Length</span>
+            <span class="result-value" id="outerResult">0</span>
+            <span style="color: #475569; font-size: 0.8rem;">mm</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        const h = parseFloat(document.getElementById('height').value) || 0;
+        const id = parseFloat(document.getElementById('id').value) || 0;
+        const od = parseFloat(document.getElementById('od').value) || 0;
+        const mode = document.getElementById('mode').value;
+        const val = parseFloat(document.getElementById('modeValue').value) || 0;
+        
+        document.getElementById('modeLabel').innerText = mode === 'pitch' ? 'Pitch Value' : 'Degree Value';
+        document.getElementById('unitTag').innerText = mode === 'pitch' ? 'mm' : '°';
+
+        const calcLength = (diameter) => {
+            if (h === 0 || diameter === 0 || val === 0) return 0;
+            // Formula matches Excel: SQRT((PI * Diameter * n)^2 + H^2)
+            let n = (mode === 'pitch') ? (h / val) : (val / 360);
+            const length = Math.sqrt(Math.pow(Math.PI * diameter * n, 2) + Math.pow(h, 2));
+            return length.toLocaleString(undefined, {maximumFractionDigits: 0});
+        };
+
+        document.getElementById('innerResult').innerText = calcLength(id);
+        document.getElementById('outerResult').innerText = calcLength(od);
+    }
+    calculate();
+</script>
+
+</body>
+</html>

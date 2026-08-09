@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Professional Steel Estimation & Fabrication Support | eSmart Cal Steel Solutions</title>
+    <meta name="description" content="Remote steel estimation, material takeoff, BOM, cutting lists, fabrication estimates and Tekla/CAD support for contractors and fabrication companies.">
+    <meta name="keywords" content="Steel Estimation, Material Takeoff, Bill of Materials, BOM, Cutting List, Cutting Optimization, Tekla Structures, AutoCAD, Shop Drawings, Steel Fabrication Support, UAE">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Professional Steel Estimation & Fabrication Support | eSmart Cal Steel Solutions">
+    <meta property="og:description" content="Accurate remote steel estimation, material takeoffs, cutting lists, and Tekla/CAD detailing support for structural steel contractors and fabricators.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.example.com">
+    <meta property="og:image" content="https://www.example.com/assets/og-image.jpg">
+
+    <!-- Favicon Placeholder -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Stylesheet -->
+    <style>
+        /* ==========================================
+           CSS VARIABLES & DESIGN SYSTEM
+           ========================================== */
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --accent: #f59e0b;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-border: #334155;
+            --light-bg: #f8fafc;
+            --light-surface: #ffffff;
+            --light-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --success: #10b981;
+            --whatsapp: #25d366;
+            --whatsapp-dark: #128c7e;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset & Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-main);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-1 { gap: 0.5rem; }
+        .gap-2 { gap: 1rem; }
+        .gap-3 { gap: 1.5rem; }
+        
+        /* Section Header Layout */
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp);
+            color: white;
+        }
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        .btn-outline-dark {
+            background-color: transparent;
+            border-color: var(--dark-border);
+            color: var(--text-main);
+        }
+        .btn-outline-dark:hover {
+            background-color: var(--light-surface);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* ==========================================
+           HEADER & NAVIGATION
+           ========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-lg);
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Mobile Navigation Overlay */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: var(--dark-bg);
+            z-index: 1001;
+            padding: 5rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: -10px 0 25px rgba(0,0,0,0.5);
+            transition: right 0.4s ease-in-out;
+        }
+
+        .mobile-nav.open {
+            right: 0;
+        }
+
+        .mobile-nav .nav-link {
+            font-size: 1.2rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ==========================================
+           HERO SECTION
+           ========================================== */
+        .hero {
+            position: relative;
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 10rem 0 6rem 0;
+            overflow: hidden;
+            /* Engineering Grid Background */
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(29, 78, 216, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.25rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-light);
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .trust-points {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-family: var(--font-mono);
+            border-top: 1px solid var(--dark-border);
+            padding-top: 1.5rem;
+        }
+
+        .trust-points span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Hero Visual Graphic (CSS Engineering Mockup) */
+        .hero-visual {
+            background-color: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .blueprint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--dark-border);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .blueprint-header .status {
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        .cad-preview-box {
+            background: #090d16;
+            border: 1px dashed var(--dark-border);
+            border-radius: var(--radius-sm);
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            font-family: var(--font-mono);
+        }
+
+        .cad-grid-lines {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(59, 130, 246, 0.08) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .beam-sketch {
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            height: 60px;
+            border: 2px solid var(--primary-light);
+            background: rgba(29, 78, 216, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .beam-sketch::before, .beam-sketch::after {
+            content: '';
+            position: absolute;
+            background: var(--accent);
+            width: 8px;
+            height: 100%;
+        }
+        .beam-sketch::before { left: 0; }
+        .beam-sketch::after { right: 0; }
+
+        .cad-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .cad-stat-card {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--dark-border);
+            text-align: center;
+        }
+
+        .cad-stat-card .label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .cad-stat-card .value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            font-family: var(--font-mono);
+            margin-top: 0.25rem;
+        }
+
+        /* Hero Customer Callout Message Banner */
+        .hero-customer-msg {
+            background: linear-gradient(135deg, var(--dark-surface), #162238);
+            border: 1px solid var(--dark-border);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .hero-customer-msg h3 {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.35rem;
+        }
+
+        .hero-customer-msg p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* ==========================================
+           SERVICES SECTION
+           ========================================== */
+        .services-section {
+            background-color: var(--light-bg);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--light-surface);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(29, 78, 216, 0.1);
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            border-top: 1px solid var(--light-border);
+            padding-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .service-features span {
+            background: var(--light-bg);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+        }
+
+        /* ==========================================
+           HOW IT WORKS SECTION
+           ========================================== */
+        .process-section {
+            background-color: var(--light-surface);
+            border-top: 1px solid var(--light-border);
+            border-bottom: 1px solid var(--light-border);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
+
+        .process-step {
+            background: var(--light-bg);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-md);
+            padding: 2rem 1.5rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .process-step:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-number {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-light);
+            opacity: 0.4;
+            margin-bottom: 1rem;
+        }
+
+        .process-step h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .process-step p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .process-cta-banner {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        /* ==========================================
+           WHY CHOOSE US SECTION
+           ========================================== */
+        .why-us-section {
+            background-color: var(--light-bg);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .why-card {
+            background: var(--light-surface);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .why-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .why-card h3::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .why-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding-left: 1.25rem;
+        }
+
+        /* ==========================================
+           TARGET CUSTOMERS SECTION
+           ========================================== */
+        .customers-section {
+            background-color: var(--dark-bg);
+            color: white;
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .customers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .customer-card {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .customer-card:hover {
+            border-color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        .customer-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .customer-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* ==========================================
+           PORTFOLIO & SAMPLE SECTION
+           ========================================== */
+        .portfolio-section {
+            background-color: var(--light-surface);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .portfolio-card {
+            background: var(--light-bg);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .portfolio-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-content p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        /* Sample Estimation Table Container */
+        .sample-table-container {
+            background: var(--light-surface);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .table-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+            font-family: var(--font-mono);
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--light-border);
+        }
+
+        th {
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        td {
+            color: var(--text-muted);
+        }
+
+        .table-note {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* ==========================================
+           PRICING SECTION
+           ========================================== */
+        .pricing-section {
+            background-color: var(--light-bg);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: stretch;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--light-surface);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pricing-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-family: var(--font-mono);
+        }
+
+        .pricing-header h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+        }
+
+        .pricing-features {
+            margin: 1.5rem 0;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            border-bottom: 1px dashed var(--light-border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .pricing-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================
+           FILE TYPES & ENQUIRY SECTION
+           ========================================== */
+        .files-section {
+            background: var(--dark-surface);
+            color: white;
+            padding: 3rem 0;
+            border-top: 1px solid var(--dark-border);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .files-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .files-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .file-tag {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--dark-border);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        /* Main Enquiry / Form Section */
+        .enquiry-section {
+            background-color: var(--light-surface);
+        }
+
+        .enquiry-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--light-bg);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            font-size: 0.95rem;
+            font-family: var(--font-main);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-sm);
+            background: var(--light-surface);
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-privacy-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* ==========================================
+           CONTACT & FAQ SECTION
+           ========================================== */
+        .contact-section {
+            background-color: var(--light-bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info-card {
+            background: var(--light-surface);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item .value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* FAQ Accordion */
+        .faq-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--light-surface);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 1.25rem;
+        }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 4rem 0 2rem 0;
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            max-width: 350px;
+        }
+
+        .footer-links h4 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--dark-border);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        /* ==========================================
+           MODAL, TOAST & MOBILE UTILITIES
+           ========================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--light-surface);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 600px;
+            padding: 2.5rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-overlay.open .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--dark-surface);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--success);
+            font-size: 0.95rem;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Mobile Bottom Sticky Bar */
+        .mobile-bottom-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--dark-bg);
+            border-top: 1px solid var(--dark-border);
+            padding: 0.75rem 1rem;
+            z-index: 999;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+        }
+
+        .mobile-bottom-bar a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--whatsapp);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 5rem;
+            right: 1.5rem;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            z-index: 990;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .nav-menu, .nav-actions .btn {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 3.5rem 0;
+            }
+            .hero-customer-msg {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .mobile-bottom-bar {
+                display: block;
+            }
+            body {
+                padding-bottom: 60px; /* Space for bottom bar */
+            }
+            .enquiry-wrapper {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+       HEADER
+       ========================================== -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <div class="logo-icon">eSC</div>
+                eSmart Cal Steel <span>Solutions</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="https://esmartcalc.netlify.app/" class="nav-link" target="_blank" rel="noopener">Calculators</a>
+                <a href="#process" class="nav-link">How It Works</a>
+                <a href="#why-us" class="nav-link">Why Us</a>
+                <a href="#portfolio" class="nav-link">Portfolio</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#" id="header-whatsapp-btn" class="btn btn-primary" onclick="triggerWhatsApp(event)">Send Drawing</a>
+                <button class="hamburger" id="hamburger-btn" aria-label="Open Navigation">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+        <button class="close-menu" id="close-menu-btn" aria-label="Close Navigation">✕</button>
+        <a href="#home" class="nav-link mobile-link">Home</a>
+        <a href="#services" class="nav-link mobile-link">Services</a>
+        <a href="https://esmartcalc.netlify.app/" class="nav-link" target="_blank" rel="noopener">Calculators</a>
+        <a href="#process" class="nav-link mobile-link">How It Works</a>
+        <a href="#why-us" class="nav-link mobile-link">Why Us</a>
+        <a href="#portfolio" class="nav-link mobile-link">Portfolio</a>
+        <a href="#contact" class="nav-link mobile-link">Contact</a>
+        <a href="#" class="btn btn-whatsapp" onclick="triggerWhatsApp(event)" style="margin-top: 1rem;">Send Drawing on WhatsApp</a>
+    </div>
+
+    <!-- ==========================================
+       HERO SECTION
+       ========================================== -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Professional Steel Estimation & Fabrication Support <span>— Delivered Remotely</span></h1>
+                    <p>Save time, reduce estimation workload and get accurate material takeoffs, cutting lists, fabrication estimates and Tekla/CAD support without adding permanent staff.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-whatsapp" onclick="triggerWhatsApp(event)">SEND YOUR DRAWING</a>
+                        <a href="#enquiry" class="btn btn-outline">GET A QUOTATION</a>
+                    </div>
+                    <div class="trust-points">
+                        <span>✓ Remote Support</span>
+                        <span>✓ Fast Turnaround</span>
+                        <span>✓ Excel & PDF Reports</span>
+                        <span>✓ Steel/Fabrication Experience</span>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="blueprint-header">
+                        <span>PROJECT_REF: #ST-2026-DXB</span>
+                        <span class="status">● READY FOR ESTIMATION</span>
+                    </div>
+                    <div class="cad-preview-box">
+                        <div class="cad-grid-lines"></div>
+                        <div class="beam-sketch">
+                            <span style="font-size:0.75rem; color:#94a3b8;">IPE 300</span>
+                            <span style="font-size:0.75rem; color:#94a3b8;">L=6000mm</span>
+                        </div>
+                    </div>
+                    <div class="cad-stats">
+                        <div class="cad-stat-card">
+                            <div class="label">Total Tonnage</div>
+                            <div class="value">142.5 T</div>
+                        </div>
+                        <div class="cad-stat-card">
+                            <div class="label">BOM Items</div>
+                            <div class="value">384 Pcs</div>
+                        </div>
+                        <div class="cad-stat-card">
+                            <div class="label">Wastage Est.</div>
+                            <div class="value">&lt; 3.2%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Customer Callout Message Banner -->
+            <div class="hero-customer-msg">
+                <div>
+                    <h3>Have drawings but no time for estimation?</h3>
+                    <p>Send us your PDF, DWG, image or project details. We review the requirement and provide a clear quotation before starting the work.</p>
+                </div>
+                <a href="#" class="btn btn-whatsapp" onclick="triggerWhatsApp(event)" style="white-space: nowrap;">SEND DRAWING ON WHATSAPP</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       SERVICES SECTION
+       ========================================== -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Practical engineering and fabrication support for contractors and workshops.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">📐</div>
+                        <h3>Steel Estimation</h3>
+                        <p>Prepare quantity and cost estimates from structural steel drawings.</p>
+                    </div>
+                    <div class="service-features">
+                        <span>Material quantities</span>
+                        <span>Section calculations</span>
+                        <span>Plate quantities</span>
+                        <span>Weight calculation</span>
+                        <span>Material cost</span>
+                        <span>Fabrication estimate</span>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">📋</div>
+                        <h3>Material Takeoff / BOM</h3>
+                        <p>Convert drawings into organized material takeoff and bill of materials.</p>
+                    </div>
+                    <div class="service-features">
+                        <span>Section sizes</span>
+                        <span>Length</span>
+                        <span>Quantity</span>
+                        <span>Weight</span>
+                        <span>Plate details</span>
+                        <span>Assembly/part references</span>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">✂️</div>
+                        <h3>Cutting List & Optimization</h3>
+                        <p>Prepare practical cutting lists for 6 m and 12 m stock lengths and help reduce material wastage.</p>
+                    </div>
+                    <div class="service-features">
+                        <span>Cutting lengths</span>
+                        <span>Stock selection</span>
+                        <span>Quantity</span>
+                        <span>Wastage</span>
+                        <span>Optimization</span>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">🏗️</div>
+                        <h3>Tekla Structures Support</h3>
+                        <p>Remote Tekla modeling and documentation support for structural steel projects.</p>
+                    </div>
+                    <div class="service-features">
+                        <span>3D modeling</span>
+                        <span>GA drawings</span>
+                        <span>Shop drawings</span>
+                        <span>Assemblies</span>
+                        <span>Part drawings</span>
+                        <span>BOM</span>
+                    </div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">✏️</div>
+                        <h3>AutoCAD / Shop Drawings</h3>
+                        <p>Professional drafting and revision support for fabrication requirements.</p>
+                    </div>
+                    <div class="service-features">
+                        <span>Shop drawings</span>
+                        <span>Detail drawings</span>
+                        <span>Fabrication drawings</span>
+                        <span>Revisions</span>
+                        <span>PDF/DWG output</span>
+                    </div>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card">
+                    <div>
+                        <div class="service-icon">💻</div>
+                        <h3>Digital Fabrication Solutions</h3>
+                        <p>Simple digital systems to improve fabrication workflow and project tracking.</p>
+                    </div>
+                    <div class="service-features">
+                        <span>Enquiry tracking</span>
+                        <span>Estimation systems</span>
+                        <span>QR/Barcode tracking</span>
+                        <span>Inspection reports</span>
+                        <span>Production tracking</span>
+                        <span>Digital forms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       HOW IT WORKS SECTION
+       ========================================== -->
+    <section id="process" class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>A streamlined 5-step process designed for quick turnaround and precision.</p>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <h3>Send Your Drawing</h3>
+                    <p>Send PDF, DWG, image or project information.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <h3>Requirement Review</h3>
+                    <p>We review scope, drawings and required deliverables.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <h3>Quotation</h3>
+                    <p>You receive a clear quotation and expected delivery time.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <h3>Work & Review</h3>
+                    <p>We prepare the estimation, takeoff, drawings or requested documents.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">05</div>
+                    <h3>Delivery</h3>
+                    <p>Receive your completed files digitally in Excel, PDF, DWG or agreed format.</p>
+                </div>
+            </div>
+
+            <div class="process-cta-banner">
+                <a href="#enquiry" class="btn btn-primary">START YOUR ENQUIRY</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       WHY CHOOSE US SECTION
+       ========================================== -->
+    <section id="why-us" class="why-us-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Work With Us?</h2>
+                <p>Built for efficiency, professional clarity, and seamless collaboration.</p>
+            </div>
+
+            <div class="why-grid">
+                <div class="why-card">
+                    <h3>Industry Understanding</h3>
+                    <p>Focused on real fabrication and structural steel requirements.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Remote & Flexible</h3>
+                    <p>Get support without hiring permanent additional staff.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Practical Outputs</h3>
+                    <p>Receive usable Excel, PDF, DWG and project documentation.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Faster Estimation</h3>
+                    <p>Reduce the time required to prepare quotations and material takeoffs.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Digital Approach</h3>
+                    <p>Use modern digital tools to improve traditional fabrication workflows.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Confidentiality</h3>
+                    <p>Project drawings and customer information should be treated as confidential.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       WHO WE SUPPORT SECTION
+       ========================================== -->
+    <section class="customers-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">Who We Support</h2>
+                <p style="color: var(--text-light);">We partner with diverse businesses across the construction and metal sector.</p>
+            </div>
+
+            <div class="customers-grid">
+                <div class="customer-card">
+                    <div class="customer-icon">SF</div>
+                    <h4>Structural Steel Fabricators</h4>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-icon">MW</div>
+                    <h4>Metal Workshops</h4>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-icon">SC</div>
+                    <h4>Steel Contractors</h4>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-icon">CC</div>
+                    <h4>Construction Companies</h4>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-icon">FC</div>
+                    <h4>Fencing Contractors</h4>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-icon">GM</div>
+                    <h4>Gate Manufacturers</h4>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-icon">EC</div>
+                    <h4>Engineering Consultants</h4>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-icon">SM</div>
+                    <h4>Small Fabrication Businesses</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       PORTFOLIO & SAMPLE SECTION
+       ========================================== -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sample Projects & Portfolio</h2>
+                <p>Explore demonstration examples of our estimation and detailing deliverables.</p>
+            </div>
+
+            <div class="portfolio-grid">
+                <!-- Portfolio 1 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="pic-1.png" alt="Structural Steel Estimation" style="width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius-sm);">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Structural Steel Estimation</h3>
+                        <p>Complete tonnage & structural steel cost breakdown for industrial warehouse.</p>
+                        <button class="btn btn-outline-dark" style="width: 100%; font-size: 0.85rem;" onclick="openModal('Structural Steel Estimation Sample', 'Comprehensive estimation report including beam, column, and plate weight calculations prepared from architectural and structural layout drawings.')">View Sample</button>
+                    </div>
+                </div>
+
+                <!-- Portfolio 2 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="pic-2.png" alt="Material Takeoff & BOM" style="width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius-sm);">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Material Takeoff & BOM</h3>
+                        <p>Detailed Bill of Materials with profile lengths, quantities, and assembly tags.</p>
+                        <button class="btn btn-outline-dark" style="width: 100%; font-size: 0.85rem;" onclick="openModal('Material Takeoff & BOM Sample', 'Formatted Excel bill of materials featuring standardized profile classification, part marks, and accurate unit weight measurements.')">View Sample</button>
+                    </div>
+                </div>
+
+                <!-- Portfolio 3 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="pic-3.png" alt="Cutting Optimization" style="width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius-sm);">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Cutting Optimization</h3>
+                        <p>Optimized nesting and cutting list for 12m stock lengths minimizing scrap.</p>
+                        <button class="btn btn-outline-dark" style="width: 100%; font-size: 0.85rem;" onclick="openModal('Cutting Optimization Sample', 'Advanced cutting list report showing optimized layouts for 6m and 12m stock lengths, successfully reducing material wastage to under 3.5%.')">View Sample</button>
+                    </div>
+                </div>
+
+                <!-- Portfolio 4 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="pic-4.png" alt="Tekla Shop Drawing Support" style="width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius-sm);">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Tekla Shop Drawing Support</h3>
+                        <p>Shop detail drawings and assembly elevations generated via Tekla Structures.</p>
+                        <button class="btn btn-outline-dark" style="width: 100%; font-size: 0.85rem;" onclick="openModal('Tekla Shop Drawing Support Sample', 'Sample assembly and single-part fabrication drawings complete with weld symbols, bolt callouts, and dimension grids.')">View Sample</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Estimation Table Preview -->
+            <div class="sample-table-container">
+                <div class="table-title">
+                    <span>Sample Estimation Preview (Excel Format)</span>
+                    <a href="#enquiry" class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">REQUEST MY ESTIMATE</a>
+                </div>
+                <div class="table-desc">Demonstration of how we organize structural takeoffs for clear workshop review.</div>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mark</th>
+                                <th>Section</th>
+                                <th>Length</th>
+                                <th>Qty</th>
+                                <th>Total Length</th>
+                                <th>Weight / Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>B-01</td>
+                                <td>IPE 300</td>
+                                <td>6000 mm</td>
+                                <td>4</td>
+                                <td>24.00 m</td>
+                                <td>Example</td>
+                            </tr>
+                            <tr>
+                                <td>C-01</td>
+                                <td>SHS 100x100</td>
+                                <td>3500 mm</td>
+                                <td>8</td>
+                                <td>28.00 m</td>
+                                <td>Example</td>
+                            </tr>
+                            <tr>
+                                <td>P-01</td>
+                                <td>PL 300x200x10</td>
+                                <td>—</td>
+                                <td>12</td>
+                                <td>—</td>
+                                <td>Example</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-note">* Sample data shown for demonstration only. Actual calculations are prepared from customer drawings and project requirements.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       PRICING SECTION
+       ========================================== -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Simple & Flexible Pricing</h2>
+                <p>Transparent estimation service structures tailored to your project scale.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Small Job -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>SMALL JOB</h3>
+                        <div class="price">From AED 100</div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Suitable for quick single-drawing takeoffs.</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Small takeoff</li>
+                        <li>Simple quantity calculation</li>
+                        <li>Basic BOM report</li>
+                        <li>PDF / Excel delivery</li>
+                    </ul>
+                    <a href="#enquiry" class="btn btn-outline-dark" style="width: 100%;">ENQUIRE</a>
+                </div>
+
+                <!-- Project Support -->
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <h3>PROJECT SUPPORT</h3>
+                        <div class="price">From AED 300</div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Suitable for multi-drawing structural packages.</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Multiple drawings evaluation</li>
+                        <li>Detailed material takeoff</li>
+                        <li>Accurate weight calculation</li>
+                        <li>Cutting list optimization</li>
+                    </ul>
+                    <a href="#enquiry" class="btn btn-primary" style="width: 100%;">GET QUOTATION</a>
+                </div>
+
+                <!-- Custom Project -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>CUSTOM PROJECT</h3>
+                        <div class="price" style="font-size: 1.8rem; margin: 1.2rem 0;">Custom Quote</div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Suitable for comprehensive engineering packages.</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Large scale projects</li>
+                        <li>Tekla modeling / shop drawings</li>
+                        <li>Complete comprehensive estimation</li>
+                        <li>Digital workflow integration</li>
+                    </ul>
+                    <a href="#enquiry" class="btn btn-outline-dark" style="width: 100%;">DISCUSS PROJECT</a>
+                </div>
+            </div>
+
+            <div class="pricing-note">
+                Final pricing depends on drawing complexity, quantity, scope and required delivery time.
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       FILE TYPES & MAIN ENQUIRY SECTION
+       ========================================== -->
+    <section class="files-section">
+        <div class="container files-wrapper">
+            <div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Send Your Existing Files</h3>
+                <p style="color: var(--text-light); font-size: 0.9rem;">You can send your drawings through WhatsApp or email after contacting us.</p>
+            </div>
+            <div class="files-tags">
+                <span class="file-tag">PDF</span>
+                <span class="file-tag">DWG</span>
+                <span class="file-tag">DXF</span>
+                <span class="file-tag">JPG</span>
+                <span class="file-tag">PNG</span>
+                <span class="file-tag">Excel</span>
+                <span class="file-tag">Tekla project info</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="enquiry" class="enquiry-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Have a Drawing Ready?</h2>
+                <p>Send your drawing and project requirements. We will review the scope and provide a quotation.</p>
+            </div>
+
+            <div class="enquiry-wrapper">
+                <form id="enquiry-form" onsubmit="handleFormSubmit(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" class="form-control" required placeholder="John Smith">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyName">Company Name *</label>
+                            <input type="text" id="companyName" class="form-control" required placeholder="ABC Steel Fabrication">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="whatsappNumber">WhatsApp Number *</label>
+                            <input type="tel" id="whatsappNumber" class="form-control" required placeholder="+971 50 123 4567">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emailAddress">Email *</label>
+                            <input type="email" id="emailAddress" class="form-control" required placeholder="john@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectType">Project Type</label>
+                            <select id="projectType" class="form-control">
+                                <option value="Structural Steel">Structural Steel</option>
+                                <option value="Metal Fabrication">Metal Fabrication</option>
+                                <option value="Fencing">Fencing</option>
+                                <option value="Gate">Gate</option>
+                                <option value="Staircase">Staircase</option>
+                                <option value="Platform">Platform</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requiredService">Required Service</label>
+                            <select id="requiredService" class="form-control">
+                                <option value="Estimation">Estimation</option>
+                                <option value="Material Takeoff">Material Takeoff</option>
+                                <option value="BOM">BOM</option>
+                                <option value="Cutting List">Cutting List</option>
+                                <option value="Cutting List">Mechanical/Solid edge</option>
+                                <option value="Tekla">Structural/Tekla</option>
+                                <option value="AutoCAD">2D/AutoCAD</option>
+                                <option value="Digital Solution">Digital Solution</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectSize">Approximate Project Size</label>
+                            <input type="text" id="projectSize" class="form-control" placeholder="e.g. 50 Tons / 15 Drawings">
+                        </div>
+
+                       <div class="form-group">
+                        <label for="deliveryDate">Required Delivery Date</label>
+                         <input type="date" id="deliveryDate" class="form-control">
+                         </div>
+
+                        <div class="form-group full-width">
+                            <label for="message">Message / Scope Details</label>
+                            <textarea id="message" class="form-control" placeholder="Describe your drawings, scope of work, and specific deliverables required..."></textarea>
+                        </div>
+
+                        <div class="form-group full-width text-center" style="margin-top: 1rem;">
+                            <button type="submit" class="btn btn-whatsapp" style="width: 100%; font-size: 1.1rem; padding: 1rem;">SEND ENQUIRY ON WHATSAPP</button>
+                            <div class="form-privacy-note">Submitting this form opens WhatsApp with your pre-filled message. No data is stored on external servers.</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       CONTACT & FAQ SECTION
+       ========================================== -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact & FAQ</h2>
+                <p>Get in touch or browse frequent questions regarding our remote steel support.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Info Card -->
+                <div class="contact-info-card">
+                    <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem;">Remote Steel Estimation & Fabrication Support</h3>
+                    
+                    <div class="contact-item">
+                        <label>WhatsApp</label>
+                        <div class="value" id="display-whatsapp">+971 50 XXX XXXX</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <label>Email</label>
+                        <div class="value" id="display-email">pankajoffice5@gmail.com</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <label>Location</label>
+                        <div class="value">UAE / Remote Support</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <label>Availability</label>
+                        <div class="value">Remote Project Support</div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <a href="#" class="btn btn-whatsapp" onclick="triggerWhatsApp(event)" style="flex: 1;">WhatsApp</a>
+                        <a href="mailto:estimation@esmartcalsteel.com" class="btn btn-primary" style="flex: 1;">Email</a>
+                    </div>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="faq-accordion">
+                    <div class="faq-item">
+                        <button class="faq-question">What drawings can I send?</button>
+                        <div class="faq-answer">You can send PDF structural drawings, DWG/DXF AutoCAD files, scanned images, sketches, or general project details.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">Do you provide small estimation jobs?</button>
+                        <div class="faq-answer">Yes, we support both small single-drawing takeoffs and large multi-structure estimation packages.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">Can you work remotely with companies outside UAE?</button>
+                        <div class="faq-answer">Yes, we provide remote engineering and estimation support internationally based on project drawings provided.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">Can you prepare Excel material takeoffs?</button>
+                        <div class="faq-answer">Yes, all material takeoffs and Bill of Materials are delivered in well-organized, editable Excel formats.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">Can you prepare cutting lists?</button>
+                        <div class="faq-answer">Yes, we prepare practical cutting lists optimized for standard 6m and 12m stock lengths to minimize steel waste.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">Do you provide Tekla support?</button>
+                        <div class="faq-answer">Yes, we offer remote Tekla Structures modeling, assembly drawings, and shop detailing assistance.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">How do I receive the completed work?</button>
+                        <div class="faq-answer">Completed files (Excel reports, PDF summaries, CAD drawings) are delivered digitally via email or WhatsApp.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">How is the price calculated?</button>
+                        <div class="faq-answer">Pricing is based on drawing complexity, total tonnage, scope of work, and required delivery turnaround time.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">Can you handle revisions?</button>
+                        <div class="faq-answer">Yes, revisions based on updated drawings or scope adjustments are accommodated as per project agreement.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">Can you develop digital systems for fabrication companies?</button>
+                        <div class="faq-answer">Yes, we assist in setting up practical digital workflows, enquiry trackers, and custom Excel reporting tools.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       FOOTER
+       ========================================== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <div class="logo-icon">AS</div>
+                        eSmart Cal Steel <span>Solutions</span>
+                    </a>
+                    <p>Remote Steel Estimation & Fabrication Support for contractors and fabrication workshops worldwide.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#process">How It Works</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Legal & Privacy</h4>
+                    <ul>
+                        <li><a href="#contact">Privacy Policy</a></li>
+                        <li><a href="#contact">Terms of Service</a></li>
+                        <li><a href="#contact">Confidentiality</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div id="copyright-text">© 2026 eSmart Cal Steel Solutions. All rights reserved.</div>
+                <div>Remote Engineering Support</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+       MODAL DIALOG
+       ========================================== -->
+    <div class="modal-overlay" id="portfolio-modal" onclick="closeModal(event)">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModalBtn()">✕</button>
+            <h3 class="modal-title" id="modal-title">Sample Details</h3>
+            <p id="modal-desc" style="color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6;"></p>
+            <div style="background: var(--light-bg); padding: 1rem; border-radius: var(--radius-sm); border: 1px dashed var(--light-border); font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 1.5rem; text-align: center; color: var(--text-muted);">
+                [SAMPLE / DEMO PREVIEW FILE]
+            </div>
+            <a href="#enquiry" class="btn btn-primary" onclick="closeModalBtn()" style="width: 100%;">REQUEST SIMILAR ESTIMATE</a>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toast-icon">✓</span>
+        <span id="toast-msg">Opening WhatsApp with your enquiry...</span>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" onclick="scrollToTop()" aria-label="Back to top">↑</button>
+
+    <!-- Mobile Sticky Bottom Bar -->
+    <div class="mobile-bottom-bar">
+        <a href="#" onclick="triggerWhatsApp(event)">
+            💬 WhatsApp — Send Drawing
+        </a>
+    </div>
+
+    <!-- ==========================================
+       JAVASCRIPT
+       ========================================== -->
+    <script>
+
+        // Automatically set the delivery date to today
+    document.getElementById('deliveryDate').valueAsDate = new Date();
+        /* 
+         * EDITABLE CONFIGURATION 
+         * Replace the values below with your actual business details.
+         */
+        const CONFIG = {
+            whatsappNumber: "971522173595", // Format: Country code followed by number without spaces or + sign (e.g. 971501234567)
+            email: "pankajoffice5@gmail.com",
+            businessName: "eSmart Cal Steel Solutions"
+        };
+
+        // Initialize UI Elements with Config
+        document.addEventListener("DOMContentLoaded", () => {
+            // Update copyright year & business name
+            const currentYear = new Date().getFullYear();
+            document.getElementById("copyright-text").textContent = `© ${currentYear} ${CONFIG.businessName}. All rights reserved.`;
+            
+            // Update contact card displays
+            document.getElementById("display-email").textContent = CONFIG.email;
+            const formattedDisplayPhone = "+" + CONFIG.whatsappNumber.slice(0,3) + " " + CONFIG.whatsappNumber.slice(3,5) + " " + CONFIG.whatsappNumber.slice(5,8) + " " + CONFIG.whatsappNumber.slice(8);
+            document.getElementById("display-whatsapp").textContent = formattedDisplayPhone;
+
+            // Setup FAQ Accordion
+            const faqItems = document.querySelectorAll(".faq-item");
+            faqItems.forEach(item => {
+                const questionBtn = item.querySelector(".faq-question");
+                questionBtn.addEventListener("click", () => {
+                    const currentlyActive = document.querySelector(".faq-item.active");
+                    if (currentlyActive && currentlyActive !== item) {
+                        currentlyActive.classList.remove("active");
+                    }
+                    item.classList.toggle("active");
+                });
+            });
+
+            // Mobile Navigation Toggle
+            const hamburgerBtn = document.getElementById("hamburger-btn");
+            const closeMenuBtn = document.getElementById("close-menu-btn");
+            const mobileNav = document.getElementById("mobile-nav");
+            const mobileLinks = document.querySelectorAll(".mobile-link");
+
+            hamburgerBtn.addEventListener("click", () => {
+                mobileNav.classList.add("open");
+            });
+
+            closeMenuBtn.addEventListener("click", () => {
+                mobileNav.classList.remove("open");
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener("click", () => {
+                    mobileNav.classList.remove("open");
+                });
+            });
+
+            // Header Scroll Effect & Back to Top
+            window.addEventListener("scroll", () => {
+                const header = document.getElementById("header");
+                const backToTopBtn = document.getElementById("back-to-top");
+                
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.add("show");
+                } else {
+                    backToTopBtn.classList.remove("show");
+                }
+            });
+        });
+
+        // Trigger WhatsApp with general or custom message
+        function triggerWhatsApp(e) {
+            e.preventDefault();
+            showToast("Opening WhatsApp...");
+            const defaultMsg = `Hello, I would like to enquire about your steel and fabrication support services. Please review my requirement and provide a quotation.`;
+            const encodedMsg = encodeURIComponent(defaultMsg);
+            const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMsg}`;
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 400);
+        }
+
+        // Form Submission and WhatsApp Generation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById("fullName").value.trim();
+            const companyName = document.getElementById("companyName").value.trim();
+            const clientPhone = document.getElementById("whatsappNumber").value.trim();
+            const email = document.getElementById("emailAddress").value.trim();
+            const projectType = document.getElementById("projectType").value;
+            const requiredService = document.getElementById("requiredService").value;
+            const projectSize = document.getElementById("projectSize").value.trim() || "Not specified";
+            const deliveryDate = document.getElementById("deliveryDate").value || "Not specified";
+            const message = document.getElementById("message").value.trim() || "No additional comments";
+
+            // Construct professional pre-filled WhatsApp message
+            const messageBody = `Hello, I would like to enquire about your steel/fabrication support services.
+
+Name: ${fullName}
+Company: ${companyName}
+WhatsApp: ${clientPhone}
+Email: ${email}
+Project Type: ${projectType}
+Required Service: ${requiredService}
+Project Size: ${projectSize}
+Required Date: ${deliveryDate}
+Message: ${message}
+
+Please review my requirement and provide a quotation.`;
+
+            showToast("Generating WhatsApp enquiry...");
+            
+            const encodedMessage = encodeURIComponent(messageBody);
+            const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
+            
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 600);
+        }
+
+        // Toast Notification Function
+        function showToast(text) {
+            const toast = document.getElementById("toast");
+            const toastMsg = document.getElementById("toast-msg");
+            toastMsg.textContent = text;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3500);
+        }
+
+        // Modal Functions for Portfolio Samples
+        function openModal(title, description) {
+            document.getElementById("modal-title").textContent = title;
+            document.getElementById("modal-desc").textContent = description;
+            document.getElementById("portfolio-modal").classList.add("open");
+        }
+
+        function closeModal(e) {
+            if (e.target.id === "portfolio-modal") {
+                document.getElementById("portfolio-modal").classList.remove("open");
+            }
+        }
+
+        function closeModalBtn() {
+            document.getElementById("portfolio-modal").classList.remove("open");
+        }
+
+        // Scroll to Top Helper
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

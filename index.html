@@ -3,8 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>eSmart Nesting | Calculator System</title>
 
+<!-- ===== SEO META TAGS (Crucial for Top Search Ranking) ===== -->
+<title>eSmart Calc | Professional Engineering, Metal Nesting & Estimation Calculators</title>
+<meta name="description" content="Free online metal estimation, plate and pipe nesting, mobile CAD, weight calculation, and engineering tools designed for fabrication professionals.">
+<meta name="keywords" content="metal estimation, plate nesting, pipe nesting, steel fabrication calculator, mobile CAD, weight calculator, eSmart Calc">
+<meta name="author" content="eSmart Calc">
+<link rel="canonical" href="https://esmartcalc.netlify.app/">
+
+<!-- ===== OPEN GRAPH / SOCIAL MEDIA META TAGS ===== -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://esmartcalc.netlify.app/">
+<meta property="og:title" content="eSmart Calc | Professional Engineering & Estimation Tools">
+<meta property="og:description" content="Accurate metal nesting, steel estimation, and industrial calculation tools tailored for fabrication environments.">
+<meta property="og:image" content="https://esmartcalc.netlify.app/background.jpg">
+
+<!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
 <style>
@@ -28,7 +42,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('background.png');
+  background-image: url('background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -69,7 +83,7 @@ button {
 .btn-primary { background: linear-gradient(135deg, #1976d2, #0d47a1); color: #fff; }
 button:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,0.25); }
 
-/* ===== MODAL STYLE (For Privacy/About) ===== */
+/* ===== MODAL STYLE ===== */
 .modal {
   display: none; position: fixed; z-index: 2000; left: 0; top: 0;
   width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
@@ -105,8 +119,8 @@ footer {
 
 <body>
 
-<!-- Clickable Background Link (Change href to your desired URL) -->
-<a href="esmart_calc.html" target="_blank" class="bg-link" aria-label="Background Link"></a>
+<!-- Clickable Background Link -->
+<a href="https://www.example.com" target="_blank" class="bg-link" aria-label="Background Link"></a>
 
 <a href="eSmart_Calculator.apk" download class="download-icon" title="Download App">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -136,10 +150,10 @@ footer {
     <button class="btn-primary" onclick="openPage('agriculture.html')">⬜ Area Calculator</button>
     <button class="btn-primary" onclick="openPage('vatcalulator.html')">💰VAT Calculator </button>
     <button class="btn-primary" onclick="openPage('pregency.html')">🤰Pregnancy Calculator</button>
-    <button class="btn-primary" onclick="openPage('BMI.html')">⚖️BMI Calculator (ltr)</button>
-    <button class="btn-primary" onclick="openPage('comp_and_sip.html')">📈SIP/Compond intrest Calculator</button>
+    <button class="btn-primary" onclick="openPage('BMI.html')">⚖️BMI Calculator</button>
+    <button class="btn-primary" onclick="openPage('comp_and_sip.html')">📈SIP/Compound Interest Calculator</button>
     <button class="btn-primary" onclick="openPage('sleep_calculator.html')">😴Sleep Calculator</button>
-    <button class="btn-primary" onclick="openPage('calories.html')">🔥Calories Calculator (ltr)</button>
+    <button class="btn-primary" onclick="openPage('calories.html')">🔥Calories Calculator</button>
   </div>
 </div>
 
@@ -156,7 +170,6 @@ footer {
     <span class="close" onclick="hideModal('aboutModal')">&times;</span>
     <h2>About Us</h2>
     <p>Welcome to <strong>eSmart Calc</strong>. We provide a comprehensive suite of professional engineering and nesting tools designed to simplify complex calculations for metal fabrication and industrial estimation.</p>
-    <p>Our mission is to provide accurate, fast, and easy-to-use calculation tools for professionals worldwide.</p>
   </div>
 </div>
 
@@ -165,28 +178,21 @@ footer {
     <span class="close" onclick="hideModal('privacyModal')">&times;</span>
     <h2>Privacy Policy</h2>
     <p><strong>Effective Date:</strong> January 2025</p>
-    <p>At eSmart Calc, we prioritize your privacy. This policy explains how we handle your data.</p>
-    <p><strong>1. Information Collection:</strong> We do NOT collect any personal information, login data, or location tracking. All calculations are performed locally on your device.</p>
-    <p><strong>2. Cookies & Advertising:</strong> We use Google AdSense to serve ads. Google may use cookies to serve ads based on your prior visits to our website.</p>
-    <p><strong>3. Third-Party Links:</strong> Our site contains links to other pages. We are not responsible for the privacy practices of external sites.</p>
-    <p><strong>4. Contact:</strong> For any questions, please reach out via our official support channels.</p>
+    <p>At eSmart Calc, we prioritize your privacy. All calculations are performed locally on your device.</p>
   </div>
 </div>
 
 <script>
 function openPage(page) { window.location.href = page; }
-
 function showModal(id) { document.getElementById(id).style.display = "block"; }
 function hideModal(id) { document.getElementById(id).style.display = "none"; }
 
-// Close modal if clicking outside of it
 window.onclick = function(event) {
   if (event.target.className === 'modal') {
     event.target.style.display = "none";
   }
 }
 
-// Disable right-click for AdSense security
 document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
 </script>
 

@@ -12,12 +12,27 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; }
 
 body {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px 15px;
+  position: relative;
+  margin: 0;
+}
+
+/* ===== CLICKABLE BACKGROUND IMAGE ===== */
+.bg-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
 }
 
 /* ===== DOWNLOAD ICON ===== */
@@ -35,6 +50,8 @@ body {
   border-radius: 22px; padding: 30px 25px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.25);
   margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .header { text-align: center; margin-bottom: 30px; }
@@ -66,7 +83,16 @@ button:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,0
 .modal-content p { font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 10px; }
 
 /* ===== FOOTER ===== */
-footer { text-align: center; margin-top: 10px; font-size: 12px; color: #fff; opacity: 0.8; }
+footer { 
+  text-align: center; 
+  margin-top: 10px; 
+  font-size: 12px; 
+  color: #fff; 
+  opacity: 0.9; 
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
 .footer-links { margin-bottom: 10px; }
 .footer-links span { cursor: pointer; text-decoration: underline; margin: 0 10px; }
 
@@ -78,6 +104,9 @@ footer { text-align: center; margin-top: 10px; font-size: 12px; color: #fff; opa
 </head>
 
 <body>
+
+<!-- Clickable Background Link (Change href to your desired URL) -->
+<a href="esmart_calc.html" target="_blank" class="bg-link" aria-label="Background Link"></a>
 
 <a href="eSmart_Calculator.apk" download class="download-icon" title="Download App">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -96,7 +125,7 @@ footer { text-align: center; margin-top: 10px; font-size: 12px; color: #fff; opa
 
   <div class="button-group">
     <button class="btn-primary" onclick="window.location.href='https://esmartcalcfina.netlify.app/'">💰 My Money Tracker</button> 
-     <button class="btn-primary" onclick="openPage('mobile_cad.html')"> ✏️ Mobile CAD </button>
+    <button class="btn-primary" onclick="openPage('mobile_cad.html')"> ✏️ Mobile CAD </button>
     <button class="btn-primary" onclick="openPage('nesting.html')">● Plate/Pipes Nesting</button>
     <button class="btn-primary" onclick="openPage('helical.html')">● Helical Calculator</button>
     <button class="btn-primary" onclick="openPage('for_diagonal.html')">⊿ Diagonal Calculator</button>

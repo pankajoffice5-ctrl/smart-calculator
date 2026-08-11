@@ -2192,26 +2192,24 @@
        JAVASCRIPT
        ========================================== -->
     <script>
-
         // Automatically set the delivery date to today
-    document.getElementById('deliveryDate').valueAsDate = new Date();
+        document.getElementById('deliveryDate').valueAsDate = new Date();
+
         /* 
-         * EDITABLE CONFIGURATION 
-         * Replace the values below with your actual business details.
+         * CONFIGURATION 
          */
         const CONFIG = {
-            whatsappNumber: "971522173595", // Format: Country code followed by number without spaces or + sign (e.g. 971501234567)
+            whatsappNumber: "971522173595", 
             email: "pankajoffice5@gmail.com",
-            businessName: "eSmart Calc Steel Solutions"
+            businessName: "eSmart Calc Steel Solutions",
+            scriptURL: "https://script.google.com/macros/s/AKfycbwBeZOBfC5VQiQ01y2cvCtGoVfJnTu5GZYkkBC4gonYFAiBf45PQTiUdliNgA64nr4QUA/exec" // <-- PASTE YOUR WEB APP URL HERE
         };
 
         // Initialize UI Elements with Config
         document.addEventListener("DOMContentLoaded", () => {
-            // Update copyright year & business name
             const currentYear = new Date().getFullYear();
             document.getElementById("copyright-text").textContent = `© ${currentYear} ${CONFIG.businessName}. All rights reserved.`;
             
-            // Update contact card displays
             document.getElementById("display-email").textContent = CONFIG.email;
             const formattedDisplayPhone = "+" + CONFIG.whatsappNumber.slice(0,3) + " " + CONFIG.whatsappNumber.slice(3,5) + " " + CONFIG.whatsappNumber.slice(5,8) + " " + CONFIG.whatsappNumber.slice(8);
             document.getElementById("display-whatsapp").textContent = formattedDisplayPhone;
@@ -2268,7 +2266,7 @@
             });
         });
 
-        // Trigger WhatsApp with general or custom message
+        // Trigger WhatsApp with general message
         function triggerWhatsApp(e) {
             e.preventDefault();
             showToast("Opening WhatsApp...");
@@ -2280,43 +2278,68 @@
             }, 400);
         }
 
-        // Form Submission and WhatsApp Generation
+        // Form Submission, Database Saving, Email Trigger & WhatsApp Redirect
         function handleFormSubmit(e) {
             e.preventDefault();
             
-            const fullName = document.getElementById("fullName").value.trim();
-            const companyName = document.getElementById("companyName").value.trim();
-            const clientPhone = document.getElementById("whatsappNumber").value.trim();
-            const email = document.getElementById("emailAddress").value.trim();
-            const projectType = document.getElementById("projectType").value;
-            const requiredService = document.getElementById("requiredService").value;
-            const projectSize = document.getElementById("projectSize").value.trim() || "Not specified";
-            const deliveryDate = document.getElementById("deliveryDate").value || "Not specified";
-            const message = document.getElementById("message").value.trim() || "No additional comments";
+            const formData = {
+                fullName: document.getElementById("fullName").value.trim(),
+                companyName: document.getElementById("companyName").value.trim(),
+                whatsappNumber: document.getElementById("whatsappNumber").value.trim(),
+                emailAddress: document.getElementById("emailAddress").value.trim(),
+                projectType: document.getElementById("projectType").value,
+                requiredService: document.getElementById("requiredService").value,
+                projectSize: document.getElementById("projectSize").value.trim() || "Not specified",
+                deliveryDate: document.getElementById("deliveryDate").value || "Not specified",
+                message: document.getElementById("message").value.trim() || "No additional comments"
+            };
 
-            // Construct professional pre-filled WhatsApp message
-            const messageBody = `Hello, I would like to enquire about your steel/fabrication support services.
+            showToast("Saving data & sending confirmation email...");
 
-Name: ${fullName}
-Company: ${companyName}
-WhatsApp: ${clientPhone}
-Email: ${email}
-Project Type: ${projectType}
-Required Service: ${requiredService}
-Project Size: ${projectSize}
-Required Date: ${deliveryDate}
-Message: ${message}
+            // Send data to Google Apps Script
+            fetch(CONFIG.scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // Required for Google Apps Script web apps cross-origin requests
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                // Construct professional pre-filled WhatsApp message
+                const messageBody = `Hello, I would like to enquire about your steel/fabrication support services.
+
+Name: ${formData.fullName}
+Company: ${formData.companyName}
+WhatsApp: ${formData.whatsappNumber}
+Email: ${formData.emailAddress}
+Project Type: ${formData.projectType}
+Required Service: ${formData.requiredService}
+Project Size: ${formData.projectSize}
+Required Date: ${formData.deliveryDate}
+Message: ${formData.message}
 
 Please review my requirement and provide a quotation.`;
 
-            showToast("Generating WhatsApp enquiry...");
-            
-            const encodedMessage = encodeURIComponent(messageBody);
-            const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
-            
-            setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-            }, 600);
+                showToast("Redirecting to WhatsApp...");
+                
+                const encodedMessage = encodeURIComponent(messageBody);
+                const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
+                
+                setTimeout(() => {
+                    window.open(whatsappUrl, '_blank');
+                    document.getElementById("enquiry-form").reset();
+                    document.getElementById('deliveryDate').valueAsDate = new Date();
+                }, 1000);
+            })
+            .catch(error => {
+                console.error('Error!', error);
+                showToast("Error processing request. Opening WhatsApp directly.");
+                
+                // Fallback to direct WhatsApp trigger if network/script fails
+                const messageBody = `Hello, I would like to enquire about your steel/fabrication support services from ${formData.fullName} (${formData.companyName}).`;
+                window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=` + encodeURIComponent(messageBody), '_blank');
+            });
         }
 
         // Toast Notification Function
@@ -2355,5 +2378,10 @@ Please review my requirement and provide a quotation.`;
             });
         }
     </script>
+    <script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
 </body>
 </html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSmart Calc | Finance & Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="bg-[#020617] text-slate-200 min-h-screen p-6">
+
+    <div class="max-w-4xl mx-auto">
+        <nav class="flex justify-between items-center mb-12">
+            <a href="https://esmartcalc.netlify.app/" class="text-xs font-bold text-slate-500 hover:text-emerald-400 transition-colors tracking-widest uppercase">
+                🏠 Home
+            </a>
+            <div class="h-8 w-8 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-400"></div>
+        </nav>
+
+        <header class="text-center md:text-left mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent tracking-tight">
+                eSmart Calc
+            </h1>
+            <p class="text-slate-400 mt-2 text-lg">Your simplified financial toolkit.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+
+
+            <a class='glass-card p-6 rounded-[2rem] transition-all group' href='/expance'>
+                <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white">Expenses</h3>
+                <p class="text-slate-400 text-sm mt-1">Daily spending analytics.</p>
+            </a>
+
+
+
+            <a class='glass-card p-6 rounded-[2rem] transition-all group' href='/budget'>
+                <div class="w-12 h-12 bg-violet-500/10 rounded-2xl flex items-center justify-center text-violet-400 mb-4 group-hover:bg-violet-500 group-hover:text-white transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white">Budget</h3>
+                <p class="text-slate-400 text-sm mt-1">Monthly plan allocation.</p>
+            </a>
+
+
+
+        </div>
+
+        <footer class="mt-20 text-center">
+            <p class="text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em]">
+                eSmart Calc Engineering • 2025
+            </p>
+        </footer>
+    </div>
+<script>
+        // Disable right-click for AdSense security
+document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+
+</script>
+
+</body>
+</html>

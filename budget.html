@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetWise | Allocation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen pb-20">
+
+    <div class="max-w-md mx-auto pt-6 px-6">
+        <nav class="flex justify-between items-center mb-12">
+            <a href="https://esmartcalcfina.netlify.app/" class="text-xs font-bold text-slate-500 hover:text-emerald-400 transition-colors tracking-widest uppercase">
+                🏠 Back
+            </a>
+            <div class="h-8 w-8 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-400"></div>
+        </nav>
+    </div>
+
+    <div id="app-content">
+        <header class="bg-violet-700 p-8 text-white rounded-b-[3rem] shadow-xl">
+            <div class="max-w-md mx-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-sm font-800 opacity-80 uppercase tracking-widest">Budget Allocation</h1>
+                    <span class="text-[10px] font-bold border border-violet-400 px-3 py-1 rounded-full uppercase">Local Storage</span>
+                </div>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <p class="text-xs font-bold opacity-70 uppercase">Total Monthly Plan</p>
+                        <h2 id="total-budget" class="text-4xl font-800">₹0</h2>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-bold opacity-70 uppercase">Goals</p>
+                        <h2 id="cat-count" class="text-2xl font-800">0</h2>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-md mx-auto p-6 -mt-8 space-y-6">
+            <div class="bg-white rounded-3xl p-6 shadow-xl border border-slate-100">
+                <form id="budgetForm" class="space-y-4">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2">Category Name</label>
+                        <input type="text" id="catName" placeholder="e.g., Rent, Insurance, Savings" 
+                               class="w-full p-4 rounded-2xl bg-slate-50 border-none outline-none focus:ring-2 ring-violet-100 font-bold text-slate-700" required>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2">Allocated Amount</label>
+                        <input type="number" id="catLimit" placeholder="₹10000" 
+                               class="w-full p-4 rounded-2xl bg-slate-50 border-none outline-none focus:ring-2 ring-violet-100 font-bold text-slate-700" required>
+                    </div>
+
+                    <button type="submit" class="w-full bg-violet-600 text-white font-800 py-4 rounded-2xl hover:bg-violet-700 active:scale-95 transition-all shadow-lg shadow-violet-200">
+                        Add to Budget Plan
+                    </button>
+                </form>
+            </div>
+
+            <div id="budgetList" class="space-y-3"></div>
+        </main>
+    </div>
+
+    <script>
+        let db = null;
+
+        // --- 1. IndexedDB Setup ---
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open("BudgetWiseDB", 1);
+                
+                request.onerror = (event) => reject(event.target.error);
+                
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    resolve(db);
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains("plans")) {
+                        const store = database.createObjectStore("plans", { keyPath: "id", autoIncrement: true });
+                        store.createIndex("createdAt", "createdAt", { unique: false });
+                    }
+                };
+            });
+        }
+
+        // --- 2. Data Loading & Sync ---
+        function loadBudgets() {
+            if (!db) return;
+            const transaction = db.transaction(["plans"], "readonly");
+            const store = transaction.objectStore("plans");
+            const request = store.getAll();
+
+            request.onsuccess = (event) => {
+                const budgets = event.target.result;
+                // Sort descending by createdAt
+                budgets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                renderUI(budgets);
+            };
+        }
+
+        function deleteBudget(id) {
+            if(confirm("Remove this category from your plan?")) {
+                const transaction = db.transaction(["plans"], "readwrite");
+                const store = transaction.objectStore("plans");
+                const request = store.delete(id);
+
+                request.onsuccess = () => {
+                    loadBudgets();
+                };
+            }
+        }
+
+        // --- 3. Rendering Logic ---
+        function renderUI(budgets) {
+            const list = document.getElementById('budgetList');
+            const totalEl = document.getElementById('total-budget');
+            const countEl = document.getElementById('cat-count');
+            
+            list.innerHTML = '';
+            let total = budgets.reduce((sum, b) => sum + parseFloat(b.limit), 0);
+
+            budgets.forEach((b) => {
+                const share = total > 0 ? ((b.limit / total) * 100).toFixed(1) : 0;
+
+                list.innerHTML += `
+                    <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 flex justify-between items-center transition-all hover:border-violet-200 animate-in slide-in-from-bottom duration-300">
+                        <div class="flex items-center gap-4">
+                            <div class="h-12 w-12 bg-violet-50 rounded-2xl flex items-center justify-center text-violet-600 font-black text-[10px]">
+                                ${share}%
+                            </div>
+                            <div>
+                                <h3 class="font-800 text-slate-800">${b.name}</h3>
+                                <p class="text-lg font-black text-violet-600 tracking-tight">₹${parseFloat(b.limit).toLocaleString()}</p>
+                            </div>
+                        </div>
+                        <button onclick="deleteBudget(${b.id})" class="text-slate-300 hover:text-rose-500 p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+            });
+
+            totalEl.innerText = `₹${total.toLocaleString()}`;
+            countEl.innerText = budgets.length;
+        }
+
+        // --- 4. Event Handlers & Initialization ---
+        window.onload = async () => {
+            try {
+                await initDB();
+                loadBudgets();
+            } catch (err) {
+                console.error("Failed to initialize IndexedDB:", err);
+            }
+        };
+
+        document.getElementById('budgetForm').onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('catName').value;
+            const limit = document.getElementById('catLimit').value;
+
+            const newPlan = {
+                name,
+                limit: parseFloat(limit),
+                createdAt: new Date().toISOString()
+            };
+
+            const transaction = db.transaction(["plans"], "readwrite");
+            const store = transaction.objectStore("plans");
+            const request = store.add(newPlan);
+
+            request.onsuccess = () => {
+                e.target.reset();
+                loadBudgets();
+            };
+        };
+
+        // Disable right-click for protection
+        document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+    </script>
+</body>
+</html>

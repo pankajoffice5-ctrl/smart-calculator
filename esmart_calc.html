@@ -1451,36 +1451,35 @@
                     </div>
                 </div>
 
-<div class="hero-visual" style="padding: 0; overflow: hidden; border-radius: var(--radius-lg); aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; background-color: var(--dark-surface);">
-    <video autoplay loop muted playsinline style="width: 100%; height: 100%; display: block; object-fit: cover; border-radius: var(--radius-lg);">
-        <source src="project-1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</div>
+<div class="hero-visual">
+    <div class="blueprint-header">
+        <span>PROJECT_ESTIMATE_ENGINE.cad</span>
+        <span class="status">LIVE PREVIEW</span>
+    </div>
 
-                    <div class="cad-preview-box">
-                        <div class="cad-grid-lines"></div>
-                        <div class="beam-sketch">
-                            <span style="font-size:0.75rem; color:#94a3b8;">IPE 300</span>
-                            <span style="font-size:0.75rem; color:#94a3b8;">L=6000mm</span>
-                        </div>
-                    </div>
-                    <div class="cad-stats">
-                        <div class="cad-stat-card">
-                            <div class="label">Total Tonnage</div>
-                            <div class="value">142.5 T</div>
-                        </div>
-                        <div class="cad-stat-card">
-                            <div class="label">BOM Items</div>
-                            <div class="value">384 Pcs</div>
-                        </div>
-                        <div class="cad-stat-card">
-                            <div class="label">Wastage Est.</div>
-                            <div class="value">&lt; 3.2%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Video Preview -->
+    <div style="overflow: hidden; border-radius: var(--radius-sm); margin-bottom: 1.5rem; aspect-ratio: 16 / 9; background: #090d16;">
+        <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="project-1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="cad-stats">
+        <div class="cad-stat-card">
+            <div class="label">Total Tonnage</div>
+            <div class="value">142.5 T</div>
+        </div>
+        <div class="cad-stat-card">
+            <div class="label">BOM Items</div>
+            <div class="value">384 Pcs</div>
+        </div>
+        <div class="cad-stat-card">
+            <div class="label">Wastage Est.</div>
+            <div class="value">&lt; 3.2%</div>
+        </div>
+    </div>
+</div>
 
             <!-- Hero Customer Callout Message Banner -->
             <div class="hero-customer-msg">
@@ -2035,9 +2034,9 @@
                 <div class="contact-info-card">
                     <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem;">Remote Steel Estimation & Fabrication Support</h3>
                     
-                    <div class="contact-item">
-                        <label>WhatsApp</label>
-                        <div class="value" id="display-none">@uaecad</div>
+                   <div class="contact-item">
+                    <label>WhatsApp</label>
+                    <div class="value" id="display-whatsapp">@uaecad</div>
                     </div>
 
                     <div class="contact-item">
@@ -2214,7 +2213,7 @@
             
             document.getElementById("display-email").textContent = CONFIG.email;
             const formattedDisplayPhone = "+" + CONFIG.whatsappNumber.slice(0,3) + " " + CONFIG.whatsappNumber.slice(3,5) + " " + CONFIG.whatsappNumber.slice(5,8) + " " + CONFIG.whatsappNumber.slice(8);
-            document.getElementById("display-whatsapp").textContent = formattedDisplayPhone;
+
 
             // Setup FAQ Accordion
             const faqItems = document.querySelectorAll(".faq-item");

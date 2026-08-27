@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ===== SEO META TAGS (Crucial for Top Search Ranking) ===== -->
+<!-- ===== SEO META TAGS (Optimized for Top Search Ranking) ===== -->
 <title>eSmart Calc | Professional Engineering, Metal Nesting & Estimation Calculators</title>
-<meta name="description" content="Free online metal estimation, Free QR code generate, Finance Tracker, plate and pipe nesting, mobile CAD, weight calculation, and engineering tools designed for fabrication professionals.">
-<meta name="keywords" content="metal estimation, plate nesting, Free QR code generate, Finance Tracker, pipe nesting, steel fabrication calculator, mobile CAD, weight calculator, eSmart Calc">
+<meta name="description" content="Free online metal estimation, free QR code generator, finance tracker, plate and pipe nesting, mobile CAD, weight calculation, and engineering tools designed for fabrication professionals.">
+<meta name="keywords" content="metal estimation, plate nesting, free QR code generator, finance tracker, pipe nesting, steel fabrication calculator, mobile CAD, weight calculator, engineering tools, eSmart Calc">
 <meta name="author" content="eSmart Calc">
 <link rel="canonical" href="https://esmartcalc.netlify.app/">
 
@@ -15,11 +15,45 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://esmartcalc.netlify.app/">
 <meta property="og:title" content="eSmart Calc | Professional Engineering & Estimation Tools">
-<meta property="og:description" content="Accurate metal nesting, steel estimation, and industrial calculation tools tailored for fabrication environments.">
+<meta property="og:description" content="Accurate metal nesting, steel estimation, QR code generation, and industrial calculation tools tailored for fabrication environments.">
 <meta property="og:image" content="https://esmartcalc.netlify.app/background.png">
+
+<!-- ===== TWITTER CARD META TAGS ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="eSmart Calc | Professional Engineering & Estimation Tools">
+<meta name="twitter:description" content="Accurate metal nesting, steel estimation, QR code generation, and industrial calculation tools.">
+<meta name="twitter:image" content="https://esmartcalc.netlify.app/background.png">
+
+<!-- ===== STRUCTURED DATA (SCHEMA.ORG FOR GOOGLE) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "eSmart Calc",
+  "operatingSystem": "All",
+  "applicationCategory": "BusinessApplication",
+  "description": "Professional engineering, metal nesting, estimation calculators, finance tracker, and free QR code generation tools.",
+  "url": "https://esmartcalc.netlify.app/",
+  "author": {
+    "@type": "Organization",
+    "name": "eSmart Calc"
+  }
+}
+</script>
 
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+<!-- Google Analytics (Placeholder - Replace G-XXXXXXXXXX with your actual Measurement ID) -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
 
 <style>
 /* ===== RESET & BASE ===== */
@@ -33,6 +67,7 @@ body {
   padding: 30px 15px;
   position: relative;
   margin: 0;
+  background-color: #f4f7f6;
 }
 
 /* ===== CLICKABLE BACKGROUND IMAGE ===== */
@@ -53,10 +88,10 @@ body {
 .download-icon {
   position: fixed; top: 16px; right: 16px; width: 38px; height: 38px;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 8px; color: #ffffff; background: rgba(255,255,255,0.08);
+  border-radius: 8px; color: #ffffff; background: rgba(0,0,0,0.4);
   backdrop-filter: blur(6px); cursor: pointer; transition: all 0.2s ease; z-index: 1000;
 }
-.download-icon:hover { background: rgba(255,255,255,0.18); transform: translateY(-1px); }
+.download-icon:hover { background: rgba(0,0,0,0.6); transform: translateY(-1px); }
 
 /* ===== CONTAINER ===== */
 .container {
@@ -68,12 +103,22 @@ body {
   z-index: 2;
 }
 
-.header { text-align: center; margin-bottom: 30px; }
+.home-link {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #1565c0;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+.home-link:hover { text-decoration: underline; }
+
+.header { text-align: center; margin-bottom: 25px; }
 .header h1 { font-size: 24px; color: #1565c0; margin-bottom: 6px; }
 .header p { font-size: 14px; color: #666; }
 
 /* ===== BUTTONS ===== */
-.button-group { display: flex; flex-direction: column; gap: 14px; }
+.button-group { display: flex; flex-direction: column; gap: 12px; }
 button {
   width: 100%; padding: 14px; font-size: 15px; font-weight: 600;
   border-radius: 14px; border: none; cursor: pointer;
@@ -81,7 +126,7 @@ button {
   transition: all 0.25s ease;
 }
 .btn-primary { background: linear-gradient(135deg, #1976d2, #0d47a1); color: #fff; }
-button:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,0.25); }
+button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.2); }
 
 /* ===== MODAL STYLE ===== */
 .modal {
@@ -93,6 +138,7 @@ button:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,0
   border-radius: 15px; width: 90%; max-width: 500px; max-height: 70vh; overflow-y: auto;
 }
 .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.close:hover { color: #000; }
 .modal-content h2 { margin-bottom: 15px; color: #1565c0; }
 .modal-content p { font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 10px; }
 
@@ -102,13 +148,14 @@ footer {
   margin-top: 10px; 
   font-size: 12px; 
   color: #fff; 
-  opacity: 0.9; 
+  opacity: 0.95; 
   position: relative;
   z-index: 2;
   text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 .footer-links { margin-bottom: 10px; }
 .footer-links span { cursor: pointer; text-decoration: underline; margin: 0 10px; }
+.footer-links span:hover { color: #e3f2fd; }
 
 @media (max-width: 480px) {
   .container { padding: 25px 20px; }
@@ -120,27 +167,27 @@ footer {
 <body>
 
 <!-- Clickable Background Link -->
-<a href="esmart_calc.html" target="_blank" class="bg-link" aria-label="Background Link"></a>
+<a href="esmart_calc.html" class="bg-link" aria-label="Background Link"></a>
 
-<a href="eSmart_Calculator.apk" download class="download-icon" title="Download App">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+<a href="eSmart_Calculator.apk" download class="download-icon" title="Download Android App" aria-label="Download Android App">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path d="M12 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     <path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
   </svg>
 </a>
 
-<div class="container">
-  <a href="esmart_calc.html">🏠 Home</a>
-  <div class="header">
+<main class="container">
+  <a href="esmart_calc.html" class="home-link">🏠 Home</a>
+  <header class="header">
     <h1>eSmart Calc</h1>
-    <p>Nesting & Estimation Calculator System</p>
-  </div>
+    <p>Nesting, Estimation & Utility Calculator Suite</p>
+  </header>
 
-  <div class="button-group">
+  <nav class="button-group" aria-label="Calculators and Tools Navigation">
     <button class="btn-primary" onclick="openPage('finance.html')">💰 My Money Tracker</button>
-    <button class="btn-primary" onclick="openPage('qr_code.html')"> ⛶ Free QR Code Generate</button>
-    <button class="btn-primary" onclick="openPage('mobile_cad.html')"> ✏️ Mobile CAD </button>
+    <button class="btn-primary" onclick="openPage('qr_code.html')">⛶ Free QR Code Generator</button>
+    <button class="btn-primary" onclick="openPage('mobile_cad.html')">✏️ Mobile CAD</button>
     <button class="btn-primary" onclick="openPage('nesting.html')">● Plate/Pipes Nesting</button>
     <button class="btn-primary" onclick="openPage('helical.html')">● Helical Calculator</button>
     <button class="btn-primary" onclick="openPage('for_diagonal.html')">⊿ Diagonal Calculator</button>
@@ -149,37 +196,39 @@ footer {
     <button class="btn-primary" onclick="openPage('HYDRAOLIC.html')">🧮 Hydraulic Force Calculator</button>
     <button class="btn-primary" onclick="openPage('VOLUME CALCULATOR.html')">🛢 Volume Calculator (ltr)</button>
     <button class="btn-primary" onclick="openPage('agriculture.html')">⬜ Area Calculator</button>
-    <button class="btn-primary" onclick="openPage('vatcalulator.html')">💰VAT Calculator </button>
-    <button class="btn-primary" onclick="openPage('pregency.html')">🤰Pregnancy Calculator</button>
-    <button class="btn-primary" onclick="openPage('BMI.html')">⚖️BMI Calculator</button>
-    <button class="btn-primary" onclick="openPage('comp_and_sip.html')">📈SIP/Compound Interest Calculator</button>
-    <button class="btn-primary" onclick="openPage('sleep_calculator.html')">😴Sleep Calculator</button>
-    <button class="btn-primary" onclick="openPage('calories.html')">🔥Calories Calculator</button>
-  </div>
-</div>
+    <button class="btn-primary" onclick="openPage('vatcalulator.html')">💰 VAT Calculator</button>
+    <button class="btn-primary" onclick="openPage('pregency.html')">🤰 Pregnancy Calculator</button>
+    <button class="btn-primary" onclick="openPage('BMI.html')">⚖️ BMI Calculator</button>
+    <button class="btn-primary" onclick="openPage('comp_and_sip.html')">📈 SIP/Compound Interest Calculator</button>
+    <button class="btn-primary" onclick="openPage('sleep_calculator.html')">😴 Sleep Calculator</button>
+    <button class="btn-primary" onclick="openPage('calories.html')">🔥 Calories Calculator</button>
+  </nav>
+</main>
 
 <footer>
   <div class="footer-links">
-    <span onclick="showModal('aboutModal')">About Us</span> | 
-    <span onclick="showModal('privacyModal')">Privacy Policy</span>
+    <span onclick="showModal('aboutModal')" role="button" tabindex="0">About Us</span> | 
+    <span onclick="showModal('privacyModal')" role="button" tabindex="0">Privacy Policy</span>
   </div>
-  © 2025 eSmart Calc · All Rights Reserved
+  &copy; 2026 eSmart Calc &middot; All Rights Reserved
 </footer>
 
-<div id="aboutModal" class="modal">
+<!-- About Modal -->
+<div id="aboutModal" class="modal" role="dialog" aria-labelledby="aboutModalTitle">
   <div class="modal-content">
-    <span class="close" onclick="hideModal('aboutModal')">&times;</span>
-    <h2>About Us</h2>
-    <p>Welcome to <strong>eSmart Calc</strong>. We provide a comprehensive suite of professional engineering and nesting tools designed to simplify complex calculations for metal fabrication and industrial estimation.</p>
+    <span class="close" onclick="hideModal('aboutModal')" aria-label="Close modal">&times;</span>
+    <h2 id="aboutModalTitle">About Us</h2>
+    <p>Welcome to <strong>eSmart Calc</strong>. We provide a comprehensive suite of professional engineering, metal nesting, financial trackers, and utility tools designed to simplify complex calculations for industrial estimation and daily use.</p>
   </div>
 </div>
 
-<div id="privacyModal" class="modal">
+<!-- Privacy Policy Modal -->
+<div id="privacyModal" class="modal" role="dialog" aria-labelledby="privacyModalTitle">
   <div class="modal-content">
-    <span class="close" onclick="hideModal('privacyModal')">&times;</span>
-    <h2>Privacy Policy</h2>
-    <p><strong>Effective Date:</strong> January 2025</p>
-    <p>At eSmart Calc, we prioritize your privacy. All calculations are performed locally on your device.</p>
+    <span class="close" onclick="hideModal('privacyModal')" aria-label="Close modal">&times;</span>
+    <h2 id="privacyModalTitle">Privacy Policy</h2>
+    <p><strong>Effective Date:</strong> January 2026</p>
+    <p>At eSmart Calc, we prioritize your privacy. All calculations and data inputs are securely processed locally on your device.</p>
   </div>
 </div>
 
@@ -194,31 +243,9 @@ window.onclick = function(event) {
   }
 }
 
-
+// Optional security measure, note that disabling right-click can occasionally hurt UX/accessibility
+document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
 </script>
-<script>
-    // Disable right-click context menu
-    document.addEventListener("contextmenu", function(e) {
-      e.preventDefault();
-    });
 
-    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
-    document.addEventListener("keydown", function(e) {
-        // F12 key
-        if (e.key === "F12") {
-            e.preventDefault();
-        }
-        
-        // Ctrl+Shift+I or Ctrl+Shift+J or Ctrl+Shift+C (Chrome/Edge/Firefox DevTools)
-        if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i" || e.key === "J" || e.key === "j" || e.key === "C" || e.key === "c")) {
-            e.preventDefault();
-        }
-        
-        // Ctrl+U (View Source)
-        if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
-            e.preventDefault();
-        }
-    });
-</script>
 </body>
 </html>

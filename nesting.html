@@ -216,9 +216,31 @@
         }
     }
 
-    // Security: Disable right-click
-    document.addEventListener("contextmenu", (e) => e.preventDefault());
-</script>
 
+</script>
+<script>
+    // Disable right-click context menu
+    document.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+    });
+
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
+    document.addEventListener("keydown", function(e) {
+        // F12 key
+        if (e.key === "F12") {
+            e.preventDefault();
+        }
+        
+        // Ctrl+Shift+I or Ctrl+Shift+J or Ctrl+Shift+C (Chrome/Edge/Firefox DevTools)
+        if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i" || e.key === "J" || e.key === "j" || e.key === "C" || e.key === "c")) {
+            e.preventDefault();
+        }
+        
+        // Ctrl+U (View Source)
+        if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
+            e.preventDefault();
+        }
+    });
+</script>
 </body>
 </html>

@@ -44,17 +44,6 @@
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
-<!-- Google Analytics (Placeholder - Replace G-XXXXXXXXXX with your actual Measurement ID) -->
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
--->
-
 <style>
 /* ===== RESET & BASE ===== */
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; }
@@ -117,16 +106,29 @@ body {
 .header h1 { font-size: 24px; color: #1565c0; margin-bottom: 6px; }
 .header p { font-size: 14px; color: #666; }
 
-/* ===== BUTTONS ===== */
+/* ===== SEO TEXT DESCRIPTIONS (Crawlable Keywords) ===== */
+.seo-description {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: center;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* ===== LINKS STYLED AS BUTTONS ===== */
 .button-group { display: flex; flex-direction: column; gap: 12px; }
-button {
+.btn-primary {
   width: 100%; padding: 14px; font-size: 15px; font-weight: 600;
-  border-radius: 14px; border: none; cursor: pointer;
+  border-radius: 14px; border: none; cursor: pointer; text-decoration: none;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   transition: all 0.25s ease;
+  background: linear-gradient(135deg, #1976d2, #0d47a1); color: #fff;
+  text-align: center;
 }
-.btn-primary { background: linear-gradient(135deg, #1976d2, #0d47a1); color: #fff; }
-button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.2); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.2); color: #fff; }
 
 /* ===== MODAL STYLE ===== */
 .modal {
@@ -184,24 +186,30 @@ footer {
     <p>Nesting, Estimation & Utility Calculator Suite</p>
   </header>
 
+  <!-- Hidden keyword-rich context text for search crawlers -->
+  <div class="seo-description">
+    Welcome to <strong>eSmart Calc</strong>, your hub for online metal estimation, free QR code generation, plate and pipe nesting, finance trackers, and structural steel calculation tools.
+  </div>
+
+  <!-- True HTML Anchor Links for Maximum SEO Crawlability -->
   <nav class="button-group" aria-label="Calculators and Tools Navigation">
-    <button class="btn-primary" onclick="openPage('finance.html')">💰 My Money Tracker</button>
-    <button class="btn-primary" onclick="openPage('qr_code.html')">⛶ Free QR Code Generator</button>
-    <button class="btn-primary" onclick="openPage('mobile_cad.html')">✏️ Mobile CAD</button>
-    <button class="btn-primary" onclick="openPage('nesting.html')">● Plate/Pipes Nesting</button>
-    <button class="btn-primary" onclick="openPage('helical.html')">● Helical Calculator</button>
-    <button class="btn-primary" onclick="openPage('for_diagonal.html')">⊿ Diagonal Calculator</button>
-    <button class="btn-primary" onclick="openPage('estimation.html')">📊 Metal Estimation</button>
-    <button class="btn-primary" onclick="openPage('CALCULATOR.html')">🖩 Basic Calculator</button>
-    <button class="btn-primary" onclick="openPage('HYDRAOLIC.html')">🧮 Hydraulic Force Calculator</button>
-    <button class="btn-primary" onclick="openPage('VOLUME CALCULATOR.html')">🛢 Volume Calculator (ltr)</button>
-    <button class="btn-primary" onclick="openPage('agriculture.html')">⬜ Area Calculator</button>
-    <button class="btn-primary" onclick="openPage('vatcalulator.html')">💰 VAT Calculator</button>
-    <button class="btn-primary" onclick="openPage('pregency.html')">🤰 Pregnancy Calculator</button>
-    <button class="btn-primary" onclick="openPage('BMI.html')">⚖️ BMI Calculator</button>
-    <button class="btn-primary" onclick="openPage('comp_and_sip.html')">📈 SIP/Compound Interest Calculator</button>
-    <button class="btn-primary" onclick="openPage('sleep_calculator.html')">😴 Sleep Calculator</button>
-    <button class="btn-primary" onclick="openPage('calories.html')">🔥 Calories Calculator</button>
+    <a href="finance.html" class="btn-primary">💰 My Money Tracker</a>
+    <a href="qr_code.html" class="btn-primary">⛶ Free QR Code Generator</a>
+    <a href="mobile_cad.html" class="btn-primary">✏️ Mobile CAD</a>
+    <a href="nesting.html" class="btn-primary">● Plate/Pipes Nesting</a>
+    <a href="helical.html" class="btn-primary">● Helical Calculator</a>
+    <a href="for_diagonal.html" class="btn-primary">⊿ Diagonal Calculator</a>
+    <a href="estimation.html" class="btn-primary">📊 Metal Estimation</a>
+    <a href="CALCULATOR.html" class="btn-primary">🖩 Basic Calculator</a>
+    <a href="HYDRAOLIC.html" class="btn-primary">🧮 Hydraulic Force Calculator</a>
+    <a href="VOLUME CALCULATOR.html" class="btn-primary">🛢 Volume Calculator (ltr)</a>
+    <a href="agriculture.html" class="btn-primary">⬜ Area Calculator</a>
+    <a href="vatcalulator.html" class="btn-primary">💰 VAT Calculator</a>
+    <a href="pregency.html" class="btn-primary">🤰 Pregnancy Calculator</a>
+    <a href="BMI.html" class="btn-primary">⚖️ BMI Calculator</a>
+    <a href="comp_and_sip.html" class="btn-primary">📈 SIP/Compound Interest Calculator</a>
+    <a href="sleep_calculator.html" class="btn-primary">😴 Sleep Calculator</a>
+    <a href="calories.html" class="btn-primary">🔥 Calories Calculator</a>
   </nav>
 </main>
 
@@ -233,7 +241,6 @@ footer {
 </div>
 
 <script>
-function openPage(page) { window.location.href = page; }
 function showModal(id) { document.getElementById(id).style.display = "block"; }
 function hideModal(id) { document.getElementById(id).style.display = "none"; }
 
@@ -242,9 +249,8 @@ window.onclick = function(event) {
     event.target.style.display = "none";
   }
 }
-
-
 </script>
+
 <script>
     // Disable right-click context menu
     document.addEventListener("contextmenu", function(e) {
@@ -253,17 +259,12 @@ window.onclick = function(event) {
 
     // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
     document.addEventListener("keydown", function(e) {
-        // F12 key
         if (e.key === "F12") {
             e.preventDefault();
         }
-        
-        // Ctrl+Shift+I or Ctrl+Shift+J or Ctrl+Shift+C (Chrome/Edge/Firefox DevTools)
         if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i" || e.key === "J" || e.key === "j" || e.key === "C" || e.key === "c")) {
             e.preventDefault();
         }
-        
-        // Ctrl+U (View Source)
         if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
             e.preventDefault();
         }

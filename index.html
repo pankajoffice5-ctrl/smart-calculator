@@ -326,6 +326,33 @@ footer {
   .container { padding: 25px 20px; }
   .header h1 { font-size: 21px; }
 }
+
+/* ===== LOGO STYLING ===== */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.site-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transition: transform 0.25s ease;
+}
+
+.site-logo:hover {
+  transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+  .site-logo {
+    width: 110px;
+    height: 110px;
+  }
+}
 </style>
 </head>
 
@@ -344,7 +371,14 @@ footer {
 
 <main class="container">
   <a href="esmart_calc.html" class="home-link" aria-label="Return to eSmart Calc home">🏠 Home</a>
+  
   <header class="header">
+    <div class="logo-container">
+      <img src="logo.jpg" alt="eSmart Calc Logo" class="site-logo">
+    </div>
+    <h1>Free Engineering, Metal Estimation & QR Code Calculators</h1>
+    <p>eSmart Calc – Professional Fabrication & Utility Tools Online</p>
+  </header>
     <h1>Free Engineering, Metal Estimation & QR Code Calculators</h1>
     <p>eSmart Calc – Professional Fabrication & Utility Tools Online</p>
   </header>

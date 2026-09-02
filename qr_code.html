@@ -138,6 +138,27 @@
         button:hover {
             background-color: var(--primary-hover);
         }
+        .btn-primary {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -169,9 +190,10 @@
             <div id="qrcode"></div>
         </div>
 
-        <button id="downloadBtn" onclick="downloadQRCodeAsJPG()">Download QR Code (JPG)</button>
-    </div>
-
+<button id="downloadBtn" onclick="downloadQRCodeAsJPG()">Download QR Code (JPG)</button>
+        <a href="QR.html" class="btn-primary">⛶ QR Code Scanner</a>
+    </dev>
+        
     <script>
         let fgColor = "#000000";
         let bgColor = "#ffffff";

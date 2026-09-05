@@ -307,6 +307,69 @@ body {
   font-size: 14px;
 }
 
+/* ===== SOCIAL & WEBSITE LINKS BAR ===== */
+.social-links-section {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 15px;
+  padding: 15px;
+  background: rgba(255,255,255,0.97);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .social-links-section {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .social-links-section {
+    max-width: 900px;
+  }
+}
+
+.social-links-section h3 {
+  font-size: 14px;
+  color: #1565c0;
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #1976d2;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.social-btn:hover {
+  background: #0d47a1;
+  transform: translateY(-2px);
+}
+
+.social-btn.website { background: #0288d1; }
+.social-btn.facebook { background: #1877f2; }
+.social-btn.instagram { background: #e4405f; }
+.social-btn.youtube { background: #ff0000; }
+
 /* ===== FOOTER ===== */
 footer { 
   text-align: center; 
@@ -379,9 +442,6 @@ footer {
     <h1>Free Engineering, Metal Estimation & QR Code Calculators</h1>
     <p>eSmart Calc – Professional Fabrication & Utility Tools Online</p>
   </header>
-    <h1>Free Engineering, Metal Estimation & QR Code Calculators</h1>
-    <p>eSmart Calc – Professional Fabrication & Utility Tools Online</p>
-  </header>
 
   <section class="seo-description" aria-labelledby="intro-heading">
     <h2 id="intro-heading">Online Engineering & Steel Fabrication Calculators</h2>
@@ -425,11 +485,26 @@ footer {
     <summary>Which fabrication calculation tools are available?</summary>
     <p>Available tools include free metal estimation calculators online, steel fabrication calculators, plate and pipe nesting calculators, hydraulic force calculators, helical calculators online, and steel weight calculator tools.</p>
   </details>
-<details>
-  <summary>We Welcome Your Suggestions</summary>
-  <p>Send an email to <a href="mailto:esmartcalc@gmail.com">esmartcalc@gmail.com</a></p>
-</details>
+  <details>
+    <summary>We Welcome Your Suggestions</summary>
+    <p>Send an email to <a href="mailto:esmartcalc@gmail.com">esmartcalc@gmail.com</a>.</p>
+  </details>
 </section>
+
+<!-- ===== SOCIAL & WEBSITE LINKS SECTION ===== -->
+<div class="social-links-section">
+  <h3>Connect With Us</h3>
+  <div class="social-icons">
+    <!-- Replace '#' with your actual website link -->
+    <a href="https://esmartcalc.netlify.app/esmart_calc" target="_blank" rel="noopener noreferrer" class="social-btn website">🌐 Website</a>
+    <!-- Replace '#' with your actual Facebook profile/page link -->
+    <a href="https://www.facebook.com/people/Esmartcalc/61593086296651/" target="_blank" rel="noopener noreferrer" class="social-btn facebook">📘 Facebook</a>
+    <!-- Replace '#' with your actual Instagram profile link -->
+    <a href="https://www.instagram.com/esmartcalc/" target="_blank" rel="noopener noreferrer" class="social-btn instagram">📷 Instagram</a>
+    <!-- Replace '#' with your actual YouTube channel link -->
+    <a href="https://www.youtube.com/@brightgyan3201" target="_blank" rel="noopener noreferrer" class="social-btn youtube">▶️ YouTube</a>
+  </div>
+</div>
 
 <footer>
   <div class="footer-links">

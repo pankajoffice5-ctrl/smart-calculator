@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material Weight Calculator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+body{
+    margin:0;
+    padding:20px;
+    background:linear-gradient(135deg,#eef2f7,#dfe7f1);
+}
+
+.container{
+    max-width:500px;
+    margin:auto;
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.12);
+}
+
+h3{
+    margin:0 0 20px;
+    text-align:center;
+    color:#1f2937;
+    font-size:24px;
+}
+
+label{
+    display:block;
+    margin-top:14px;
+    margin-bottom:5px;
+    font-size:14px;
+    font-weight:600;
+    color:#374151;
+}
+
+input,
+select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #cbd5e1;
+    border-radius:6px;
+    font-size:14px;
+    transition:0.2s;
+}
+
+input:focus,
+select:focus{
+    outline:none;
+    border-color:#0077cc;
+    box-shadow:0 0 0 3px rgba(0,119,204,0.15);
+}
+
+.result{
+    margin-top:20px;
+    background:#f8fafc;
+    border-left:4px solid #0077cc;
+    padding:15px;
+    border-radius:6px;
+}
+
+.result-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:10px 0;
+    font-size:15px;
+    font-weight:600;
+}
+
+.result span{
+    color:#0077cc;
+}
+
+.total-row{
+    border-top:1px solid #d1d5db;
+    padding-top:10px;
+    margin-top:10px;
+    font-size:18px;
+}
+
+.note{
+    margin-top:10px;
+    font-size:12px;
+    color:#6b7280;
+    text-align:center;
+}
+
+.active-input{
+    background:#dcfce7 !important;
+    border:2px solid #22c55e !important;
+    font-weight:600;
+}
+
+.helper{
+    margin-top:10px;
+    padding:10px;
+    background:#ecfdf5;
+    border:1px solid #86efac;
+    border-radius:6px;
+    color:#166534;
+    font-size:13px;
+    font-weight:600;
+}
+
+/* Anchor Button for Steel Profile */
+.profile-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #4b5563, #374151);
+    color: #ffffff;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+.profile-btn:hover {
+    background: linear-gradient(135deg, #374151, #1f2937);
+    transform: translateY(-1px);
+}
+
+.profile-btn:active {
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Material Weight Calculator</h3>
+
+    <label>Metal</label>
+    <select id="metalType">
+        <option value="steel">Steel</option>
+        <option value="aluminum">Aluminum</option>
+        <option value="stainless">Stainless Steel</option>
+        <option value="plain concrete">plain concrete</option>
+    </select>
+
+    <label>Material Type</label>
+    <select id="materialType">
+        <option value="">Select Type</option>
+        <option>CHS</option>
+        <option>RHS/SHS</option>
+        <option>ROUND BAR</option>
+        <option>FLAT BAR</option>
+        <option>ANGLE/TEE</option>
+        <option>CHANNEL</option>
+        <option>PLATE</option>
+        <option>SQ BAR</option>
+        <option>REBAR</option>
+        <option>HEX BAR</option>
+    </select>
+
+<label id="lblE11">Dimension 1 (mm)</label>
+<input type="number" id="E11" placeholder="Enter Dimension 1">
+
+<label id="lblF11">Dimension 2 (mm)</label>
+<input type="number" id="F11" placeholder="Enter Dimension 2">
+
+<label id="lblG11">Thickness (mm)</label>
+<input type="number" id="G11" placeholder="Enter Thickness">
+
+    <label>Length (mm)</label>
+    <input type="number" id="length" value="1000">
+
+    <label>Quantity</label>
+    <input type="number" id="qty" placeholder="Enter Quantity" value="1" min="1">
+
+    <div class="result">
+
+
+
+        <div class="result-row">
+            <div>Weight / Piece</div>
+            <div><span id="pieceWeight">0.000</span> kg</div>
+        </div>
+
+
+        <div class="result-row total-row">
+            <div>Total Weight</div>
+            <div><span id="totalResult">0.000</span> kg</div>
+        </div>
+
+    </div>
+<a href="steel profile.html" class="profile-btn">View Steel Profiles</a>
+</div>
+
+<script>
+
+function calculate(){
+
+    const materialType = document.getElementById("materialType").value;
+    const metalType = document.getElementById("metalType").value;
+
+    const E11 = parseFloat(document.getElementById("E11").value) || 0;
+    const F11 = parseFloat(document.getElementById("F11").value) || 0;
+    const G11 = parseFloat(document.getElementById("G11").value) || 0;
+    const length = parseFloat(document.getElementById("length").value) || 0;
+    const qty = parseFloat(document.getElementById("qty").value) || 1;
+
+    let density = 7850;
+
+    switch(metalType){
+        case "steel":
+            density = 7850;
+            break;
+
+        case "aluminum":
+            density = 2700;
+            break;
+
+        case "stainless":
+            density = 8000;
+            break;
+        
+         case "plain concrete":
+            density = 2400;
+            break;       
+    }
+
+    let w = 0;
+
+    switch(materialType){
+
+        case "CHS":
+            w =
+            (
+                (
+                    Math.PI * Math.pow(E11/2,2)
+                    -
+                    Math.PI * Math.pow((E11-(2*G11))/2,2)
+                )
+                /1000000
+            ) * density;
+            break;
+
+        case "RHS/SHS":
+            w =
+            (
+                (
+                    (E11 * F11)
+                    -
+                    ((E11-(2*G11)) * (F11-(2*G11)))
+                )
+                /1000000
+            ) * density;
+            break;
+
+        case "ROUND BAR":
+            w =
+            (
+                Math.PI * Math.pow(E11/2,2)
+                /1000000
+            ) * density;
+            break;
+
+        case "FLAT BAR":
+            w =
+            (
+                (E11 * G11)
+                /1000000
+            ) * density;
+            break;
+
+        case "ANGLE/TEE":
+            w =
+            (
+                ((E11 + F11 - G11) * G11)
+                /1000000
+            ) * density;
+            break;
+
+        case "CHANNEL":
+            w =
+            (
+                ((E11 + (F11*2) - (G11*2)) * G11)
+                /1000000
+            ) * density;
+            break;
+
+        case "PLATE":
+            w =
+            (
+                (E11 * F11 * G11)
+                /1000000000
+            ) * density;
+            break;
+
+        case "SQ BAR":
+            w =
+            (
+                (E11 * E11)
+                /1000000
+            ) * density;
+            break;
+
+        case "REBAR":
+            w = (Math.pow(E11,2) / 162.28) * density / 7850;
+            break;
+
+        case "HEX BAR":
+            w = (0.006798 * Math.pow(E11,2)) * density / 7850;
+            break;
+    }
+
+    let pieceWeight = 0;
+    let totalWeight = 0;
+
+    if(materialType === "PLATE"){
+        pieceWeight = w;
+    }else{
+        pieceWeight = (w * length) / 1000;
+    }
+
+    totalWeight = pieceWeight * qty;
+
+
+    document.getElementById("pieceWeight").innerText =
+        isNaN(pieceWeight) ? "0.000" : pieceWeight.toFixed(2);
+
+    document.getElementById("totalResult").innerText =
+        isNaN(totalWeight) ? "0.000" : totalWeight.toFixed(2);
+
+}
+
+
+function updateInputHighlight(){
+
+    const type = document.getElementById("materialType").value;
+
+    const E11 = document.getElementById("E11");
+    const F11 = document.getElementById("F11");
+    const G11 = document.getElementById("G11");
+
+    const guide = document.getElementById("profileGuide");
+
+    [E11,F11,G11].forEach(el=>{
+        el.classList.remove("active-input");
+    });
+
+    switch(type){
+
+        case "CHS":
+            E11.classList.add("active-input");
+            G11.classList.add("active-input");
+            guide.innerHTML =
+            "CHS → Dimension 1 (OD) + Thickness";
+            break;
+
+        case "RHS/SHS":
+            E11.classList.add("active-input");
+            F11.classList.add("active-input");
+            G11.classList.add("active-input");
+            guide.innerHTML =
+            "RHS/SHS → Dimension 1 + Dimension 2 + Thickness";
+            break;
+
+        case "ROUND BAR":
+            E11.classList.add("active-input");
+            guide.innerHTML =
+            "ROUND BAR → Dimension 1";
+            break;
+
+        case "FLAT BAR":
+            E11.classList.add("active-input");
+            G11.classList.add("active-input");
+            guide.innerHTML =
+            "FLAT BAR → Width + Thickness";
+            break;
+
+        case "ANGLE/TEE":
+            E11.classList.add("active-input");
+            F11.classList.add("active-input");
+            G11.classList.add("active-input");
+            guide.innerHTML =
+            "ANGLE/TEE → Dimension 1 + Dimension 2 + Thickness";
+            break;
+
+        case "CHANNEL":
+            E11.classList.add("active-input");
+            F11.classList.add("active-input");
+            G11.classList.add("active-input");
+            guide.innerHTML =
+            "CHANNEL → Depth + Flange + Thickness";
+            break;
+
+        case "PLATE":
+            E11.classList.add("active-input");
+            F11.classList.add("active-input");
+            G11.classList.add("active-input");
+            guide.innerHTML =
+            "PLATE → Length + Width + Thickness";
+            break;
+
+        case "SQ BAR":
+            E11.classList.add("active-input");
+            guide.innerHTML =
+            "SQ BAR → Dimension 1";
+            break;
+
+        case "REBAR":
+            E11.classList.add("active-input");
+            guide.innerHTML =
+            "REBAR → Diameter";
+            break;
+
+        case "HEX BAR":
+            E11.classList.add("active-input");
+            guide.innerHTML =
+            "HEX BAR → Across Flats";
+            break;
+
+        default:
+            guide.innerHTML = "Select Profile Type";
+    }
+}
+
+// Auto calculate when any field changes
+document.querySelectorAll("input,select").forEach(el=>{
+
+    el.addEventListener("input",()=>{
+        calculate();
+    });
+
+    el.addEventListener("change",()=>{
+        updateInputHighlight();
+        calculate();
+    });
+
+});
+
+// Disable right click
+document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+});
+
+calculate();
+
+updateInputHighlight();
+calculate();
+
+</script>
+<script>
+function openPage(page) {
+  window.location.href = page;
+}
+
+
+</script>
+<script>
+    // Disable right-click context menu
+    document.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+    });
+
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
+    document.addEventListener("keydown", function(e) {
+        // F12 key
+        if (e.key === "F12") {
+            e.preventDefault();
+        }
+        
+        // Ctrl+Shift+I or Ctrl+Shift+J or Ctrl+Shift+C (Chrome/Edge/Firefox DevTools)
+        if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i" || e.key === "J" || e.key === "j" || e.key === "C" || e.key === "c")) {
+            e.preventDefault();
+        }
+        
+        // Ctrl+U (View Source)
+        if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
+            e.preventDefault();
+        }
+    });
+</script>
+</body>
+</html>
